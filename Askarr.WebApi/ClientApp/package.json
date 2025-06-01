@@ -1,7 +1,7 @@
 {
-  "name": "requestrr",
+  "name": "Askarr",
   "version": "2.1.7",
-  "description": "Requestrr is a server designed to faciliate the request of media through chat applications.",
+  "description": "Askarr is a server designed to faciliate the request of media through chat applications.",
   "main": "index.js",
   "author": "Darkalfx",
   "license": "MIT",

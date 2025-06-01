@@ -23,7 +23,7 @@ import {
   Navbar,
   Container
 } from "reactstrap";
-import requestrrLogo from "../../assets/img/brand/requestrr_white.svg";
+import AskarrLogo from "../../assets/img/brand/Askarr_white.svg";
 
 
 function AuthNavbar() {
@@ -35,7 +35,7 @@ function AuthNavbar() {
       >
         <Container className="px-4">
           <NavbarBrand to="/" tag={Link}>
-            <img alt="..." src={requestrrLogo} />
+            <img alt="..." src={AskarrLogo} />
           </NavbarBrand>
         </Container>
       </Navbar>

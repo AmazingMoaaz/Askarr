@@ -86,14 +86,14 @@ We use GitHub issues to track bugs and errors. If you run into an issue with the
 1. [Fork](https://help.github.com/articles/fork-a-repo/) the repository to your own GitHub account and [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device:
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/requestrr.git
-   cd requestrr/
+   git clone https://github.com/YOUR_USERNAME/Askarr.git
+   cd Askarr/
    ```
 
 2. Add the remote `upstream`:
 
    ```bash
-   git remote add upstream https://github.com/thomst08/requestrr
+   git remote add upstream https://github.com/thomst08/Askarr
    ```
 
 3. Create a new branch:
@@ -135,7 +135,7 @@ We use GitHub issues to track bugs and errors. If you run into an issue with the
 
 ### Contributing Code
 
-- If you are taking on an existing bug or feature ticket, please comment on the [issue](https://github.com/thomst08/requestrr/issues) to avoid multiple people working on the same thing.
+- If you are taking on an existing bug or feature ticket, please comment on the [issue](https://github.com/thomst08/Askarr/issues) to avoid multiple people working on the same thing.
 - All commits **must** follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
   - It is okay to squash your pull request down into a single commit that fits this standard.
   - Pull requests with commits not following this standard will **not** be merged.
