@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="200" viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon Part -->
+  <g transform="translate(20, 0) scale(0.39)">
+    <!-- Background Circle -->
+    <circle cx="256" cy="256" r="240" fill="#2D3748"/>
+    
+    <!-- Stylized "A" letter -->
+    <path d="M256 100C256 100 150 240 150 320C150 400 200 412 256 412C312 412 362 400 362 320C362 240 256 100 256 100Z" fill="#4FD1C5"/>
+    
+    <!-- Circle accent -->
+    <circle cx="256" cy="320" r="40" fill="#2D3748"/>
+    
+    <!-- Chat bubble -->
+    <path d="M192 270C192 270 192 290 212 290H256H300C320 290 320 270 320 270V190C320 190 320 170 300 170H212C192 170 192 190 192 190V270Z" fill="#63B3ED"/>
+    
+    <!-- Signal waves -->
+    <path d="M192 240C192 240 172 230 172 210C172 190 192 180 192 180" stroke="#F6E05E" stroke-width="12" stroke-linecap="round"/>
+    <path d="M172 240C172 240 152 230 152 210C152 190 172 180 172 180" stroke="#F6E05E" stroke-width="8" stroke-linecap="round"/>
+    <path d="M152 240C152 240 132 230 132 210C132 190 152 180 152 180" stroke="#F6E05E" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Text Part -->
+  <text x="250" y="120" font-family="Arial, sans-serif" font-weight="bold" font-size="80" fill="#2D3748">ASKARR</text>
+  <text x="250" y="150" font-family="Arial, sans-serif" font-style="italic" font-size="24" fill="#4A5568">Media Request Assistant</text>
+</svg> 
