@@ -23,7 +23,7 @@ import {
   Navbar,
   Container
 } from "reactstrap";
-import AskarrLogo from "../../assets/img/brand/Askarr_white.svg";
+import AskarrLogo from "../../assets/img/brand/askarr_white.svg";
 
 
 function AuthNavbar() {

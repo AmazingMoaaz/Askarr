@@ -176,8 +176,9 @@ namespace Askarr.WebApi.AskarrBot
         {
             try
             {
+                var telegramLogger = _serviceProvider.GetService<ILogger<TelegramBot>>();
                 _telegramBot = new TelegramBot(
-                    _logger,
+                    telegramLogger,
                     _telegramSettingsProvider,
                     _movieWorkflowFactory,
                     _tvShowWorkflowFactory,

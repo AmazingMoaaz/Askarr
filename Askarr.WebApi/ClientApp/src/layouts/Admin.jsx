@@ -26,7 +26,7 @@ import Sidebar from "../components/Sidebar/Sidebar.jsx";
 import { validateLogin } from "../store/actions/UserActions"
 
 import routes from "../routes.js";
-import AskarrLogo from "../assets/img/brand/Askarr_black.svg";
+import AskarrLogo from "../assets/img/brand/askarr_black.svg";
 
 
 function Admin(props) {
