@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.config;
-using Requestrr.WebApi.RequestrrBot.DownloadClients;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Radarr;
-using Requestrr.WebApi.RequestrrBot.Movies;
+using Askarr.WebApi.config;
+using Askarr.WebApi.AskarrBot.DownloadClients;
+using Askarr.WebApi.AskarrBot.DownloadClients.Radarr;
+using Askarr.WebApi.AskarrBot.Movies;
 
-namespace Requestrr.WebApi.Controllers.DownloadClients.Radarr
+namespace Askarr.WebApi.Controllers.DownloadClients.Radarr
 {
     [ApiController]
     [Authorize]
@@ -159,9 +159,9 @@ namespace Requestrr.WebApi.Controllers.DownloadClients.Radarr
             return Ok(new { ok = true });
         }
 
-        private static RequestrrBot.DownloadClients.Radarr.RadarrSettings ConvertToRadarrSettings(TestRadarrSettingsModel model)
+        private static AskarrBot.DownloadClients.Radarr.RadarrSettings ConvertToRadarrSettings(TestRadarrSettingsModel model)
         {
-            return new RequestrrBot.DownloadClients.Radarr.RadarrSettings
+            return new AskarrBot.DownloadClients.Radarr.RadarrSettings
             {
                 ApiKey = model.ApiKey.Trim(),
                 Hostname = model.Hostname.Trim(),

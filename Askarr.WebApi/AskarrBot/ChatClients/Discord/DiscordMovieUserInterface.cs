@@ -8,10 +8,10 @@ using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using Microsoft.Extensions.Options;
-using Requestrr.WebApi.RequestrrBot.Locale;
-using Requestrr.WebApi.RequestrrBot.Movies;
+using Askarr.WebApi.AskarrBot.Locale;
+using Askarr.WebApi.AskarrBot.Movies;
 
-namespace Requestrr.WebApi.RequestrrBot.ChatClients.Discord
+namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
 {
     public class DiscordMovieUserInterface : IMovieUserInterface
     {
@@ -199,7 +199,7 @@ namespace Requestrr.WebApi.RequestrrBot.ChatClients.Discord
                 .WithTimestamp(DateTime.Now)
                 .WithUrl($"https://www.themoviedb.org/movie/{movie.TheMovieDbId}")
                 .WithThumbnail("https://i.imgur.com/44ueTES.png")
-                .WithFooter("Powered by Requestrr");
+                .WithFooter("Powered by Askarr");
 
             if (!string.IsNullOrWhiteSpace(movie.Overview))
             {

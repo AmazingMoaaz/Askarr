@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Requestrr.WebApi.RequestrrBot.TvShows
+namespace Askarr.WebApi.AskarrBot.TvShows
 {
     public class SearchedTvShow
     {

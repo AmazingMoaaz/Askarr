@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.RequestrrBot.DownloadClients;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Overseerr;
-using Requestrr.WebApi.RequestrrBot.Movies;
-using Requestrr.WebApi.RequestrrBot.TvShows;
+using Askarr.WebApi.AskarrBot.DownloadClients;
+using Askarr.WebApi.AskarrBot.DownloadClients.Overseerr;
+using Askarr.WebApi.AskarrBot.Movies;
+using Askarr.WebApi.AskarrBot.TvShows;
 
-namespace Requestrr.WebApi.Controllers.DownloadClients.Overseerr
+namespace Askarr.WebApi.Controllers.DownloadClients.Overseerr
 {
 
     [ApiController]
@@ -35,7 +35,7 @@ namespace Requestrr.WebApi.Controllers.DownloadClients.Overseerr
         {
             try
             {
-                await OverseerrClient.TestConnectionAsync(_httpClientFactory.CreateClient(), _logger, new RequestrrBot.DownloadClients.Overseerr.OverseerrTestSettings
+                await OverseerrClient.TestConnectionAsync(_httpClientFactory.CreateClient(), _logger, new AskarrBot.DownloadClients.Overseerr.OverseerrTestSettings
                 {
                     ApiKey = model.ApiKey.Trim(),
                     Hostname = model.Hostname.Trim(),
@@ -58,7 +58,7 @@ namespace Requestrr.WebApi.Controllers.DownloadClients.Overseerr
         {
             try
             {
-                var radarrServiceSettings = await OverseerrClient.GetRadarrServiceSettingsAsync(_httpClientFactory.CreateClient(), _logger, new RequestrrBot.DownloadClients.Overseerr.OverseerrTestSettings
+                var radarrServiceSettings = await OverseerrClient.GetRadarrServiceSettingsAsync(_httpClientFactory.CreateClient(), _logger, new AskarrBot.DownloadClients.Overseerr.OverseerrTestSettings
                 {
                     ApiKey = model.ApiKey.Trim(),
                     Hostname = model.Hostname.Trim(),
@@ -81,7 +81,7 @@ namespace Requestrr.WebApi.Controllers.DownloadClients.Overseerr
         {
             try
             {
-                var sonarrServiceSettings = await OverseerrClient.GetSonarrServiceSettingsAsync(_httpClientFactory.CreateClient(), _logger, new RequestrrBot.DownloadClients.Overseerr.OverseerrTestSettings
+                var sonarrServiceSettings = await OverseerrClient.GetSonarrServiceSettingsAsync(_httpClientFactory.CreateClient(), _logger, new AskarrBot.DownloadClients.Overseerr.OverseerrTestSettings
                 {
                     ApiKey = model.ApiKey.Trim(),
                     Hostname = model.Hostname.Trim(),

@@ -1,10 +1,10 @@
-﻿using Requestrr.WebApi.RequestrrBot.Movies;
+﻿using Askarr.WebApi.AskarrBot.Movies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 
-namespace Requestrr.WebApi.RequestrrBot.Notifications.Music
+namespace Askarr.WebApi.AskarrBot.Notifications.Music
 {
     public class MusicNotificationsRepository
     {

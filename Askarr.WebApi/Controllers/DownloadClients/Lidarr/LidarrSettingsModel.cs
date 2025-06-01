@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Requestrr.WebApi.Controllers.DownloadClients.Lidarr
+namespace Askarr.WebApi.Controllers.DownloadClients.Lidarr
 {
     public class LidarrSettingsModel : TestLidarrSettingsModel
     {

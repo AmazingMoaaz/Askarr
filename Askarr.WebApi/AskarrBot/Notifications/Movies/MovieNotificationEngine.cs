@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.RequestrrBot.Movies;
+using Askarr.WebApi.AskarrBot.Movies;
 
-namespace Requestrr.WebApi.RequestrrBot.Notifications.Movies
+namespace Askarr.WebApi.AskarrBot.Notifications.Movies
 {
     public class MovieNotificationEngine
     {

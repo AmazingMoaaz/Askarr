@@ -1,4 +1,4 @@
-﻿namespace Requestrr.WebApi.RequestrrBot.Movies
+﻿namespace Askarr.WebApi.AskarrBot.Movies
 {
     public class MoviesSettings
     {

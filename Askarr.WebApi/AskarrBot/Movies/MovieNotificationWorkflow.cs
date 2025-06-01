@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Requestrr.WebApi.RequestrrBot.Notifications.Movies;
+using Askarr.WebApi.AskarrBot.Notifications.Movies;
 
-namespace Requestrr.WebApi.RequestrrBot.Movies
+namespace Askarr.WebApi.AskarrBot.Movies
 {
     public class MovieNotificationWorkflow : IMovieNotificationWorkflow
     {

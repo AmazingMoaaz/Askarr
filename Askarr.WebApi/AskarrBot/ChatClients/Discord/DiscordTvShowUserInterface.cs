@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
-using Requestrr.WebApi.RequestrrBot.Locale;
-using Requestrr.WebApi.RequestrrBot.Movies;
-using Requestrr.WebApi.RequestrrBot.TvShows;
+using Askarr.WebApi.AskarrBot.Locale;
+using Askarr.WebApi.AskarrBot.Movies;
+using Askarr.WebApi.AskarrBot.TvShows;
 
-namespace Requestrr.WebApi.RequestrrBot.ChatClients.Discord
+namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
 {
     public class DiscordTvShowUserInterface : ITvShowUserInterface
     {
@@ -37,7 +37,7 @@ namespace Requestrr.WebApi.RequestrrBot.ChatClients.Discord
                 .WithTitle(title)
                 .WithTimestamp(DateTime.Now)
                 .WithThumbnail("https://thetvdb.com/images/logo.png")
-                .WithFooter("Powered by Requestrr");
+                .WithFooter("Powered by Askarr");
 
             if (!string.IsNullOrWhiteSpace(tvShow.Overview))
             {

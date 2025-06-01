@@ -5,7 +5,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Requestrr.WebApi.RequestrrBot
+namespace Askarr.WebApi.AskarrBot
 {
     public static class SettingsFile
     {

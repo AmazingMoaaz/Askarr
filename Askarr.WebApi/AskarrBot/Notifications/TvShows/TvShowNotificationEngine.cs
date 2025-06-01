@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.RequestrrBot.TvShows;
+using Askarr.WebApi.AskarrBot.TvShows;
 
-namespace Requestrr.WebApi.RequestrrBot.Notifications.TvShows
+namespace Askarr.WebApi.AskarrBot.Notifications.TvShows
 {
     public class TvShowNotificationEngine
     {

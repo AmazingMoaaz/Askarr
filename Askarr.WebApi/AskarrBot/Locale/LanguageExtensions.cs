@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
-using Requestrr.WebApi.RequestrrBot.Movies;
-using Requestrr.WebApi.RequestrrBot.Music;
-using Requestrr.WebApi.RequestrrBot.TvShows;
+using Askarr.WebApi.AskarrBot.Movies;
+using Askarr.WebApi.AskarrBot.Music;
+using Askarr.WebApi.AskarrBot.TvShows;
 
-namespace Requestrr.WebApi.RequestrrBot.Locale
+namespace Askarr.WebApi.AskarrBot.Locale
 {
     public static class LanguageExtensions
     {

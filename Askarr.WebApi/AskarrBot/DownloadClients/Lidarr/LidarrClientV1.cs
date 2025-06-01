@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Requestrr.WebApi.Extensions;
-using Requestrr.WebApi.RequestrrBot.Music;
+using Askarr.WebApi.Extensions;
+using Askarr.WebApi.AskarrBot.Music;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +10,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using static Requestrr.WebApi.RequestrrBot.DownloadClients.Lidarr.LidarrClient;
+using static Askarr.WebApi.AskarrBot.DownloadClients.Lidarr.LidarrClient;
 
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Lidarr
+namespace Askarr.WebApi.AskarrBot.DownloadClients.Lidarr
 {
     public class LidarrClientV1 : IMusicSearcher, IMusicRequester
     {

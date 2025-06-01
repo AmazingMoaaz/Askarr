@@ -3,9 +3,9 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.RequestrrBot.TvShows;
+using Askarr.WebApi.AskarrBot.TvShows;
 
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Sonarr
+namespace Askarr.WebApi.AskarrBot.DownloadClients.Sonarr
 {
     public class SonarrClient : ITvShowSearcher, ITvShowRequester
     {

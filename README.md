@@ -44,7 +44,7 @@ Open a command prompt/terminal and then use the following command create and sta
       -p 4545:4545 \
       -v path to config:/root/config \
       --restart=unless-stopped \
-      thomst08/askarr
+      AmazingMoaaz/askarr
 ```
 
 You can also choose to run the container as a different user. See [docker run](https://docs.docker.com/engine/reference/run/#user) reference for how to set the user for your container.
@@ -62,7 +62,7 @@ docker run -d \
   -p 4545:4545 \
   -v /opt/Askarr/config:/root/config \
   --restart=unless-stopped \
-  thomst08/askarr
+  AmazingMoaaz/askarr
 ```
 
 <br />

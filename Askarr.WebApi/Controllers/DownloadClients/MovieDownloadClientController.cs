@@ -4,20 +4,20 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Requestrr.WebApi.config;
-using Requestrr.WebApi.Controllers.DownloadClients.Ombi;
-using Requestrr.WebApi.Controllers.DownloadClients.Overseerr;
-using Requestrr.WebApi.Controllers.DownloadClients.Radarr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Lidarr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Sonarr;
-using Requestrr.WebApi.RequestrrBot.Locale;
-using Requestrr.WebApi.RequestrrBot.Movies;
-using Requestrr.WebApi.RequestrrBot.Music;
-using Requestrr.WebApi.RequestrrBot.TvShows;
-using RadarrSettingsCategory = Requestrr.WebApi.Controllers.DownloadClients.Radarr.RadarrSettingsCategory;
+using Askarr.WebApi.config;
+using Askarr.WebApi.Controllers.DownloadClients.Ombi;
+using Askarr.WebApi.Controllers.DownloadClients.Overseerr;
+using Askarr.WebApi.Controllers.DownloadClients.Radarr;
+using Askarr.WebApi.AskarrBot.DownloadClients;
+using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Sonarr;
+using Askarr.WebApi.AskarrBot.Locale;
+using Askarr.WebApi.AskarrBot.Movies;
+using Askarr.WebApi.AskarrBot.Music;
+using Askarr.WebApi.AskarrBot.TvShows;
+using RadarrSettingsCategory = Askarr.WebApi.Controllers.DownloadClients.Radarr.RadarrSettingsCategory;
 
-namespace Requestrr.WebApi.Controllers.DownloadClients
+namespace Askarr.WebApi.Controllers.DownloadClients
 {
     [ApiController]
     [Authorize]
@@ -57,7 +57,7 @@ namespace Requestrr.WebApi.Controllers.DownloadClients
                     }
                     break;
                 case "Overseerr":
-                    foreach (RequestrrBot.DownloadClients.Overseerr.OverseerrTvShowCategory category in _downloadClientsSettings.Overseerr.TvShows.Categories)
+                    foreach (AskarrBot.DownloadClients.Overseerr.OverseerrTvShowCategory category in _downloadClientsSettings.Overseerr.TvShows.Categories)
                     {
                         otherCategories.Add(category.Name.ToLower());
                     }

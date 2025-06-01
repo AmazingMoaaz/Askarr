@@ -5,15 +5,15 @@ using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.Extensions;
-using Requestrr.WebApi.RequestrrBot.ChatClients.Discord;
-using Requestrr.WebApi.RequestrrBot.Movies;
-using Requestrr.WebApi.RequestrrBot.TvShows;
-using Requestrr.WebApi.RequestrrBot.Music;
-using Requestrr.WebApi.RequestrrBot.Locale;
+using Askarr.WebApi.Extensions;
+using Askarr.WebApi.AskarrBot.ChatClients.Discord;
+using Askarr.WebApi.AskarrBot.Movies;
+using Askarr.WebApi.AskarrBot.TvShows;
+using Askarr.WebApi.AskarrBot.Music;
+using Askarr.WebApi.AskarrBot.Locale;
 using System.Collections.Generic;
 
-namespace Requestrr.WebApi.RequestrrBot
+namespace Askarr.WebApi.AskarrBot
 {
     public class SlashCommands : ApplicationCommandModule
     {

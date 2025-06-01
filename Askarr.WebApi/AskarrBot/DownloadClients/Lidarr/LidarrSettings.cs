@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Lidarr
+namespace Askarr.WebApi.AskarrBot.DownloadClients.Lidarr
 {
     public class LidarrSettings
     {

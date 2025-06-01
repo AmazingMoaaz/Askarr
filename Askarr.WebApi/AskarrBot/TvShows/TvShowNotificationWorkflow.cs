@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Requestrr.WebApi.RequestrrBot.Notifications.TvShows;
+using Askarr.WebApi.AskarrBot.Notifications.TvShows;
 
-namespace Requestrr.WebApi.RequestrrBot.TvShows
+namespace Askarr.WebApi.AskarrBot.TvShows
 {
     public class TvShowNotificationWorkflow : ITvShowNotificationWorkflow
     {

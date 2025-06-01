@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Requestrr.WebApi.RequestrrBot.Notifications.TvShows;
+using Askarr.WebApi.AskarrBot.Notifications.TvShows;
 
-namespace Requestrr.WebApi.RequestrrBot
+namespace Askarr.WebApi.AskarrBot
 {
     public static class NotificationsFile
     {

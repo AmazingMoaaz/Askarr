@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Requestrr.WebApi.Extensions;
-using Requestrr.WebApi.RequestrrBot.TvShows;
-using static Requestrr.WebApi.RequestrrBot.DownloadClients.Sonarr.SonarrClient;
+using Askarr.WebApi.Extensions;
+using Askarr.WebApi.AskarrBot.TvShows;
+using static Askarr.WebApi.AskarrBot.DownloadClients.Sonarr.SonarrClient;
 
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Sonarr
+namespace Askarr.WebApi.AskarrBot.DownloadClients.Sonarr
 {
     public class SonarrClientV2 : ITvShowSearcher, ITvShowRequester
     {

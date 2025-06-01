@@ -1,12 +1,12 @@
 ﻿
 
-using Requestrr.WebApi.RequestrrBot.Movies;
+using Askarr.WebApi.AskarrBot.Movies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Requestrr.WebApi.RequestrrBot.TvShows
+namespace Askarr.WebApi.AskarrBot.TvShows
 {
     public class TvShowIssueWorkflow
     {

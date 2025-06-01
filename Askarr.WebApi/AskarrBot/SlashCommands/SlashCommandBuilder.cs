@@ -12,16 +12,16 @@ using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.RequestrrBot.ChatClients.Discord;
-using Requestrr.WebApi.RequestrrBot.DownloadClients;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Lidarr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Ombi;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Overseerr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Radarr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Sonarr;
-using Requestrr.WebApi.RequestrrBot.Locale;
+using Askarr.WebApi.AskarrBot.ChatClients.Discord;
+using Askarr.WebApi.AskarrBot.DownloadClients;
+using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Ombi;
+using Askarr.WebApi.AskarrBot.DownloadClients.Overseerr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Radarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Sonarr;
+using Askarr.WebApi.AskarrBot.Locale;
 
-namespace Requestrr.WebApi.RequestrrBot
+namespace Askarr.WebApi.AskarrBot
 {
     public static class SlashCommandBuilder
     {
@@ -83,7 +83,7 @@ namespace Requestrr.WebApi.RequestrrBot
             if (compilationResult.Success)
             {
                 var asm = AssemblyLoadContext.Default.LoadFromAssemblyPath(path);
-                return asm.GetType("Requestrr.WebApi.RequestrrBot.SlashCommands");
+                return asm.GetType("Askarr.WebApi.AskarrBot.SlashCommands");
             }
             else
             {

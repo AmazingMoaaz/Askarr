@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DSharpPlus.Entities;
 
-namespace Requestrr.WebApi.RequestrrBot.TvShows
+namespace Askarr.WebApi.AskarrBot.TvShows
 {
     public interface ITvShowUserInterface
     {

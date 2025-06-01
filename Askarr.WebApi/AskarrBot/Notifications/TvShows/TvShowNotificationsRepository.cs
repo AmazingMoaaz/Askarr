@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Requestrr.WebApi.RequestrrBot.TvShows;
+using Askarr.WebApi.AskarrBot.TvShows;
 
-namespace Requestrr.WebApi.RequestrrBot.Notifications.TvShows
+namespace Askarr.WebApi.AskarrBot.Notifications.TvShows
 {
     public class TvShowNotificationsRepository
     {

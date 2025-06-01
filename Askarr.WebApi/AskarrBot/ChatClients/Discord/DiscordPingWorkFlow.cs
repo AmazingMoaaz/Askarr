@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
-using Requestrr.WebApi.RequestrrBot.Locale;
+using Askarr.WebApi.AskarrBot.Locale;
 
-namespace Requestrr.WebApi.RequestrrBot.ChatClients.Discord
+namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
 {
     public class DiscordPingWorkFlow
     {

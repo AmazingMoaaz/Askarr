@@ -1,7 +1,7 @@
-﻿using Requestrr.WebApi.RequestrrBot.DownloadClients.Radarr;
+﻿using Askarr.WebApi.AskarrBot.DownloadClients.Radarr;
 using System;
 
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Lidarr
+namespace Askarr.WebApi.AskarrBot.DownloadClients.Lidarr
 {
     public class LidarrSettingsProvider
     {

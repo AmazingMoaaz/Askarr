@@ -1,4 +1,4 @@
-namespace Requestrr.WebApi.RequestrrBot.Notifications
+namespace Askarr.WebApi.AskarrBot.Notifications
 {
     public static class NotificationMode
     {

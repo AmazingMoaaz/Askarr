@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Requestrr.WebApi.config;
+using Askarr.WebApi.config;
 
-namespace Requestrr.WebApi.Controllers.Configuration
+namespace Askarr.WebApi.Controllers.Configuration
 {
     [ApiController]
     [Route("/api/settings")]

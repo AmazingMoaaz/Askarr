@@ -1,4 +1,4 @@
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients
+namespace Askarr.WebApi.AskarrBot.DownloadClients
 {
     public static class DownloadClient
     {

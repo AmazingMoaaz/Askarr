@@ -1,12 +1,12 @@
-﻿using Requestrr.WebApi.config;
-using Requestrr.WebApi.RequestrrBot;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Lidarr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Ombi;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Overseerr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Radarr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Sonarr;
+﻿using Askarr.WebApi.config;
+using Askarr.WebApi.AskarrBot;
+using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Ombi;
+using Askarr.WebApi.AskarrBot.DownloadClients.Overseerr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Radarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Sonarr;
 
-namespace Requestrr.WebApi.Controllers.DownloadClients
+namespace Askarr.WebApi.Controllers.DownloadClients
 {
     public class DownloadClientsSettingsProvider
     {

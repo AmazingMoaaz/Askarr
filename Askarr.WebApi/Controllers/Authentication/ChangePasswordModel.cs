@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Requestrr.WebApi.Controllers.Authentication
+namespace Askarr.WebApi.Controllers.Authentication
 {
     public class ChangePasswordModel
     {

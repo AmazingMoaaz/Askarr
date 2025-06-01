@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Requestrr.WebApi.RequestrrBot.TvShows.SeasonsRequestWorkflows;
+using Askarr.WebApi.AskarrBot.TvShows.SeasonsRequestWorkflows;
 
-namespace Requestrr.WebApi.RequestrrBot.TvShows
+namespace Askarr.WebApi.AskarrBot.TvShows
 {
     public class TvShowRequestingWorkflow
     {

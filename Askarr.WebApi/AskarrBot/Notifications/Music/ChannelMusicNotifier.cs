@@ -1,9 +1,9 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.RequestrrBot.ChatClients.Discord;
-using Requestrr.WebApi.RequestrrBot.Locale;
-using Requestrr.WebApi.RequestrrBot.Music;
+using Askarr.WebApi.AskarrBot.ChatClients.Discord;
+using Askarr.WebApi.AskarrBot.Locale;
+using Askarr.WebApi.AskarrBot.Music;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Requestrr.WebApi.RequestrrBot.Notifications.Music
+namespace Askarr.WebApi.AskarrBot.Notifications.Music
 {
     public class ChannelMusicNotifier : IMusicNotifier
     {

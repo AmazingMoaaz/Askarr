@@ -1,7 +1,7 @@
-﻿using Requestrr.WebApi.RequestrrBot.Notifications.Music;
+﻿using Askarr.WebApi.AskarrBot.Notifications.Music;
 using System.Threading.Tasks;
 
-namespace Requestrr.WebApi.RequestrrBot.Music
+namespace Askarr.WebApi.AskarrBot.Music
 {
     public class MusicNotificationWorkflow : IMusicNotificationWorkflow
     {

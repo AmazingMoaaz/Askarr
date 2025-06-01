@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.RequestrrBot.Music;
+using Askarr.WebApi.AskarrBot.Music;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Lidarr
+namespace Askarr.WebApi.AskarrBot.DownloadClients.Lidarr
 {
     public class LidarrClient : IMusicSearcher, IMusicRequester
     {

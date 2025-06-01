@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Requestrr.WebApi.RequestrrBot.Extensions
+namespace Askarr.WebApi.AskarrBot.Extensions
 {
     public static class HashExtensions
     {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Requestrr.WebApi.RequestrrBot.TvShows.SeasonsRequestWorkflows
+namespace Askarr.WebApi.AskarrBot.TvShows.SeasonsRequestWorkflows
 {
     public class NormalTvSeasonRequestingWorkflow
     {

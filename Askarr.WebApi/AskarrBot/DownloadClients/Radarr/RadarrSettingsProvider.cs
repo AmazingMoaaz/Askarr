@@ -1,4 +1,4 @@
-﻿namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Radarr
+﻿namespace Askarr.WebApi.AskarrBot.DownloadClients.Radarr
 {
     public class RadarrSettingsProvider
     {

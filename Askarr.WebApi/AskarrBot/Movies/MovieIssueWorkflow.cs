@@ -1,13 +1,13 @@
 ﻿using DSharpPlus.SlashCommands;
-using Requestrr.WebApi.RequestrrBot.ChatClients.Discord;
-using Requestrr.WebApi.RequestrrBot.DownloadClients;
+using Askarr.WebApi.AskarrBot.ChatClients.Discord;
+using Askarr.WebApi.AskarrBot.DownloadClients;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace Requestrr.WebApi.RequestrrBot.Movies
+namespace Askarr.WebApi.AskarrBot.Movies
 {
     public class MovieIssueWorkflow
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Requestrr.WebApi.RequestrrBot.Notifications.Movies
+namespace Askarr.WebApi.AskarrBot.Notifications.Movies
 {
     public class MovieNotificationsRepository
     {

@@ -6,9 +6,9 @@ using DSharpPlus;
 using DSharpPlus.EventArgs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Requestrr.WebApi.config;
+using Askarr.WebApi.config;
 
-namespace Requestrr.WebApi.Controllers.ChatClients
+namespace Askarr.WebApi.Controllers.ChatClients
 {
     [ApiController]
     [Authorize]

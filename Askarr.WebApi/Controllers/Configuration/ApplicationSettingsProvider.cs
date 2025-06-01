@@ -1,7 +1,7 @@
-﻿using Requestrr.WebApi.RequestrrBot;
-using Requestrr.WebApi.config;
+﻿using Askarr.WebApi.AskarrBot;
+using Askarr.WebApi.config;
 
-namespace Requestrr.WebApi.Controllers.Configuration
+namespace Askarr.WebApi.Controllers.Configuration
 {
     public class ApplicationSettingsProvider
     {

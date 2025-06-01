@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using DSharpPlus.SlashCommands;
 using Microsoft.Extensions.Logging;
 
-namespace Requestrr.WebApi.RequestrrBot
+namespace Askarr.WebApi.AskarrBot
 {
     public class RequireRolesAttribute : SlashCheckBaseAttribute
     {

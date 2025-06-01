@@ -1,4 +1,4 @@
-namespace Requestrr.WebApi.RequestrrBot.ChatClients.Discord
+namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
 {
     public static class DiscordConstants
     {

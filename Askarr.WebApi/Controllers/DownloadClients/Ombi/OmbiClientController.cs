@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.config;
-using Requestrr.WebApi.RequestrrBot.DownloadClients;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Ombi;
-using Requestrr.WebApi.RequestrrBot.Movies;
-using Requestrr.WebApi.RequestrrBot.TvShows;
+using Askarr.WebApi.config;
+using Askarr.WebApi.AskarrBot.DownloadClients;
+using Askarr.WebApi.AskarrBot.DownloadClients.Ombi;
+using Askarr.WebApi.AskarrBot.Movies;
+using Askarr.WebApi.AskarrBot.TvShows;
 
-namespace Requestrr.WebApi.Controllers.DownloadClients.Ombi
+namespace Askarr.WebApi.Controllers.DownloadClients.Ombi
 {
 
     [ApiController]
@@ -33,7 +33,7 @@ namespace Requestrr.WebApi.Controllers.DownloadClients.Ombi
         {
             try
             {
-                await OmbiClient.TestConnectionAsync(_httpClientFactory.CreateClient(), _logger, new RequestrrBot.DownloadClients.Ombi.OmbiSettings
+                await OmbiClient.TestConnectionAsync(_httpClientFactory.CreateClient(), _logger, new AskarrBot.DownloadClients.Ombi.OmbiSettings
                 {
                     ApiKey = model.ApiKey.Trim(),
                     Hostname = model.Hostname.Trim(),

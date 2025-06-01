@@ -6,10 +6,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Requestrr.WebApi.Extensions;
-using Requestrr.WebApi.RequestrrBot.Movies;
+using Askarr.WebApi.Extensions;
+using Askarr.WebApi.AskarrBot.Movies;
 
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients
+namespace Askarr.WebApi.AskarrBot.DownloadClients
 {
     public static class TheMovieDb
     {

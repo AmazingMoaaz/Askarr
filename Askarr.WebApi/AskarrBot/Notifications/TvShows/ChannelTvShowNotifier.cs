@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.RequestrrBot.ChatClients.Discord;
-using Requestrr.WebApi.RequestrrBot.DownloadClients;
-using Requestrr.WebApi.RequestrrBot.Locale;
-using Requestrr.WebApi.RequestrrBot.TvShows;
+using Askarr.WebApi.AskarrBot.ChatClients.Discord;
+using Askarr.WebApi.AskarrBot.DownloadClients;
+using Askarr.WebApi.AskarrBot.Locale;
+using Askarr.WebApi.AskarrBot.TvShows;
 
-namespace Requestrr.WebApi.RequestrrBot.Notifications.TvShows
+namespace Askarr.WebApi.AskarrBot.Notifications.TvShows
 {
     public class ChannelTvShowNotifier : ITvShowNotifier
     {

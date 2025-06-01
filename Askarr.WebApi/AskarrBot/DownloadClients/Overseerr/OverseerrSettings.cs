@@ -1,6 +1,6 @@
 using System;
 
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Overseerr
+namespace Askarr.WebApi.AskarrBot.DownloadClients.Overseerr
 {
     public class RadarrServiceSettings
     {

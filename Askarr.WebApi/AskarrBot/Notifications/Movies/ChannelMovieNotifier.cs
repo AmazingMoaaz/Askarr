@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.RequestrrBot.ChatClients.Discord;
-using Requestrr.WebApi.RequestrrBot.Locale;
-using Requestrr.WebApi.RequestrrBot.Movies;
+using Askarr.WebApi.AskarrBot.ChatClients.Discord;
+using Askarr.WebApi.AskarrBot.Locale;
+using Askarr.WebApi.AskarrBot.Movies;
 
-namespace Requestrr.WebApi.RequestrrBot.Notifications.Movies
+namespace Askarr.WebApi.AskarrBot.Notifications.Movies
 {
     public class ChannelMovieNotifier : IMovieNotifier
     {

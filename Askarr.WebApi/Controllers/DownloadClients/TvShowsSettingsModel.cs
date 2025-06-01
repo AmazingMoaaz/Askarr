@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-using Requestrr.WebApi.Controllers.DownloadClients.Ombi;
-using Requestrr.WebApi.Controllers.DownloadClients.Overseerr;
-using Requestrr.WebApi.Controllers.DownloadClients.Sonarr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Overseerr;
+using Askarr.WebApi.Controllers.DownloadClients.Ombi;
+using Askarr.WebApi.Controllers.DownloadClients.Overseerr;
+using Askarr.WebApi.Controllers.DownloadClients.Sonarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Overseerr;
 
-namespace Requestrr.WebApi.Controllers.DownloadClients
+namespace Askarr.WebApi.Controllers.DownloadClients
 {
     public class TvShowsSettingsModel
     {

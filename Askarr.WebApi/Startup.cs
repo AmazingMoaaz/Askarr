@@ -48,7 +48,7 @@ namespace Askarr.WebApi
 
         public IServiceProvider Services => throw new NotImplementedException();
 
-        private ChatBot _requestrrBot;
+        private ChatBot _askarrBot;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -166,8 +166,8 @@ namespace Askarr.WebApi
                 }
             });
 
-            _requestrrBot = (AskarrBot.ChatBot)app.ApplicationServices.GetService(typeof(AskarrBot.ChatBot));
-            _requestrrBot.Start();
+            _askarrBot = (AskarrBot.ChatBot)app.ApplicationServices.GetService(typeof(AskarrBot.ChatBot));
+            _askarrBot.Start();
         }
     }
 }

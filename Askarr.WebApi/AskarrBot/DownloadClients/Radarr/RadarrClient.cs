@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.RequestrrBot.Movies;
+using Askarr.WebApi.AskarrBot.Movies;
 
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Radarr
+namespace Askarr.WebApi.AskarrBot.DownloadClients.Radarr
 {
     public class RadarrClient : IMovieRequester, IMovieSearcher
     {

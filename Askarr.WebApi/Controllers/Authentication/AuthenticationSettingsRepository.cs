@@ -1,6 +1,6 @@
-using Requestrr.WebApi.RequestrrBot;
+using Askarr.WebApi.AskarrBot;
 
-namespace Requestrr.WebApi.Controllers.Authentication
+namespace Askarr.WebApi.Controllers.Authentication
 {
     public static class AuthenticationSettingsRepository
     {

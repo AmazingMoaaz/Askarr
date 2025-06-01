@@ -2,21 +2,21 @@
 using System.Linq;
 using System.Runtime;
 using Newtonsoft.Json.Linq;
-using Requestrr.WebApi.Controllers.DownloadClients.Lidarr;
-using Requestrr.WebApi.Controllers.DownloadClients.Ombi;
-using Requestrr.WebApi.Controllers.DownloadClients.Overseerr;
-using Requestrr.WebApi.Controllers.DownloadClients.Radarr;
-using Requestrr.WebApi.Controllers.DownloadClients.Sonarr;
-using Requestrr.WebApi.RequestrrBot;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Lidarr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Overseerr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Radarr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Sonarr;
-using Requestrr.WebApi.RequestrrBot.Movies;
-using Requestrr.WebApi.RequestrrBot.Music;
-using Requestrr.WebApi.RequestrrBot.TvShows;
+using Askarr.WebApi.Controllers.DownloadClients.Lidarr;
+using Askarr.WebApi.Controllers.DownloadClients.Ombi;
+using Askarr.WebApi.Controllers.DownloadClients.Overseerr;
+using Askarr.WebApi.Controllers.DownloadClients.Radarr;
+using Askarr.WebApi.Controllers.DownloadClients.Sonarr;
+using Askarr.WebApi.AskarrBot;
+using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Overseerr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Radarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Sonarr;
+using Askarr.WebApi.AskarrBot.Movies;
+using Askarr.WebApi.AskarrBot.Music;
+using Askarr.WebApi.AskarrBot.TvShows;
 
-namespace Requestrr.WebApi.Controllers.DownloadClients
+namespace Askarr.WebApi.Controllers.DownloadClients
 {
     public static class DownloadClientsSettingsRepository
     {

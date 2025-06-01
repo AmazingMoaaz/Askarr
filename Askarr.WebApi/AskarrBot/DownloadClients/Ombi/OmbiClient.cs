@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Requestrr.WebApi.Extensions;
-using Requestrr.WebApi.RequestrrBot.Movies;
-using Requestrr.WebApi.RequestrrBot.TvShows;
-using static Requestrr.WebApi.RequestrrBot.DownloadClients.Ombi.OmbiClient;
+using Askarr.WebApi.Extensions;
+using Askarr.WebApi.AskarrBot.Movies;
+using Askarr.WebApi.AskarrBot.TvShows;
+using static Askarr.WebApi.AskarrBot.DownloadClients.Ombi.OmbiClient;
 
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Ombi
+namespace Askarr.WebApi.AskarrBot.DownloadClients.Ombi
 {
     public class OmbiClient : IMovieRequester, IMovieSearcher, ITvShowSearcher, ITvShowRequester, IMovieIssueSearcher, IMovieIssueRequester, ITvShowIssueSearcher, ITvShowIssueRequester
     {

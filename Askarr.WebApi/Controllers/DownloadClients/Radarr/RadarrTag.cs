@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Requestrr.WebApi.Controllers.DownloadClients.Radarr
+namespace Askarr.WebApi.Controllers.DownloadClients.Radarr
 {
     public class RadarrTag
     {

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Requestrr.WebApi.Extensions;
-using Requestrr.WebApi.RequestrrBot.Movies;
-using static Requestrr.WebApi.RequestrrBot.DownloadClients.Radarr.RadarrClient;
+using Askarr.WebApi.Extensions;
+using Askarr.WebApi.AskarrBot.Movies;
+using static Askarr.WebApi.AskarrBot.DownloadClients.Radarr.RadarrClient;
 
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Radarr
+namespace Askarr.WebApi.AskarrBot.DownloadClients.Radarr
 {
     public class RadarrClientV2 : IMovieRequester, IMovieSearcher
     {

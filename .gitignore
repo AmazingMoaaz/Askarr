@@ -1,11 +1,11 @@
 
 .DS_Store
 
-Requestrr.WebApi/config/notifications.json
+Askarr.WebApi/config/notifications.json
 
-Requestrr.WebApi/config/settings.json
+Askarr.WebApi/config/settings.json
 
 .idea
-Requestrr.WebApi/MakeReleaseBuilds
+Askarr.WebApi/MakeReleaseBuilds
 
-Requestrr.WebApi/MakeDockerBuilds
+Askarr.WebApi/MakeDockerBuilds

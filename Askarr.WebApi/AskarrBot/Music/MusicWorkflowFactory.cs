@@ -1,15 +1,15 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
 using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.RequestrrBot.ChatClients.Discord;
-using Requestrr.WebApi.RequestrrBot.DownloadClients;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Lidarr;
-using Requestrr.WebApi.RequestrrBot.Notifications;
-using Requestrr.WebApi.RequestrrBot.Notifications.Music;
+using Askarr.WebApi.AskarrBot.ChatClients.Discord;
+using Askarr.WebApi.AskarrBot.DownloadClients;
+using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
+using Askarr.WebApi.AskarrBot.Notifications;
+using Askarr.WebApi.AskarrBot.Notifications.Music;
 using System;
 using System.Linq;
 
-namespace Requestrr.WebApi.RequestrrBot.Music
+namespace Askarr.WebApi.AskarrBot.Music
 {
     public class MusicWorkflowFactory
     {

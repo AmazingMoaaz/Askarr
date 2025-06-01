@@ -1,15 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using Requestrr.WebApi.RequestrrBot.DownloadClients;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Lidarr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Ombi;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Overseerr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Radarr;
-using Requestrr.WebApi.RequestrrBot.DownloadClients.Sonarr;
-using Requestrr.WebApi.RequestrrBot.Extensions;
+using Askarr.WebApi.AskarrBot.DownloadClients;
+using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Ombi;
+using Askarr.WebApi.AskarrBot.DownloadClients.Overseerr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Radarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Sonarr;
+using Askarr.WebApi.AskarrBot.Extensions;
 
-namespace Requestrr.WebApi.RequestrrBot.ChatClients.Discord
+namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
 {
     public class DiscordSettingsProvider
     {

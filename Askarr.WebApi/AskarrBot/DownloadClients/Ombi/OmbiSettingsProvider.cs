@@ -1,4 +1,4 @@
-﻿namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Ombi
+﻿namespace Askarr.WebApi.AskarrBot.DownloadClients.Ombi
 {
     public class OmbiSettingsProvider
     {

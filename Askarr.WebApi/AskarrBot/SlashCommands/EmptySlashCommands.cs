@@ -1,6 +1,6 @@
 using DSharpPlus.SlashCommands;
 
-namespace Requestrr.WebApi.RequestrrBot
+namespace Askarr.WebApi.AskarrBot
 {
     public class EmptySlashCommands : ApplicationCommandModule
     {

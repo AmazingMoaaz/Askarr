@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace Requestrr.WebApi.RequestrrBot.ChatClients.Discord
+namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
 {
     public class DiscordSettings
     {

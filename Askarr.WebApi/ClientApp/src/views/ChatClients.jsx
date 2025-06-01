@@ -674,7 +674,7 @@ function ChatClients(props) {
                                   : null
                               }
                               <small className="form-text text-muted">
-                                The username of your bot (e.g. @MyRequestrrBot)
+                                The username of your bot (e.g. @MyAskarrBot)
                               </small>
                             </FormGroup>
                           </Col>

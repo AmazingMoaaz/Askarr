@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using Requestrr.WebApi.RequestrrBot.Music;
+using Askarr.WebApi.AskarrBot.Music;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Requestrr.WebApi.RequestrrBot.Notifications.Music
+namespace Askarr.WebApi.AskarrBot.Notifications.Music
 {
     public class MusicNotificationEngine
     {

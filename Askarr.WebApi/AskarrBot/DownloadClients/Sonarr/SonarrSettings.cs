@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Requestrr.WebApi.RequestrrBot.DownloadClients.Sonarr
+namespace Askarr.WebApi.AskarrBot.DownloadClients.Sonarr
 {
     public class SonarrSettings
     {

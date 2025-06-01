@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Requestrr.WebApi.RequestrrBot.Movies
+namespace Askarr.WebApi.AskarrBot.Movies
 {
     public interface IMovieUserInterface
     {

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Requestrr.WebApi.RequestrrBot.Locale
+namespace Askarr.WebApi.AskarrBot.Locale
 {
     public static class LanguageTokens
     {

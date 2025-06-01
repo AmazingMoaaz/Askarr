@@ -1,14 +1,14 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
-using Requestrr.WebApi.RequestrrBot.Locale;
-using Requestrr.WebApi.RequestrrBot.Music;
+using Askarr.WebApi.AskarrBot.Locale;
+using Askarr.WebApi.AskarrBot.Music;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace Requestrr.WebApi.RequestrrBot.ChatClients.Discord
+namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
 {
     public class DiscordMusicUserInterface : IMusicUserInterface
     {
@@ -65,7 +65,7 @@ namespace Requestrr.WebApi.RequestrrBot.ChatClients.Discord
                 .WithTitle(musicArtist.ArtistName)
                 .WithTimestamp(DateTime.Now)
                 .WithUrl($"https://musicbrainz.org/release/{musicArtist.ArtistId}")
-                .WithFooter("Powered by Requestrr");
+                .WithFooter("Powered by Askarr");
 
             if (!string.IsNullOrWhiteSpace(musicArtist.Overview))
                 embedBuilder.WithDescription(musicArtist.Overview.Substring(0, Math.Min(musicArtist.Overview.Length, 255)) + "(...)");
