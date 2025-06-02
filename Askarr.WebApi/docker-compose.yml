@@ -1,13 +1,8 @@
-version: '3'
 services:
-  askarr:
-    image: askarr
-    build:
-      context: .
-      dockerfile: dockerfile
-    container_name: askarr
-    restart: unless-stopped
+   askarr:
+    build: .
     ports:
-      - 4545:4545
+    - 4545:4545
     volumes:
-      - ./config:/root/config
+    - ./config:/root/config
+    restart: unless-stopped

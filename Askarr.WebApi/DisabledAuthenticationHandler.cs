@@ -6,7 +6,7 @@ using System.Text.Encodings.Web;
 using System.Security.Claims;
 using System.Collections.Generic;
 
-namespace Askarr.WebApi
+namespace  Askarr.WebApi
 {
     public class DisabledAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {

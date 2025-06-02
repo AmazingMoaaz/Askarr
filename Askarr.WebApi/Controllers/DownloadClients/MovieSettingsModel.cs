@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
-using Askarr.WebApi.Controllers.DownloadClients.Ombi;
-using Askarr.WebApi.Controllers.DownloadClients.Radarr;
-using Askarr.WebApi.AskarrBot.DownloadClients.Overseerr;
+using  Askarr.WebApi.Controllers.DownloadClients.Ombi;
+using  Askarr.WebApi.Controllers.DownloadClients.Radarr;
+using  Askarr.WebApi. AskarrBot.DownloadClients.Overseerr;
 
-namespace Askarr.WebApi.Controllers.DownloadClients
+namespace  Askarr.WebApi.Controllers.DownloadClients
 {
     public class MovieSettingsModel
     {

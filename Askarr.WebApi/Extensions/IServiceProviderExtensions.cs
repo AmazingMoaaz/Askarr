@@ -1,6 +1,6 @@
 using System;
 
-namespace Askarr.WebApi.Extensions
+namespace  Askarr.WebApi.Extensions
 {
     public static class IServiceProviderExtensions
     {

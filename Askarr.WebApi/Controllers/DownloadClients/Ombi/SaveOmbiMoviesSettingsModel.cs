@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Askarr.WebApi.Controllers.DownloadClients.Ombi
+namespace  Askarr.WebApi.Controllers.DownloadClients.Ombi
 {
     public class SaveOmbiMoviesSettingsModel : OmbiSettingsModel
     {

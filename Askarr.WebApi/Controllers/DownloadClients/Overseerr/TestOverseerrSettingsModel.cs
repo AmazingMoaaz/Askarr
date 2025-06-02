@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Askarr.WebApi.Controllers.DownloadClients.Overseerr
+namespace  Askarr.WebApi.Controllers.DownloadClients.Overseerr
 {
     public class TestOverseerrSettingsModel
     {

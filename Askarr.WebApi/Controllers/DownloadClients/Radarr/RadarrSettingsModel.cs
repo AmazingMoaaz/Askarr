@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Askarr.WebApi.Controllers.DownloadClients.Radarr
+namespace  Askarr.WebApi.Controllers.DownloadClients.Radarr
 {
     public class RadarrSettingsModel : TestRadarrSettingsModel
     {

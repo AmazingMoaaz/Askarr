@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Askarr.WebApi.config;
-using Askarr.WebApi.AskarrBot;
-using Askarr.WebApi.AskarrBot.Locale;
+using  Askarr.WebApi.config;
+using  Askarr.WebApi. AskarrBot;
+using  Askarr.WebApi. AskarrBot.Locale;
 
-namespace Askarr.WebApi.Controllers.ChatClients
+namespace  Askarr.WebApi.Controllers.ChatClients
 {
     public static class ChatClientsSettingsRepository
     {

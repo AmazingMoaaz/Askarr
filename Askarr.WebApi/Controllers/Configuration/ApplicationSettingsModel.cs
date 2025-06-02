@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Askarr.WebApi.Controllers.Configuration
+namespace  Askarr.WebApi.Controllers.Configuration
 {
     public class ApplicationSettingsModel
     {

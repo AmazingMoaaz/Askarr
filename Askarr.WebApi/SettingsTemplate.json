@@ -19,18 +19,6 @@
       "NotificationChannels": [],
       "AutomaticallyPurgeCommandMessages": true
     },
-    "Telegram": {
-      "BotToken": "",
-      "Username": "",
-      "TvShowRoles": [],
-      "MovieRoles": [],
-      "MusicRoles": [],
-      "MonitoredChats": [],
-      "EnableRequestsThroughDirectMessages": false,
-      "AutomaticallyNotifyRequesters": true,
-      "NotificationMode": "PrivateMessages",
-      "NotificationChats": []
-    },
     "Language": "english"
   },
   "DownloadClients": {
@@ -141,6 +129,5 @@
   "Port": 4545,
   "BaseUrl": "",
   "DisableAuthentication": false,
-  "Version": "1.0.0",
-  "ProductName": "Askarr"
+  "Version": "2.1.3"
 }

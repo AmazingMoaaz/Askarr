@@ -4,22 +4,22 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Askarr.WebApi.config;
-using Askarr.WebApi.Controllers.DownloadClients.Ombi;
-using Askarr.WebApi.Controllers.DownloadClients.Overseerr;
-using Askarr.WebApi.Controllers.DownloadClients.Sonarr;
-using Askarr.WebApi.AskarrBot.DownloadClients;
-using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
-using Askarr.WebApi.AskarrBot.DownloadClients.Overseerr;
-using Askarr.WebApi.AskarrBot.DownloadClients.Radarr;
-using Askarr.WebApi.AskarrBot.DownloadClients.Sonarr;
-using Askarr.WebApi.AskarrBot.Locale;
-using Askarr.WebApi.AskarrBot.Movies;
-using Askarr.WebApi.AskarrBot.Music;
-using Askarr.WebApi.AskarrBot.TvShows;
-using SonarrSettingsCategory = Askarr.WebApi.Controllers.DownloadClients.Sonarr.SonarrSettingsCategory;
+using  Askarr.WebApi.config;
+using  Askarr.WebApi.Controllers.DownloadClients.Ombi;
+using  Askarr.WebApi.Controllers.DownloadClients.Overseerr;
+using  Askarr.WebApi.Controllers.DownloadClients.Sonarr;
+using  Askarr.WebApi. AskarrBot.DownloadClients;
+using  Askarr.WebApi. AskarrBot.DownloadClients.Lidarr;
+using  Askarr.WebApi. AskarrBot.DownloadClients.Overseerr;
+using  Askarr.WebApi. AskarrBot.DownloadClients.Radarr;
+using  Askarr.WebApi. AskarrBot.DownloadClients.Sonarr;
+using  Askarr.WebApi. AskarrBot.Locale;
+using  Askarr.WebApi. AskarrBot.Movies;
+using  Askarr.WebApi. AskarrBot.Music;
+using  Askarr.WebApi. AskarrBot.TvShows;
+using SonarrSettingsCategory =  Askarr.WebApi.Controllers.DownloadClients.Sonarr.SonarrSettingsCategory;
 
-namespace Askarr.WebApi.Controllers.DownloadClients
+namespace  Askarr.WebApi.Controllers.DownloadClients
 {
     [ApiController]
     [Authorize]
@@ -59,7 +59,7 @@ namespace Askarr.WebApi.Controllers.DownloadClients
                     }
                     break;
                 case "Overseerr":
-                    foreach (AskarrBot.DownloadClients.Overseerr.OverseerrMovieCategory category in _downloadClientsSettings.Overseerr.Movies.Categories)
+                    foreach ( AskarrBot.DownloadClients.Overseerr.OverseerrMovieCategory category in _downloadClientsSettings.Overseerr.Movies.Categories)
                     {
                         otherCategories.Add(category.Name.ToLower());
                     }

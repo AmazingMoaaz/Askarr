@@ -1,7 +1,7 @@
-﻿using Askarr.WebApi.Controllers.DownloadClients.Lidarr;
+﻿using  Askarr.WebApi.Controllers.DownloadClients.Lidarr;
 using System.ComponentModel.DataAnnotations;
 
-namespace Askarr.WebApi.Controllers.DownloadClients
+namespace  Askarr.WebApi.Controllers.DownloadClients
 {
     public class MusicSettingsModel
     {

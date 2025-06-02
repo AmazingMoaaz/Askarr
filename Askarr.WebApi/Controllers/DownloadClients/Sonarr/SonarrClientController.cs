@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Askarr.WebApi.AskarrBot.DownloadClients;
-using Askarr.WebApi.AskarrBot.DownloadClients.Sonarr;
-using Askarr.WebApi.AskarrBot.TvShows;
+using  Askarr.WebApi. AskarrBot.DownloadClients;
+using  Askarr.WebApi. AskarrBot.DownloadClients.Sonarr;
+using  Askarr.WebApi. AskarrBot.TvShows;
 
-namespace Askarr.WebApi.Controllers.DownloadClients.Sonarr
+namespace  Askarr.WebApi.Controllers.DownloadClients.Sonarr
 {
     [ApiController]
     [Authorize]
@@ -178,9 +178,9 @@ namespace Askarr.WebApi.Controllers.DownloadClients.Sonarr
             return Ok(new { ok = true });
         }
 
-        private static AskarrBot.DownloadClients.Sonarr.SonarrSettings ConvertToSonarrSettings(TestSonarrSettingsModel model)
+        private static  AskarrBot.DownloadClients.Sonarr.SonarrSettings ConvertToSonarrSettings(TestSonarrSettingsModel model)
         {
-            return new AskarrBot.DownloadClients.Sonarr.SonarrSettings
+            return new  AskarrBot.DownloadClients.Sonarr.SonarrSettings
             {
                 ApiKey = model.ApiKey.Trim(),
                 Hostname = model.Hostname.Trim(),

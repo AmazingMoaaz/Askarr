@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Askarr.WebApi.Controllers.ChatClients
+namespace  Askarr.WebApi.Controllers.ChatClients
 {
     public class ChatClientsSettingsModel
     {

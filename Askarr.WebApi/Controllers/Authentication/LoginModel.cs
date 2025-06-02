@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Askarr.WebApi.Controllers.Authentication
+namespace  Askarr.WebApi.Controllers.Authentication
 {
     public class LoginModel
     {

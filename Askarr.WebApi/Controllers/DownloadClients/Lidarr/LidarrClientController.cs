@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Askarr.WebApi.AskarrBot.DownloadClients;
-using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
-using Askarr.WebApi.AskarrBot.Music;
+using  Askarr.WebApi. AskarrBot.DownloadClients;
+using  Askarr.WebApi. AskarrBot.DownloadClients.Lidarr;
+using  Askarr.WebApi. AskarrBot.Music;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Askarr.WebApi.Controllers.DownloadClients.Lidarr
+namespace  Askarr.WebApi.Controllers.DownloadClients.Lidarr
 {
     [ApiController]
     [Authorize]

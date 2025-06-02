@@ -32,6 +32,9 @@ using Microsoft.AspNetCore.Http.Features;
 using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
 using Askarr.WebApi.AskarrBot.Music;
 using Askarr.WebApi.AskarrBot.ChatClients.Telegram;
+using Askarr.WebApi.AskarrBot.Notifications.Movies;
+using Askarr.WebApi.AskarrBot.Notifications.TvShows;
+using Askarr.WebApi.AskarrBot.Notifications.Music;
 
 namespace Askarr.WebApi
 {
@@ -48,12 +51,12 @@ namespace Askarr.WebApi
 
         public IServiceProvider Services => throw new NotImplementedException();
 
-        private ChatBot _askarrBot;
+        private ChatBot _AskarrBot;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            Console.WriteLine($"Starting Askarr - build '{(string.IsNullOrWhiteSpace(Language.BuildVersion) ? "Unknown" : Language.BuildVersion)}'");
+            Console.WriteLine($"Starting  Askarr - build '{(string.IsNullOrWhiteSpace(Language.BuildVersion) ? "Unknown" : Language.BuildVersion)}'");
 
             services.AddControllersWithViews();
             services.AddHttpClient();
@@ -84,8 +87,8 @@ namespace Askarr.WebApi
                             ValidateLifetime = true,
                             ClockSkew = TimeSpan.Zero,
                             ValidateIssuerSigningKey = true,
-                            ValidIssuer = "Askarr",
-                            ValidAudience = "Askarr",
+                            ValidIssuer = " Askarr",
+                            ValidAudience = " Askarr",
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.GetValue<string>("PrivateKey"))),
                         };
                     });
@@ -93,8 +96,10 @@ namespace Askarr.WebApi
 
             services.AddSingleton<OmbiClient, OmbiClient>();
             services.AddSingleton<RadarrClient, RadarrClient>();
+            services.AddSingleton<SonarrClient, SonarrClient>();
+            services.AddSingleton<LidarrClient, LidarrClient>();
+            services.AddSingleton<Askarr.WebApi.AskarrBot.DownloadClients.Overseerr.OverseerrClient, Askarr.WebApi.AskarrBot.DownloadClients.Overseerr.OverseerrClient>();
             services.AddSingleton<DiscordSettingsProvider>();
-            services.AddSingleton<TelegramSettingsProvider>();
             services.AddSingleton<TvShowsSettingsProvider>();
             services.AddSingleton<MoviesSettingsProvider>();
             services.AddSingleton<MusicSettingsProvider>();
@@ -108,6 +113,13 @@ namespace Askarr.WebApi
             services.AddSingleton<RadarrSettingsProvider>();
             services.AddSingleton<SonarrSettingsProvider>();
             services.AddSingleton<LidarrSettingsProvider>();
+            services.AddSingleton<TelegramSettingsProvider>();
+            services.AddSingleton<Askarr.WebApi.AskarrBot.Notifications.Movies.MovieNotificationsRepository>();
+            services.AddSingleton<Askarr.WebApi.AskarrBot.Notifications.TvShows.TvShowNotificationsRepository>();
+            services.AddSingleton<Askarr.WebApi.AskarrBot.Notifications.Music.MusicNotificationsRepository>();
+            services.AddSingleton<Askarr.WebApi.AskarrBot.Movies.MovieWorkflowFactory>();
+            services.AddSingleton<Askarr.WebApi.AskarrBot.TvShows.TvShowWorkflowFactory>();
+            services.AddSingleton<Askarr.WebApi.AskarrBot.Music.MusicWorkflowFactory>();
             services.AddSingleton<AskarrBot.ChatBot>();
         }
 
@@ -131,7 +143,7 @@ namespace Askarr.WebApi
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "ClientApp/build")),
                 RequestPath = !string.IsNullOrWhiteSpace(Program.BaseUrl) ? Program.BaseUrl : string.Empty
-            }); ;
+            });
 
             if (!string.IsNullOrWhiteSpace(Program.BaseUrl))
             {
@@ -166,8 +178,8 @@ namespace Askarr.WebApi
                 }
             });
 
-            _askarrBot = (AskarrBot.ChatBot)app.ApplicationServices.GetService(typeof(AskarrBot.ChatBot));
-            _askarrBot.Start();
+            _AskarrBot = (AskarrBot.ChatBot)app.ApplicationServices.GetService(typeof(AskarrBot.ChatBot));
+            _AskarrBot.Start();
         }
     }
 }

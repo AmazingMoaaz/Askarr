@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Askarr.WebApi.config;
+using  Askarr.WebApi.config;
 
-namespace Askarr.WebApi.Controllers.Authentication
+namespace  Askarr.WebApi.Controllers.Authentication
 {
     [ApiController]
     [Authorize]
@@ -59,8 +59,8 @@ namespace Askarr.WebApi.Controllers.Authentication
             };
 
             var token = new JwtSecurityToken(
-              issuer: "Askarr",
-              audience: "Askarr",
+              issuer: " Askarr",
+              audience: " Askarr",
               claims,
               expires: DateTime.Now.AddMonths(1),
               signingCredentials: credentials
@@ -121,8 +121,8 @@ namespace Askarr.WebApi.Controllers.Authentication
             };
 
             var token = new JwtSecurityToken(
-              issuer: "Askarr",
-              audience: "Askarr",
+              issuer: " Askarr",
+              audience: " Askarr",
               claims,
               expires: DateTime.Now.AddMonths(1),
               signingCredentials: credentials

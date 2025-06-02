@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Reflection;
 using System.Runtime;
 using Microsoft.AspNetCore;
@@ -13,11 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Askarr.WebApi.AskarrBot;
-using Askarr.WebApi.AskarrBot.Locale;
+using  Askarr.WebApi. AskarrBot;
+using  Askarr.WebApi. AskarrBot.Locale;
 
-namespace Askarr.WebApi
+namespace  Askarr.WebApi
 {
     public class Program
     {
@@ -35,24 +32,24 @@ namespace Askarr.WebApi
                 {
                     case "--help":
                     case "-h":
-                        Console.WriteLine($"Askarr version: {Language.BuildVersion}");
+                        Console.WriteLine($" Askarr version: {Language.BuildVersion}");
                         Console.WriteLine("Description:");
                         Console.WriteLine("  A chatbot used to connectservices like Sonarr/Radarr/Overseerr/Ombi to Discord\n");
                         Console.WriteLine("Options:");
                         Console.WriteLine("  -h, --help           Displays the help message and exits the program");
                         Console.WriteLine("  -c, --config-dir     Change the config folder");
-                        Console.WriteLine("                       Example: Askarr.WebApi.exe -c \"C:\\Askarr\\config\"");
-                        Console.WriteLine("                                Askarr.WebApi -c /opt/Askarr/config");
-                        Console.WriteLine("                                Askarr.WebApi.exe -c ./config");
-                        Console.WriteLine("  -p, --port           Change the port of Askarr, this will update the config file");
-                        Console.WriteLine("                       This allows for the changing of the port used for Askarr, eg: http://localhost:port");
-                        Console.WriteLine("                       Example: Askarr.WebApi.exe -p 4546");
-                        Console.WriteLine("                                Askarr.WebApi --port 4547");
-                        Console.WriteLine("  -u, --base-url       Change the base URL of Askarr, this will update the config file");
-                        Console.WriteLine("                       This allows the changing of the base URL to access Askarr, eg: http://localhost:4545/baseURL");
-                        Console.WriteLine("                       Example: Askarr.WebApi.exe -u \"/askarr\"");
-                        Console.WriteLine("                                Askarr.WebApi --base-url \"/\"");
-                        Console.WriteLine("                                Askarr.WebApi.exe -u \"\"");
+                        Console.WriteLine("                       Example:  Askarr.WebApi.exe -c \"C:\\ Askarr\\config\"");
+                        Console.WriteLine("                                 Askarr.WebApi -c /opt/ Askarr/config");
+                        Console.WriteLine("                                 Askarr.WebApi.exe -c ./config");
+                        Console.WriteLine("  -p, --port           Change the port of  Askarr, this will update the config file");
+                        Console.WriteLine("                       This allows for the changing of the port used for  Askarr, eg: http://localhost:port");
+                        Console.WriteLine("                       Example:  Askarr.WebApi.exe -p 4546");
+                        Console.WriteLine("                                 Askarr.WebApi --port 4547");
+                        Console.WriteLine("  -u, --base-url       Change the base URL of  Askarr, this will update the config file");
+                        Console.WriteLine("                       This allows the changing of the base URL to access  Askarr, eg: http://localhost:4545/baseURL");
+                        Console.WriteLine("                       Example:  Askarr.WebApi.exe -u \"/ Askarr\"");
+                        Console.WriteLine("                                 Askarr.WebApi --base-url \"/\"");
+                        Console.WriteLine("                                 Askarr.WebApi.exe -u \"\"");
                         return;
                     case "--config-dir":
                     case "-c":

@@ -1,12 +1,12 @@
-﻿using Askarr.WebApi.config;
-using Askarr.WebApi.AskarrBot;
-using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
-using Askarr.WebApi.AskarrBot.DownloadClients.Ombi;
-using Askarr.WebApi.AskarrBot.DownloadClients.Overseerr;
-using Askarr.WebApi.AskarrBot.DownloadClients.Radarr;
-using Askarr.WebApi.AskarrBot.DownloadClients.Sonarr;
+﻿using  Askarr.WebApi.config;
+using  Askarr.WebApi. AskarrBot;
+using  Askarr.WebApi. AskarrBot.DownloadClients.Lidarr;
+using  Askarr.WebApi. AskarrBot.DownloadClients.Ombi;
+using  Askarr.WebApi. AskarrBot.DownloadClients.Overseerr;
+using  Askarr.WebApi. AskarrBot.DownloadClients.Radarr;
+using  Askarr.WebApi. AskarrBot.DownloadClients.Sonarr;
 
-namespace Askarr.WebApi.Controllers.DownloadClients
+namespace  Askarr.WebApi.Controllers.DownloadClients
 {
     public class DownloadClientsSettingsProvider
     {

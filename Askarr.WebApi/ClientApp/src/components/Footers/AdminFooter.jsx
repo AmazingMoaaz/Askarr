@@ -28,7 +28,7 @@ function Footer() {
         <Col xl="6">
           <div className="copyright text-center text-xl-left text-muted">
             © {new Date().getFullYear()}{" "}
-            Askarr (v2.1.7)
+            Askarr (v1.0.0)
           </div>
         </Col>
       </Row>

@@ -1,7 +1,7 @@
-﻿using Askarr.WebApi.config;
-using Askarr.WebApi.AskarrBot;
+﻿using  Askarr.WebApi.config;
+using  Askarr.WebApi. AskarrBot;
 
-namespace Askarr.WebApi.Controllers.ChatClients
+namespace  Askarr.WebApi.Controllers.ChatClients
 {
     public class BotClientSettingsProvider
     {

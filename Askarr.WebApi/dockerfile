@@ -1,33 +1,38 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+FROM node AS node-build
 
-LABEL maintainer="thomst08"
-
-# Install node
-RUN apt-get update
-RUN apt-get install -y \
-    nodejs \
-    npm
+COPY ClientApp /app
 
 WORKDIR /app
 
-# Copy csproj and restore as distinct layers
-COPY *.csproj ./
-RUN dotnet restore
+RUN npm install
 
-# Copy everything else and build
-COPY . ./
-RUN npm install --prefix ClientApp
-RUN dotnet publish -c Release -o out
+RUN npm run build
 
-# Build runtime image
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-build
+
+RUN apt-get update && \
+  apt-get --no-install-recommends -y install nodejs npm
+
+COPY ./ /app
+COPY --from=node-build /app /app/ClientApp
+
+WORKDIR /app
+
+RUN dotnet publish -c release -o publish  Askarr.WebApi.csproj
+RUN rm -rf /app/publish/config
+RUN rm -rf /app/publish/tmp
+RUN mkdir /app/publish/config
+RUN rm -f /app/publish/appsettings.Development.json
+
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
+
+COPY --from=dotnet-build /app/publish/ /root/
+
+# allow all users access to this so we can run container as non root.
+RUN chmod -R 755 /root
+
 WORKDIR /root/
-COPY --from=build-env /app/out .
-COPY --from=build-env /app/out/ClientApp ./ClientApp
 
-RUN mkdir -p /root/config
-
-ENV ASPNETCORE_URLS=http://+:4545
-EXPOSE 4545
-
+ENV ASPNETCORE_URLS="http://*:4545"
+EXPOSE 4545/tcp
 ENTRYPOINT ["dotnet", "Askarr.WebApi.dll"]
