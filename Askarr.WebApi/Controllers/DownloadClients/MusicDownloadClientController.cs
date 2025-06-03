@@ -49,15 +49,15 @@ namespace  Askarr.WebApi.Controllers.DownloadClients
             switch (_moviesSettings.Client)
             {
                 case "Radarr":
-                    foreach (RadarrCategory category in _downloadClientsSettings.Radarr.Categories)
+                    foreach (string category in _downloadClientsSettings.Radarr.Categories)
                     {
-                        otherCategories.Add(category.Name.ToLower());
+                        otherCategories.Add(category.ToLower());
                     }
                     break;
                 case "Overseerr":
-                    foreach ( AskarrBot.DownloadClients.Overseerr.OverseerrMovieCategory category in _downloadClientsSettings.Overseerr.Movies.Categories)
+                    foreach (string category in _downloadClientsSettings.Overseerr.Movies.Categories)
                     {
-                        otherCategories.Add(category.Name.ToLower());
+                        otherCategories.Add(category.ToLower());
                     }
                     if (otherCategories.Count == 0)
                         otherCategories.Add(Language.Current.DiscordCommandMovieRequestTitleName.ToLower());
@@ -70,15 +70,15 @@ namespace  Askarr.WebApi.Controllers.DownloadClients
             switch (_tvShowsSettings.Client)
             {
                 case "Sonarr":
-                    foreach (SonarrCategory category in _downloadClientsSettings.Sonarr.Categories)
+                    foreach (string category in _downloadClientsSettings.Sonarr.Categories)
                     {
-                        otherCategories.Add(category.Name.ToLower());
+                        otherCategories.Add(category.ToLower());
                     }
                     break;
                 case "Overseerr":
-                    foreach ( AskarrBot.DownloadClients.Overseerr.OverseerrTvShowCategory category in _downloadClientsSettings.Overseerr.TvShows.Categories)
+                    foreach (string category in _downloadClientsSettings.Overseerr.TvShows.Categories)
                     {
-                        otherCategories.Add(category.Name.ToLower());
+                        otherCategories.Add(category.ToLower());
                     }
                     if (otherCategories.Count == 0)
                         otherCategories.Add(Language.Current.DiscordCommandTvRequestTitleName.ToLower());
@@ -97,15 +97,9 @@ namespace  Askarr.WebApi.Controllers.DownloadClients
                     BaseUrl = _downloadClientsSettings.Lidarr.BaseUrl,
                     Port = _downloadClientsSettings.Lidarr.Port,
                     ApiKey = _downloadClientsSettings.Lidarr.ApiKey,
-                    Categories = _downloadClientsSettings.Lidarr.Categories.Select(x => new LidarrSettingsCategory
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        ProfileId = x.ProfileId,
-                        MetadataProfileId = x.MetadataProfileId,
-                        RootFolder = x.RootFolder,
-                        Tags = x.Tags
-                    }).ToArray(),
+                    Categories = _downloadClientsSettings.Lidarr.Categories
+                        .Select(x => new LidarrSettingsCategory { Name = x })
+                        .ToArray(),
                     UseSSL = _downloadClientsSettings.Lidarr.UseSSL,
                     SearchNewRequests = _downloadClientsSettings.Lidarr.SearchNewRequests,
                     MonitorNewRequests = _downloadClientsSettings.Lidarr.MonitorNewRequests,

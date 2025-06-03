@@ -19,7 +19,7 @@ namespace Askarr.WebApi.AskarrBot.DownloadClients.Lidarr
         private IHttpClientFactory _httpClientFactory;
         private readonly ILogger<LidarrClient> _logger;
         private LidarrSettingsProvider _lidarrSettingProvider;
-        private LidarrSettings _lidarrSettings => _lidarrSettingProvider.Provider();
+        private LidarrSettings _lidarrSettings => _lidarrSettingProvider.Provide();
 
         private string BaseURL => GetBaseURL(_lidarrSettings);
 

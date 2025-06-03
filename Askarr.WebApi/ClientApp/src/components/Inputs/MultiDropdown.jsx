@@ -1,4 +1,3 @@
-
 import { Select } from "react-dropdown-select";
 
 import {
@@ -7,10 +6,25 @@ import {
 
 
 function MultiDropdown(props) {
+  // Add null/undefined checks for props
+  const items = props.items || [];
+  const selectedItems = props.selectedItems || [];
 
   const onSelectedItemsChange = (selectedItems) => {
     props.onChange(selectedItems);
   }
+
+  // Calculate filtered values with proper null checks
+  const getFilteredValues = () => {
+    if (items.length === 0) return [];
+    
+    const filtered = items.filter(x => 
+      selectedItems.length > 0 && 
+      selectedItems.map(s => s.id).includes(x.id)
+    );
+    
+    return filtered.length > 0 ? filtered : [];
+  };
 
   return (
     <FormGroup className={props.className}>
@@ -21,9 +35,9 @@ function MultiDropdown(props) {
       <Select
         multi="true"
         className={props.create === true ? "dropdown react-dropdown-create" : "dropdown"}
-        options={props.items}
+        options={items}
         placeholder={props.placeholder}
-        values={props.items.length > 0 ? props.items.filter(x => props.selectedItems.map(s => s.id).includes(x.id)).length > 0 ? props.items.filter(x => props.selectedItems.map(x => x.id).includes(x.id)) : [] : []}
+        values={getFilteredValues()}
         labelField="name"
         valueField="id"
         dropdownHandle={props.dropdownHandle !== false}

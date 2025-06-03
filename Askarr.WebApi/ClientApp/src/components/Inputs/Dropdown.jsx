@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Select } from "react-dropdown-select";
 
@@ -10,8 +9,15 @@ import {
 function Dropdown(props) {
   const [selectedValues, setSelectedValues] = useState([{ name: "", value: 838738 }]);
 
-
-  let newSelectedValues = props.items.length > 0 ? props.items.filter(x => x.value === props.value).length > 0 ? props.items.filter(x => x.value === props.value) : [props.items[0]] : [];
+  // Add null/undefined checks for props.items
+  const items = props.items || [];
+  
+  let newSelectedValues = items.length > 0 
+    ? items.filter(x => x.value === props.value).length > 0 
+      ? items.filter(x => x.value === props.value) 
+      : [items[0]] 
+    : [];
+    
   if (JSON.stringify(selectedValues) !== JSON.stringify(newSelectedValues))
     setSelectedValues(newSelectedValues);
 
@@ -30,7 +36,7 @@ function Dropdown(props) {
       <Select
         placeholder=""
         className="dropdown"
-        options={props.items}
+        options={items}
         values={selectedValues}
         labelField="name"
         valueField="value"

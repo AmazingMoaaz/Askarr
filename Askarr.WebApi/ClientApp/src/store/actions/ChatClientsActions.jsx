@@ -52,6 +52,44 @@ export function testSettings(settings) {
     };
 };
 
+export function testTelegramSettings(settings) {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        return fetch("../api/chatclients/telegram/test", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${state.user.token}`
+            },
+            body: JSON.stringify({
+                "botToken": settings.botToken,
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(text => {
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (error) {
+                    throw new Error(`Invalid JSON response: ${text}`);
+                }
+                
+                if (data.ok) {
+                    return { ok: true, botUsername: data.botUsername };
+                }
+
+                return { ok: false, error: data.error || "Unknown error" }
+            });
+    };
+};
+
 export function save(saveModel) {
     return (dispatch, getState) => {
         const state = getState();
@@ -77,6 +115,15 @@ export function save(saveModel) {
                 'NotificationMode': saveModel.notificationMode,
                 'NotificationChannels': saveModel.notificationChannels,
                 'AutomaticallyPurgeCommandMessages': saveModel.automaticallyPurgeCommandMessages,
+                'TelegramBotToken': saveModel.telegramBotToken,
+                'TelegramMonitoredChats': saveModel.telegramMonitoredChats,
+                'TelegramNotificationChats': saveModel.telegramNotificationChats,
+                'TelegramMovieRoles': saveModel.telegramMovieRoles,
+                'TelegramTvRoles': saveModel.telegramTvRoles,
+                'TelegramMusicRoles': saveModel.telegramMusicRoles,
+                'TelegramEnableRequestsThroughDirectMessages': saveModel.telegramEnableRequestsThroughDirectMessages,
+                'TelegramAutomaticallyNotifyRequesters': saveModel.telegramAutomaticallyNotifyRequesters,
+                'TelegramNotificationMode': saveModel.telegramNotificationMode,
                 'Language': saveModel.language,
             })
         })
@@ -97,6 +144,15 @@ export function save(saveModel) {
                         notificationMode: saveModel.notificationMode,
                         notificationChannels: saveModel.notificationChannels,
                         automaticallyPurgeCommandMessages: saveModel.automaticallyPurgeCommandMessages,
+                        telegramBotToken: saveModel.telegramBotToken,
+                        telegramMonitoredChats: saveModel.telegramMonitoredChats,
+                        telegramNotificationChats: saveModel.telegramNotificationChats,
+                        telegramMovieRoles: saveModel.telegramMovieRoles,
+                        telegramTvRoles: saveModel.telegramTvRoles,
+                        telegramMusicRoles: saveModel.telegramMusicRoles,
+                        telegramEnableRequestsThroughDirectMessages: saveModel.telegramEnableRequestsThroughDirectMessages,
+                        telegramAutomaticallyNotifyRequesters: saveModel.telegramAutomaticallyNotifyRequesters,
+                        telegramNotificationMode: saveModel.telegramNotificationMode,
                         language: saveModel.language,
                     }));
                     return { ok: true };

@@ -95,17 +95,32 @@ namespace Askarr.WebApi.AskarrBot
             // Check which chat client should be used
             string botClient = settings.BotClient.Client;
 
-            if (botClient == "Discord" || string.IsNullOrEmpty(botClient))
+            // Always start Discord bot first and ensure it's fully initialized
+            try 
             {
+                _logger.LogInformation("Starting Discord bot...");
                 StartDiscordBot();
+                
+                // Allow Discord bot to fully initialize before starting Telegram
+                Task.Delay(5000).Wait();
             }
-            else if (botClient == "Telegram")
+            catch (Exception ex)
             {
-                StartTelegramBot();
+                _logger.LogError(ex, "Failed to start Discord chat client");
             }
-            else
+
+            // If Telegram is configured, also start it
+            if (botClient == "Telegram" || botClient == "Both")
             {
-                _logger.LogWarning($"Unknown bot client type: {botClient}");
+                try
+                {
+                    _logger.LogInformation("Starting Telegram bot...");
+                    StartTelegramBot();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Failed to start Telegram chat client");
+                }
             }
         }
 
@@ -135,13 +150,21 @@ namespace Askarr.WebApi.AskarrBot
                                     _currentGuilds.UnionWith(guilds);
                                 }
                             }
-                            catch (System.Exception)
+                            catch (System.Exception ex)
                             {
+                                _logger.LogError(ex, "Error checking guild changes: " + ex.Message);
                                 guildsChanged = false;
                             }
 
-
-                            if (!_currentSettings.Equals(newSettings) || Language.Current != _previousLanguage || guildsChanged || (_client == null && _waitTimeout <= 0 && !string.IsNullOrWhiteSpace(newSettings.BotToken)))
+                            // Force client initialization if not present
+                            if (_client == null && _waitTimeout <= 0 && !string.IsNullOrWhiteSpace(newSettings.BotToken))
+                            {
+                                _logger.LogInformation("Initializing Discord client for the first time");
+                                _currentSettings = newSettings;
+                                _previousLanguage = Language.Current;
+                                await RestartBot(new DiscordSettings(), newSettings, new HashSet<ulong>());
+                            }
+                            else if (!_currentSettings.Equals(newSettings) || Language.Current != _previousLanguage || guildsChanged || (_client == null && _waitTimeout <= 0 && !string.IsNullOrWhiteSpace(newSettings.BotToken)))
                             {
                                 var previousSettings = _currentSettings;
                                 _logger.LogWarning("Bot configuration changed: restarting bot");
@@ -218,6 +241,7 @@ namespace Askarr.WebApi.AskarrBot
             {
                 if (!string.Equals(previousSettings.BotToken, newSettings.BotToken, StringComparison.OrdinalIgnoreCase) || _client == null || _slashCommands == null)
                 {
+                    _logger.LogInformation("Discord bot token changed or client not initialized - creating new client");
                     await DisposeClient();
 
                     var config = new DiscordConfiguration()
@@ -254,11 +278,13 @@ namespace Askarr.WebApi.AskarrBot
 
                     try
                     {
+                        _logger.LogInformation("Connecting to Discord...");
                         await _client.ConnectAsync();
+                        _logger.LogInformation("Successfully connected to Discord");
                     }
                     catch (Exception ex) when (ex.InnerException is DSharpPlus.Exceptions.UnauthorizedException)
                     {
-                        _logger.LogError("Discord token is incorrect, please cehck your token settings.");
+                        _logger.LogError("Discord token is incorrect, please check your token settings.");
                         _client = null;
                     }
                     catch (Exception ex)
@@ -274,15 +300,19 @@ namespace Askarr.WebApi.AskarrBot
                     {
                         try
                         {
+                            _logger.LogInformation("Applying bot configuration...");
                             await ApplyBotConfigurationAsync(newSettings);
+                            _logger.LogInformation("Bot configuration applied successfully");
 
                             var prop = _slashCommands.GetType().GetProperty("_updateList", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
                             prop.SetValue(_slashCommands, new List<KeyValuePair<ulong?, Type>>());
 
+                            _logger.LogInformation("Building slash commands...");
                             var slashCommandType = SlashCommandBuilder.Build(_logger, newSettings, _serviceProvider.Get<RadarrSettingsProvider>(), _serviceProvider.Get<SonarrSettingsProvider>(), _serviceProvider.Get<OverseerrSettingsProvider>(), _serviceProvider.Get<OmbiSettingsProvider>(), _serviceProvider.Get<LidarrSettingsProvider>());
 
                             if (newSettings.EnableRequestsThroughDirectMessages)
                             {
+                                _logger.LogInformation("Registering global slash commands...");
                                 try { _slashCommands.RegisterCommands(slashCommandType); }
                                 catch (System.Exception ex) { _logger.LogError(ex, "Error while registering global slash commands: " + ex.Message); }
 
@@ -294,6 +324,7 @@ namespace Askarr.WebApi.AskarrBot
                             }
                             else
                             {
+                                _logger.LogInformation("Registering guild-specific slash commands...");
                                 try { _slashCommands.RegisterCommands<EmptySlashCommands>(); }
                                 catch (System.Exception ex) { _logger.LogError(ex, "Error while emptying global slash commands: " + ex.Message); }
 
@@ -304,12 +335,13 @@ namespace Askarr.WebApi.AskarrBot
                                 }
                             }
 
+                            _logger.LogInformation("Refreshing commands...");
                             await _slashCommands.RefreshCommands();
-                            await Task.Delay(TimeSpan.FromMinutes(1));
+                            _logger.LogInformation("Discord bot ready!");
                         }
                         catch (Exception ex)
                         {
-                            _logger.LogError($"Error settings up bot\n{ex.Message}");
+                            _logger.LogError(ex, $"Error setting up Discord bot\n{ex.Message}");
 
                             await DisposeClient();
                             _client = null;
@@ -497,15 +529,17 @@ namespace Askarr.WebApi.AskarrBot
         {
             try
             {
+                var settings = _serviceProvider.Get<DiscordSettingsProvider>()?.Provide() ?? new DiscordSettings { AutomaticallyPurgeCommandMessages = false };
+                
                 if (args.Exception is SlashExecutionChecksFailedException slex)
                 {
                     foreach (var check in slex.FailedChecks)
                         if (check is RequireChannelsAttribute requireChannelAttribute)
-                            await args.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent(Language.Current.DiscordCommandNotAvailableInChannel));
+                            await args.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandNotAvailableInChannel));
                         else if (check is RequireRolesAttribute requireRoleAttribute)
-                            await args.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent(Language.Current.DiscordCommandMissingRoles));
+                            await args.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandMissingRoles));
                         else
-                            await args.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent(Language.Current.DiscordCommandUnknownPrecondition));
+                            await args.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandUnknownPrecondition));
                 }
             }
             catch (System.Exception ex)

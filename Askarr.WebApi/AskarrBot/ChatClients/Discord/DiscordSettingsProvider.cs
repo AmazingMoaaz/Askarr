@@ -139,7 +139,7 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
 
             if (settings.Music.Client == DownloadClient.Lidarr)
             {
-                LidarrSettings clientSettings = new LidarrSettingsProvider().Provider();
+                LidarrSettings clientSettings = new LidarrSettingsProvider().Provide();
 
                 hash.Add(clientSettings.Categories.Select(x => x.Name).GetSequenceHashCode());
                 hash.Add(clientSettings.Hostname);

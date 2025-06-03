@@ -4,22 +4,26 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using  Askarr.WebApi.config;
-using  Askarr.WebApi.Controllers.DownloadClients.Ombi;
-using  Askarr.WebApi.Controllers.DownloadClients.Overseerr;
-using  Askarr.WebApi.Controllers.DownloadClients.Sonarr;
-using  Askarr.WebApi. AskarrBot.DownloadClients;
-using  Askarr.WebApi. AskarrBot.DownloadClients.Lidarr;
-using  Askarr.WebApi. AskarrBot.DownloadClients.Overseerr;
-using  Askarr.WebApi. AskarrBot.DownloadClients.Radarr;
-using  Askarr.WebApi. AskarrBot.DownloadClients.Sonarr;
-using  Askarr.WebApi. AskarrBot.Locale;
-using  Askarr.WebApi. AskarrBot.Movies;
-using  Askarr.WebApi. AskarrBot.Music;
-using  Askarr.WebApi. AskarrBot.TvShows;
-using SonarrSettingsCategory =  Askarr.WebApi.Controllers.DownloadClients.Sonarr.SonarrSettingsCategory;
+using Askarr.WebApi.config;
+using Askarr.WebApi.Controllers.DownloadClients.Ombi;
+using Askarr.WebApi.Controllers.DownloadClients.Overseerr;
+using Askarr.WebApi.Controllers.DownloadClients.Sonarr;
+using Askarr.WebApi.AskarrBot.DownloadClients;
+using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Overseerr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Radarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Sonarr;
+using Askarr.WebApi.AskarrBot.Locale;
+using Askarr.WebApi.AskarrBot.Movies;
+using Askarr.WebApi.AskarrBot.Music;
+using Askarr.WebApi.AskarrBot.TvShows;
+using SonarrSettingsCategory = Askarr.WebApi.Controllers.DownloadClients.Sonarr.SonarrSettingsCategory;
+using BotSonarrCategory = Askarr.WebApi.AskarrBot.DownloadClients.Sonarr.SonarrCategory;
+using BotLidarrCategory = Askarr.WebApi.AskarrBot.DownloadClients.Lidarr.LidarrCategory;
+using BotRadarrCategory = Askarr.WebApi.AskarrBot.DownloadClients.Radarr.RadarrCategory;
+using BotOverseerrMovieCategory = Askarr.WebApi.AskarrBot.DownloadClients.Overseerr.OverseerrMovieCategory;
 
-namespace  Askarr.WebApi.Controllers.DownloadClients
+namespace Askarr.WebApi.Controllers.DownloadClients
 {
     [ApiController]
     [Authorize]
@@ -53,15 +57,17 @@ namespace  Askarr.WebApi.Controllers.DownloadClients
             switch (_moviesSettings.Client)
             {
                 case "Radarr":
-                    foreach (RadarrCategory category in _downloadClientsSettings.Radarr.Categories)
+                    // Using the string array from the config settings temporarily
+                    foreach (string category in _downloadClientsSettings.Radarr.Categories)
                     {
-                        otherCategories.Add(category.Name.ToLower());
+                        otherCategories.Add(category.ToLower());
                     }
                     break;
                 case "Overseerr":
-                    foreach ( AskarrBot.DownloadClients.Overseerr.OverseerrMovieCategory category in _downloadClientsSettings.Overseerr.Movies.Categories)
+                    // Using the string array from the config settings temporarily
+                    foreach (string category in _downloadClientsSettings.Overseerr.Movies.Categories)
                     {
-                        otherCategories.Add(category.Name.ToLower());
+                        otherCategories.Add(category.ToLower());
                     }
                     if(otherCategories.Count == 0)
                         otherCategories.Add(Language.Current.DiscordCommandMovieRequestTitleName.ToLower());
@@ -74,13 +80,15 @@ namespace  Askarr.WebApi.Controllers.DownloadClients
             switch (_musicSettings.Client)
             {
                 case "Lidarr":
-                    foreach (LidarrCategory category in _downloadClientsSettings.Lidarr.Categories)
+                    // Using the string array from the config settings temporarily
+                    foreach (string category in _downloadClientsSettings.Lidarr.Categories)
                     {
-                        otherCategories.Add(category.Name.ToLower());
+                        otherCategories.Add(category.ToLower());
                     }
                     break;
             }
 
+            // Build the response model using our config settings
             return Ok(new TvShowsSettingsModel
             {
                 Client = _tvShowsSettings.Client,
@@ -90,17 +98,9 @@ namespace  Askarr.WebApi.Controllers.DownloadClients
                     BaseUrl = _downloadClientsSettings.Sonarr.BaseUrl,
                     Port = _downloadClientsSettings.Sonarr.Port,
                     ApiKey = _downloadClientsSettings.Sonarr.ApiKey,
-                    Categories = _downloadClientsSettings.Sonarr.Categories.Select(x => new SonarrSettingsCategory
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        LanguageId = x.LanguageId,
-                        ProfileId = x.ProfileId,
-                        RootFolder = x.RootFolder,
-                        Tags = x.Tags,
-                        UseSeasonFolders = x.UseSeasonFolders,
-                        SeriesType = x.SeriesType,
-                    }).ToArray(),
+                    Categories = _downloadClientsSettings.Sonarr.Categories
+                        .Select(x => new SonarrSettingsCategory { Name = x })
+                        .ToArray(),
                     UseSSL = _downloadClientsSettings.Sonarr.UseSSL,
                     SearchNewRequests = _downloadClientsSettings.Sonarr.SearchNewRequests,
                     MonitorNewRequests = _downloadClientsSettings.Sonarr.MonitorNewRequests,
@@ -117,7 +117,7 @@ namespace  Askarr.WebApi.Controllers.DownloadClients
                     Version = _downloadClientsSettings.Ombi.Version,
                     UseTVIssue = _downloadClientsSettings.Ombi.UseTVIssue
                 },
-                Overseerr = _downloadClientsSettings.Overseerr,
+                Overseerr = _downloadClientsSettings.Overseerr.ToOverseerrBotSettings(),
                 Restrictions = _tvShowsSettings.Restrictions,
                 OtherCategories = otherCategories.ToArray()
             });

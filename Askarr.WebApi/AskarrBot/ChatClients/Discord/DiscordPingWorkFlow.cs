@@ -11,15 +11,21 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
     public class DiscordPingWorkFlow
     {
         private readonly InteractionContext _context;
+        private readonly DiscordSettings _settings;
 
-        public DiscordPingWorkFlow(InteractionContext context)
+        public DiscordPingWorkFlow(InteractionContext context, DiscordSettingsProvider settingsProvider = null)
         {
             _context = context;
+            _settings = settingsProvider?.Provide() ?? new DiscordSettings { AutomaticallyPurgeCommandMessages = false };
         }
 
         public async Task HandlePingAsync() 
         {
-            await _context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent(Language.Current.DiscordCommandPingResponse));
+            await _context.CreateResponseAsync(
+                InteractionResponseType.ChannelMessageWithSource, 
+                new DiscordInteractionResponseBuilder()
+                    .AsEphemeral(_settings.AutomaticallyPurgeCommandMessages)
+                    .WithContent(Language.Current.DiscordCommandPingResponse));
         }
     }
 }

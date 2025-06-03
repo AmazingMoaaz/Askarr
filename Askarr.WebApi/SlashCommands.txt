@@ -154,7 +154,8 @@ namespace  Askarr.WebApi. AskarrBot
         {
             try
             {
-                await new DiscordPingWorkFlow(ctx).HandlePingAsync();
+                var settingsProvider = _serviceProvider.Get<DiscordSettingsProvider>();
+                await new DiscordPingWorkFlow(ctx, settingsProvider).HandlePingAsync();
             }
             catch (System.Exception ex)
             {
@@ -168,8 +169,9 @@ namespace  Askarr.WebApi. AskarrBot
         {
             try
             {
-                await new DiscordHelpWorkFlow(_serviceProvider.Get<DiscordClient>(), ctx, _serviceProvider.Get<DiscordSettingsProvider>())
-                    .HandleHelpAsync();
+                var discordClient = _serviceProvider.Get<DiscordClient>();
+                var settingsProvider = _serviceProvider.Get<DiscordSettingsProvider>();
+                await new DiscordHelpWorkFlow(discordClient, ctx, settingsProvider).HandleHelpAsync();
             }
             catch (System.Exception ex)
             {

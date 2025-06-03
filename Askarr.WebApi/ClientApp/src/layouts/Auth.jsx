@@ -33,6 +33,7 @@ import AskarrLogo from "../assets/img/brand/askarr.svg";
 
 function Auth() {
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const reduxState = useSelector((state) => {
     return {
@@ -46,16 +47,25 @@ function Auth() {
   useEffect(() => {
     document.body.classList.add("bg-default");
 
-    dispatch(validateRegistration())
-      .then(data => {
-        dispatch(validateLogin())
-          .then(data => setIsLoading(false));
-      });
+    // Add error handling to the validation process
+    const validateAuth = async () => {
+      try {
+        await dispatch(validateRegistration());
+        await dispatch(validateLogin());
+      } catch (err) {
+        console.error("Authentication validation error:", err);
+        setError("Failed to validate authentication status");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    validateAuth();
 
     return () => {
       document.body.classList.remove("bg-default");
     }
-  }, []);
+  }, [dispatch]);
 
 
 
@@ -130,26 +140,28 @@ function Auth() {
                     wrapperClass="svg-centre"
                   />
                 </Col>)
-                : <Routes>
-                  {
-                    !isLoading
-                      ? reduxState.isLoggedIn
+                : error 
+                  ? (<Col className="text-center" lg="5" md="7">
+                      <div className="alert alert-danger">
+                        {error}. Please try refreshing the page.
+                      </div>
+                    </Col>)
+                  : <Routes>
+                    {
+                      reduxState.isLoggedIn
                         ? null
                         : reduxState.hasRegistered
                           ? getRoutes(routes, "/login")
                           : getRoutes(routes, "/register")
-                      : null
-                  }
-                  {
-                    !isLoading ?
+                    }
+                    {
                       reduxState.isLoggedIn ?
                         <Route path="*" element={<Navigate to="/admin" />} />
                         : reduxState.hasRegistered ?
                           <Route path="*" element={<Navigate to="/auth/login" />} />
                           : <Route path="*" element={<Navigate to="/auth/register" />} />
-                      : null
-                  }
-                </Routes>
+                    }
+                  </Routes>
             }
           </Row>
         </Container>

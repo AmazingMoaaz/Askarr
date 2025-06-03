@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
@@ -93,6 +94,71 @@ namespace Askarr.WebApi.AskarrBot.Movies
             }
 
             return new MovieNotificationEngine(GetMovieClient<IMovieSearcher>(settings), movieNotifier, logger, _notificationsRepository);
+        }
+
+        /// <summary>
+        /// Direct method to search for movies without requiring a Discord interaction
+        /// </summary>
+        /// <param name="request">The movie request object</param>
+        /// <param name="movieName">The name of the movie to search for</param>
+        /// <returns>A list of movies matching the search query</returns>
+        public async Task<IReadOnlyList<Movie>> SearchDirectAsync(MovieRequest request, string movieName)
+        {
+            var settings = _settingsProvider.Provide();
+            var searcher = GetMovieClient<IMovieSearcher>(settings);
+            
+            if (searcher == null)
+            {
+                throw new InvalidOperationException("No movie searcher available");
+            }
+            
+            return await searcher.SearchMovieAsync(request, movieName);
+        }
+
+        /// <summary>
+        /// Gets the appropriate movie client based on the current settings
+        /// </summary>
+        /// <typeparam name="T">The type of client to return</typeparam>
+        /// <returns>The movie client</returns>
+        public T GetMovieSearcher<T>() where T : class
+        {
+            var settings = _settingsProvider.Provide();
+            return GetMovieClient<T>(settings);
+        }
+        
+        /// <summary>
+        /// Gets the IMovieSearcher implementation for the current settings
+        /// </summary>
+        /// <returns>The IMovieSearcher implementation</returns>
+        public IMovieSearcher GetMovieSearcher()
+        {
+            var settings = _settingsProvider.Provide();
+            return GetMovieClient<IMovieSearcher>(settings);
+        }
+        
+        /// <summary>
+        /// Gets the IMovieRequester implementation for the current settings
+        /// </summary>
+        /// <returns>The IMovieRequester implementation</returns>
+        public IMovieRequester GetMovieRequester()
+        {
+            var settings = _settingsProvider.Provide();
+            return GetMovieClient<IMovieRequester>(settings);
+        }
+        
+        /// <summary>
+        /// Create a notification workflow for Telegram users
+        /// </summary>
+        /// <param name="user">The user requesting the movie</param>
+        /// <returns>A movie notification workflow</returns>
+        public IMovieNotificationWorkflow CreateNotificationWorkflowForTelegram(MovieUserRequester user)
+        {
+            var settings = _settingsProvider.Provide();
+            return new MovieNotificationWorkflow(
+                _notificationsRepository,
+                new NullMovieUserInterface(), // We'll handle notifications directly in Telegram
+                GetMovieClient<IMovieSearcher>(settings),
+                settings.AutomaticallyNotifyRequesters);
         }
 
         private IMovieNotificationWorkflow CreateMovieNotificationWorkflow(DiscordInteraction interaction, DiscordSettings settings)

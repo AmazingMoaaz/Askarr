@@ -5,7 +5,7 @@ namespace Askarr.WebApi.AskarrBot.DownloadClients.Lidarr
 {
     public class LidarrSettingsProvider
     {
-        public LidarrSettings Provider()
+        public LidarrSettings Provide()
         {
             dynamic settings = SettingsFile.Read();
 

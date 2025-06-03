@@ -1,7 +1,7 @@
-using  Askarr.WebApi.config;
-using  Askarr.WebApi. AskarrBot;
+using Askarr.WebApi.config;
+using Askarr.WebApi.AskarrBot;
 
-namespace  Askarr.WebApi.Controllers.Authentication
+namespace Askarr.WebApi.Controllers.Authentication
 {
     public class AuthenticationSettingsProvider
     {
@@ -12,7 +12,9 @@ namespace  Askarr.WebApi.Controllers.Authentication
             return new AuthenticationSettings
             {
                 Username = (string)settings.Authentication.Username,
+                AdminUsername = (string)settings.Authentication.Username,
                 Password = (string)settings.Authentication.Password,
+                AdminPassword = (string)settings.Authentication.Password,
                 PrivateKey = (string)settings.Authentication.PrivateKey,
             };
         }

@@ -53,7 +53,11 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
             message = message.Replace(LanguageTokens.IssueEnabledStart, string.Empty);
             message = message.Replace(LanguageTokens.IssueEnabledEnd, string.Empty);
 
-            await _context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent(message));
+            await _context.CreateResponseAsync(
+                InteractionResponseType.ChannelMessageWithSource, 
+                new DiscordInteractionResponseBuilder()
+                    .AsEphemeral(_discordSettings.AutomaticallyPurgeCommandMessages)
+                    .WithContent(message));
         }
 
 

@@ -1,7 +1,7 @@
-﻿using  Askarr.WebApi. AskarrBot;
-using  Askarr.WebApi.config;
+﻿using Askarr.WebApi.AskarrBot;
+using Askarr.WebApi.config;
 
-namespace  Askarr.WebApi.Controllers.Configuration
+namespace Askarr.WebApi.Controllers.Configuration
 {
     public static class ApplicationSettingsRepository
     {

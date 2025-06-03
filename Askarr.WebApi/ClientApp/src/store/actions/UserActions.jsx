@@ -49,6 +49,11 @@ export function validateLogin() {
             token = state.user.token;
         }
 
+        if (!token) {
+            dispatch(setLoggedOut());
+            return Promise.resolve();
+        }
+
         return fetch("../api/auth/validate", {
             method: 'GET',
             headers: {
@@ -64,6 +69,10 @@ export function validateLogin() {
                 else {
                     dispatch(setLoggedOut());
                 }
+            })
+            .catch(error => {
+                console.error('Error validating login:', error);
+                dispatch(setLoggedOut());
             });
     };
 };

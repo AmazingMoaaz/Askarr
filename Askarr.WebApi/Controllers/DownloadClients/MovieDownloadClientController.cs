@@ -4,20 +4,20 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using  Askarr.WebApi.config;
-using  Askarr.WebApi.Controllers.DownloadClients.Ombi;
-using  Askarr.WebApi.Controllers.DownloadClients.Overseerr;
-using  Askarr.WebApi.Controllers.DownloadClients.Radarr;
-using  Askarr.WebApi. AskarrBot.DownloadClients;
-using  Askarr.WebApi. AskarrBot.DownloadClients.Lidarr;
-using  Askarr.WebApi. AskarrBot.DownloadClients.Sonarr;
-using  Askarr.WebApi. AskarrBot.Locale;
-using  Askarr.WebApi. AskarrBot.Movies;
-using  Askarr.WebApi. AskarrBot.Music;
-using  Askarr.WebApi. AskarrBot.TvShows;
-using RadarrSettingsCategory =  Askarr.WebApi.Controllers.DownloadClients.Radarr.RadarrSettingsCategory;
+using Askarr.WebApi.config;
+using Askarr.WebApi.Controllers.DownloadClients.Ombi;
+using Askarr.WebApi.Controllers.DownloadClients.Overseerr;
+using Askarr.WebApi.Controllers.DownloadClients.Radarr;
+using Askarr.WebApi.AskarrBot.DownloadClients;
+using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Sonarr;
+using Askarr.WebApi.AskarrBot.Locale;
+using Askarr.WebApi.AskarrBot.Movies;
+using Askarr.WebApi.AskarrBot.Music;
+using Askarr.WebApi.AskarrBot.TvShows;
+using RadarrSettingsCategory = Askarr.WebApi.Controllers.DownloadClients.Radarr.RadarrSettingsCategory;
 
-namespace  Askarr.WebApi.Controllers.DownloadClients
+namespace Askarr.WebApi.Controllers.DownloadClients
 {
     [ApiController]
     [Authorize]
@@ -51,15 +51,17 @@ namespace  Askarr.WebApi.Controllers.DownloadClients
             switch(_tvShowsSettings.Client)
             {
                 case "Sonarr":
-                    foreach(SonarrCategory category in _downloadClientsSettings.Sonarr.Categories)
+                    // Using the string array from the config settings temporarily
+                    foreach(string category in _downloadClientsSettings.Sonarr.Categories)
                     {
-                        otherCategories.Add(category.Name.ToLower());
+                        otherCategories.Add(category.ToLower());
                     }
                     break;
                 case "Overseerr":
-                    foreach ( AskarrBot.DownloadClients.Overseerr.OverseerrTvShowCategory category in _downloadClientsSettings.Overseerr.TvShows.Categories)
+                    // Using the string array from the config settings temporarily
+                    foreach (string category in _downloadClientsSettings.Overseerr.TvShows.Categories)
                     {
-                        otherCategories.Add(category.Name.ToLower());
+                        otherCategories.Add(category.ToLower());
                     }
                     if(otherCategories.Count == 0)
                         otherCategories.Add(Language.Current.DiscordCommandTvRequestTitleName.ToLower());
@@ -72,9 +74,10 @@ namespace  Askarr.WebApi.Controllers.DownloadClients
             switch(_musicSettings.Client)
             {
                 case "Lidarr":
-                    foreach (LidarrCategory category in _downloadClientsSettings.Lidarr.Categories)
+                    // Using the string array from the config settings temporarily
+                    foreach (string category in _downloadClientsSettings.Lidarr.Categories)
                     {
-                        otherCategories.Add(category.Name.ToLower());
+                        otherCategories.Add(category.ToLower());
                     }
                     break;
             }
@@ -89,15 +92,9 @@ namespace  Askarr.WebApi.Controllers.DownloadClients
                     BaseUrl = _downloadClientsSettings.Radarr.BaseUrl,
                     Port = _downloadClientsSettings.Radarr.Port,
                     ApiKey = _downloadClientsSettings.Radarr.ApiKey,
-                    Categories = _downloadClientsSettings.Radarr.Categories.Select(x => new RadarrSettingsCategory
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        MinimumAvailability = x.MinimumAvailability,
-                        ProfileId = x.ProfileId,
-                        RootFolder = x.RootFolder,
-                        Tags = x.Tags
-                    }).ToArray(),
+                    Categories = _downloadClientsSettings.Radarr.Categories
+                        .Select(x => new RadarrSettingsCategory { Name = x })
+                        .ToArray(),
                     UseSSL = _downloadClientsSettings.Radarr.UseSSL,
                     SearchNewRequests = _downloadClientsSettings.Radarr.SearchNewRequests,
                     MonitorNewRequests = _downloadClientsSettings.Radarr.MonitorNewRequests,
@@ -114,7 +111,7 @@ namespace  Askarr.WebApi.Controllers.DownloadClients
                     Version = _downloadClientsSettings.Ombi.Version,
                     UseMovieIssue = _downloadClientsSettings.Ombi.UseMovieIssue
                 },
-                Overseerr = _downloadClientsSettings.Overseerr,
+                Overseerr = _downloadClientsSettings.Overseerr.ToOverseerrBotSettings(),
                 OtherCategories = otherCategories.ToArray()
             });
         }

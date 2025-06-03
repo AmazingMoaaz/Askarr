@@ -1,12 +1,12 @@
-﻿using  Askarr.WebApi.config;
-using  Askarr.WebApi. AskarrBot;
-using  Askarr.WebApi. AskarrBot.DownloadClients.Lidarr;
-using  Askarr.WebApi. AskarrBot.DownloadClients.Ombi;
-using  Askarr.WebApi. AskarrBot.DownloadClients.Overseerr;
-using  Askarr.WebApi. AskarrBot.DownloadClients.Radarr;
-using  Askarr.WebApi. AskarrBot.DownloadClients.Sonarr;
+﻿using Askarr.WebApi.config;
+using Askarr.WebApi.AskarrBot;
+using Askarr.WebApi.AskarrBot.DownloadClients.Lidarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Ombi;
+using Askarr.WebApi.AskarrBot.DownloadClients.Overseerr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Radarr;
+using Askarr.WebApi.AskarrBot.DownloadClients.Sonarr;
 
-namespace  Askarr.WebApi.Controllers.DownloadClients
+namespace Askarr.WebApi.Controllers.DownloadClients
 {
     public class DownloadClientsSettingsProvider
     {
@@ -14,13 +14,19 @@ namespace  Askarr.WebApi.Controllers.DownloadClients
         {
             dynamic settings = SettingsFile.Read();
 
+            var ombiSettings = new OmbiSettingsProvider().Provide();
+            var overseerrSettings = new OverseerrSettingsProvider().Provide();
+            var radarrSettings = new RadarrSettingsProvider().Provide();
+            var sonarrSettings = new SonarrSettingsProvider().Provide();
+            var lidarrSettings = new LidarrSettingsProvider().Provide();
+
             return new DownloadClientsSettings
             {
-                Ombi = new OmbiSettingsProvider().Provide(),
-                Overseerr = new OverseerrSettingsProvider().Provide(),
-                Radarr = new RadarrSettingsProvider().Provide(),
-                Sonarr = new SonarrSettingsProvider().Provide(),
-                Lidarr = new LidarrSettingsProvider().Provider()
+                Ombi = ombiSettings.ToConfigSettings(),
+                Overseerr = overseerrSettings.ToConfigSettings(),
+                Radarr = radarrSettings.ToConfigSettings(),
+                Sonarr = sonarrSettings.ToConfigSettings(),
+                Lidarr = lidarrSettings.ToConfigSettings()
             };
         }
     }
