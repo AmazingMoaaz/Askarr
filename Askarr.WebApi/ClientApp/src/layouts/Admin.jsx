@@ -23,7 +23,10 @@ import { Container } from "reactstrap";
 // core components
 import AdminFooter from "../components/Footers/AdminFooter.jsx";
 import Sidebar from "../components/Sidebar/Sidebar.jsx";
-import { validateLogin } from "../store/actions/UserActions"
+import AdminNavbar from "../components/Navbars/AdminNavbar.jsx";
+import { validateLogin } from "../store/actions/UserActions";
+import LoadingSpinner from "../components/Loaders/LoadingSpinner.jsx";
+import { ThemeProvider } from "../contexts/ThemeContext.jsx";
 
 import routes from "../routes.js";
 import AskarrLogo from "../assets/img/brand/askarr_black.svg";
@@ -44,13 +47,12 @@ function Admin(props) {
 
   useEffect(() => {
     dispatch(validateLogin())
-      .then(data => setIsLoading(false));
-  }, []);
-
-
-  if (!isLoading) {
-    mainContent.scrollTop = 0;
-  }
+      .then(data => setIsLoading(false))
+      .catch(error => {
+        console.error("Login validation error:", error);
+        setIsLoading(false);
+      });
+  }, [dispatch]);
 
 
   const getRoutes = routes => {
@@ -69,8 +71,12 @@ function Admin(props) {
     });
   };
 
-  if (!isLoading) {
-    return (
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  return (
+    <ThemeProvider>
       <>
         <Sidebar
           {...props}
@@ -82,20 +88,17 @@ function Admin(props) {
           }}
         />
         <div className="main-content" ref={mainContent}>
+          <AdminNavbar {...props} brandText="Askarr Dashboard" />
           <Routes>
             {
-              !isLoading
-                ? reduxState.isLoggedIn
-                  ? getRoutes(routes)
-                  : null
+              reduxState.isLoggedIn
+                ? getRoutes(routes)
                 : null
             }
             {
-              !isLoading ?
-                reduxState.isLoggedIn ?
-                  <Route path="*" element={<Navigate to="/admin/chatclients" />} />
-                  : <Route path="*" element={<Navigate to="/auth/" />} />
-                : null
+              reduxState.isLoggedIn 
+                ? <Route path="*" element={<Navigate to="/admin/chatclients" />} />
+                : <Route path="*" element={<Navigate to="/auth/" />} />
             }
           </Routes>
           <Container fluid>
@@ -103,10 +106,8 @@ function Admin(props) {
           </Container>
         </div>
       </>
-    );
-  }
-
-  return null;
+    </ThemeProvider>
+  );
 }
 
 export default Admin;

@@ -109,7 +109,9 @@ namespace Askarr.WebApi.Controllers.ChatClients
                 TelegramAutomaticallyNotifyRequesters = _telegramSettings.AutomaticallyNotifyRequesters,
                 TelegramNotificationMode = _telegramSettings.NotificationMode ?? "PrivateMessages",
                 // Common settings
-                Language = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_chatClientsSettings.Language.ToLower()),
+                Language = !string.IsNullOrWhiteSpace(_chatClientsSettings.Language) 
+                    ? System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_chatClientsSettings.Language.ToLower()) 
+                    : "English",
                 AvailableLanguages = GetLanguages()
             });
         }
@@ -281,7 +283,19 @@ namespace Askarr.WebApi.Controllers.ChatClients
                 }
 
                 // Update common settings
-                _chatClientsSettings.Language = model.Language;
+                if (string.IsNullOrWhiteSpace(model.Language))
+                {
+                    model.Language = "english"; // Default to English if no language provided
+                }
+                
+                // Validate that the language file exists
+                string languageFilePath = Program.CombindPath($"locales/{model.Language.ToLower()}.json");
+                if (!System.IO.File.Exists(languageFilePath))
+                {
+                    return BadRequest($"The selected language '{model.Language}' is not available.");
+                }
+                
+                _chatClientsSettings.Language = model.Language.ToLower();
                 _botClientsSettings.Client = model.Client;
 
                 // Save settings

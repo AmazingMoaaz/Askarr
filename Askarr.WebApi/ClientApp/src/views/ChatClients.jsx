@@ -69,16 +69,6 @@ function ChatClients(props) {
   const [telegramBotToken, setTelegramBotToken] = useState("");
   const [telegramBotTokenChanged, setTelegramBotTokenChanged] = useState(false);
   const [telegramBotTokenInvalid, setTelegramBotTokenInvalid] = useState(false);
-  const [tvShowRoles, setTvShowRoles] = useState([]);
-  const [movieRoles, setMovieRoles] = useState([]);
-  const [musicRoles, setMusicRoles] = useState([]);
-  const [automaticallyNotifyRequesters, setAutomaticallyNotifyRequesters] = useState(true);
-  const [notificationMode, setNotificationMode] = useState("PrivateMessages");
-  const [notificationChannels, setNotificationChannels] = useState([]);
-  const [automaticallyPurgeCommandMessages, setAutomaticallyPurgeCommandMessages] = useState(true);
-  const [language, setLanguage] = useState("english");
-  const [availableLanguages, setAvailableLanguages] = useState([]);
-  const [telegramMonitoredChats, setTelegramMonitoredChats] = useState([]);
   const [telegramNotificationChats, setTelegramNotificationChats] = useState([]);
   const [telegramMovieRoles, setTelegramMovieRoles] = useState([]);
   const [telegramTvRoles, setTelegramTvRoles] = useState([]);
@@ -87,6 +77,16 @@ function ChatClients(props) {
   const [telegramAutomaticallyNotifyRequesters, setTelegramAutomaticallyNotifyRequesters] = useState(true);
   const [telegramNotificationMode, setTelegramNotificationMode] = useState("PrivateMessages");
   const [activeTab, setActiveTab] = useState("general");
+  const [language, setLanguage] = useState("english");
+  const [availableLanguages, setAvailableLanguages] = useState([]);
+  const [telegramMonitoredChats, setTelegramMonitoredChats] = useState([]);
+  const [tvShowRoles, setTvShowRoles] = useState([]);
+  const [movieRoles, setMovieRoles] = useState([]);
+  const [musicRoles, setMusicRoles] = useState([]);
+  const [automaticallyNotifyRequesters, setAutomaticallyNotifyRequesters] = useState(true);
+  const [notificationMode, setNotificationMode] = useState("PrivateMessages");
+  const [notificationChannels, setNotificationChannels] = useState([]);
+  const [automaticallyPurgeCommandMessages, setAutomaticallyPurgeCommandMessages] = useState(true);
 
   const dispatch = useDispatch();
   const userToken = useSelector(state => state.user.token);
@@ -110,8 +110,8 @@ function ChatClients(props) {
         setNotificationMode(data.payload.notificationMode);
         setNotificationChannels(data.payload.notificationChannels);
         setAutomaticallyPurgeCommandMessages(data.payload.automaticallyPurgeCommandMessages);
-        setLanguage(data.payload.language);
-        setAvailableLanguages(data.payload.availableLanguages);
+        setLanguage(data.payload.language ? data.payload.language.toLowerCase() : "english");
+        setAvailableLanguages(data.payload.availableLanguages || []);
         setTelegramMonitoredChats(data.payload.telegramMonitoredChats);
         setTelegramNotificationChats(data.payload.telegramNotificationChats || []);
         setTelegramMovieRoles(data.payload.telegramMovieRoles || []);
@@ -503,9 +503,9 @@ function ChatClients(props) {
                         <Dropdown
                           id="input-language"
                           placeholder="Select a language"
-                          options={availableLanguages.map(x => ({ label: x, value: x.toLowerCase() }))}
+                          items={availableLanguages.map(x => ({ name: x, value: x.toLowerCase() }))}
                           value={language}
-                          onSelect={({ value }) => setLanguage(value)}
+                          onChange={(value) => setLanguage(value)}
                         />
                       </FormGroup>
                     </Col>

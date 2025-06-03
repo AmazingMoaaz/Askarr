@@ -1,0 +1,166 @@
+// Dark mode styles
+@import "color-palette";
+
+.dark-mode {
+  // Background and text colors
+  background-color: $dark-bg;
+  color: $dark-text-primary;
+
+  // Navbar
+  .navbar-dark {
+    background-color: $dark-surface !important;
+    border-color: rgba($white, 0.05);
+  }
+
+  // Sidebar
+  .navbar-vertical.navbar-expand-md {
+    background-color: $dark-surface !important;
+    border-color: rgba($white, 0.05);
+
+    .navbar-brand {
+      color: $white;
+    }
+
+    .navbar-nav .nav-link {
+      color: rgba($white, 0.8);
+
+      &:hover,
+      &:focus,
+      &.active {
+        color: $white;
+        background-color: rgba($primary, 0.15);
+      }
+
+      i {
+        color: rgba($white, 0.6);
+      }
+    }
+  }
+
+  // Cards
+  .card {
+    background-color: $dark-surface;
+    border-color: rgba($white, 0.05);
+    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
+
+    .card-header {
+      background-color: rgba($primary, 0.05);
+      border-bottom: 1px solid rgba($white, 0.05);
+    }
+
+    .card-footer {
+      background-color: rgba($primary, 0.05);
+      border-top: 1px solid rgba($white, 0.05);
+    }
+  }
+
+  // Tables
+  .table {
+    color: $dark-text-primary;
+
+    thead th {
+      border-bottom: 2px solid rgba($white, 0.1);
+      background-color: rgba($primary, 0.1);
+    }
+
+    td, th {
+      border-top: 1px solid rgba($white, 0.1);
+    }
+
+    &.table-hover tbody tr:hover {
+      background-color: rgba($primary, 0.05);
+    }
+  }
+
+  // Forms
+  .form-control {
+    background-color: $dark-surface-2;
+    border-color: rgba($white, 0.1);
+    color: $dark-text-primary;
+
+    &:focus {
+      background-color: $dark-surface-2;
+      border-color: rgba($primary, 0.5);
+      color: $dark-text-primary;
+    }
+
+    &::placeholder {
+      color: $dark-text-secondary;
+    }
+  }
+
+  // Buttons
+  .btn-secondary {
+    background-color: $dark-surface-2;
+    border-color: $dark-surface-2;
+  }
+
+  // Modals
+  .modal-content {
+    background-color: $dark-surface;
+    border-color: rgba($white, 0.05);
+
+    .modal-header {
+      border-bottom: 1px solid rgba($white, 0.05);
+    }
+
+    .modal-footer {
+      border-top: 1px solid rgba($white, 0.05);
+    }
+  }
+
+  // Footer
+  .footer {
+    background-color: $dark-surface !important;
+  }
+
+  // Dropdown menus
+  .dropdown-menu {
+    background-color: $dark-surface;
+    border-color: rgba($white, 0.05);
+
+    .dropdown-item {
+      color: $dark-text-primary;
+
+      &:hover,
+      &:focus {
+        background-color: rgba($primary, 0.1);
+        color: $white;
+      }
+    }
+  }
+  
+  // Badges
+  .badge {
+    &.badge-secondary {
+      background-color: $dark-surface-2;
+      color: $dark-text-primary;
+    }
+  }
+  
+  // List groups
+  .list-group-item {
+    background-color: $dark-surface;
+    border-color: rgba($white, 0.05);
+    color: $dark-text-primary;
+    
+    &.active {
+      background-color: $primary;
+      border-color: $primary;
+    }
+  }
+  
+  // Alerts
+  .alert {
+    &.alert-secondary {
+      background-color: $dark-surface-2;
+      border-color: rgba($white, 0.05);
+      color: $dark-text-primary;
+    }
+  }
+  
+  // Progress bars
+  .progress {
+    background-color: $dark-surface-2;
+  }
+} 

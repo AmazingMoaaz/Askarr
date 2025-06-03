@@ -1,0 +1,304 @@
+// Sortable table component styles
+@import "color-palette";
+
+.sortable-table {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0 2rem 0 rgba($gray-500, 0.15);
+  
+  // Table header
+  .sortable-header {
+    background-color: rgba($primary, 0.05);
+    color: $gray-700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    
+    th {
+      padding: 1rem;
+      border-bottom: 1px solid $gray-200;
+      position: relative;
+      vertical-align: middle;
+      transition: all 0.2s ease;
+      
+      &.sortable {
+        cursor: pointer;
+        user-select: none;
+        
+        &:hover {
+          background-color: rgba($primary, 0.1);
+        }
+        
+        .sort-icon {
+          margin-left: 0.5rem;
+          display: inline-block;
+          width: 0.8rem;
+          height: 0.8rem;
+          position: relative;
+          
+          &:before, &:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+          }
+          
+          &:before {
+            top: 0;
+            border-width: 0 4px 5px 4px;
+            border-color: transparent transparent $gray-400 transparent;
+          }
+          
+          &:after {
+            bottom: 0;
+            border-width: 5px 4px 0 4px;
+            border-color: $gray-400 transparent transparent transparent;
+          }
+        }
+        
+        &.asc .sort-icon {
+          &:before {
+            border-color: transparent transparent $primary transparent;
+          }
+        }
+        
+        &.desc .sort-icon {
+          &:after {
+            border-color: $primary transparent transparent transparent;
+          }
+        }
+      }
+    }
+  }
+  
+  // Table body
+  tbody {
+    tr {
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: rgba($primary, 0.05);
+      }
+      
+      &.selected {
+        background-color: rgba($primary, 0.1);
+      }
+      
+      &:last-child td {
+        border-bottom: none;
+      }
+    }
+    
+    td {
+      padding: 1rem;
+      vertical-align: middle;
+      border-bottom: 1px solid $gray-200;
+      color: $gray-700;
+    }
+  }
+  
+  // Empty state
+  .empty-state {
+    padding: 3rem;
+    text-align: center;
+    
+    .empty-icon {
+      font-size: 3rem;
+      color: $gray-400;
+      margin-bottom: 1rem;
+    }
+    
+    .empty-text {
+      color: $gray-600;
+      font-size: 1rem;
+    }
+  }
+  
+  // Table footer with pagination
+  .table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba($primary, 0.02);
+    padding: 1rem;
+    border-top: 1px solid $gray-200;
+    
+    .pagination-info {
+      color: $gray-600;
+      font-size: 0.875rem;
+    }
+    
+    .pagination {
+      margin-bottom: 0;
+      
+      .page-item {
+        &.active .page-link {
+          background-color: $primary;
+          border-color: $primary;
+        }
+        
+        .page-link {
+          padding: 0.5rem 0.75rem;
+          color: $primary;
+          border: 1px solid $gray-300;
+          border-radius: 0.25rem;
+          margin: 0 0.2rem;
+          
+          &:hover {
+            background-color: rgba($primary, 0.05);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive behavior
+@media (max-width: 768px) {
+  .sortable-table {
+    .sortable-header {
+      display: none;
+    }
+    
+    tbody {
+      tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid $gray-200;
+        border-radius: 0.5rem;
+        
+        td {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          text-align: right;
+          border-bottom: 1px solid $gray-200;
+          padding: 0.75rem 1rem;
+          
+          &:before {
+            content: attr(data-label);
+            font-weight: 600;
+            color: $gray-600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            margin-right: 1rem;
+          }
+          
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+    
+    .table-footer {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+}
+
+// Dark mode support
+.dark-mode {
+  .sortable-table {
+    box-shadow: 0 0 2rem 0 rgba($black, 0.2);
+    
+    .sortable-header {
+      background-color: rgba($primary, 0.1);
+      color: $dark-text-primary;
+      
+      th {
+        border-bottom: 1px solid rgba($white, 0.1);
+        
+        &.sortable {
+          &:hover {
+            background-color: rgba($primary, 0.2);
+          }
+          
+          .sort-icon {
+            &:before {
+              border-color: transparent transparent $gray-600 transparent;
+            }
+            
+            &:after {
+              border-color: $gray-600 transparent transparent transparent;
+            }
+          }
+          
+          &.asc .sort-icon {
+            &:before {
+              border-color: transparent transparent $primary-light transparent;
+            }
+          }
+          
+          &.desc .sort-icon {
+            &:after {
+              border-color: $primary-light transparent transparent transparent;
+            }
+          }
+        }
+      }
+    }
+    
+    tbody {
+      tr {
+        &:hover {
+          background-color: rgba($primary, 0.1);
+        }
+        
+        &.selected {
+          background-color: rgba($primary, 0.2);
+        }
+      }
+      
+      td {
+        border-bottom: 1px solid rgba($white, 0.1);
+        color: $dark-text-primary;
+      }
+    }
+    
+    .empty-state {
+      .empty-icon {
+        color: $gray-600;
+      }
+      
+      .empty-text {
+        color: $dark-text-secondary;
+      }
+    }
+    
+    .table-footer {
+      background-color: rgba($primary, 0.05);
+      border-top: 1px solid rgba($white, 0.1);
+      
+      .pagination-info {
+        color: $dark-text-secondary;
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .sortable-table {
+      tbody {
+        tr {
+          border: 1px solid rgba($white, 0.1);
+          
+          td {
+            border-bottom: 1px solid rgba($white, 0.1);
+            
+            &:before {
+              color: $dark-text-secondary;
+            }
+          }
+        }
+      }
+    }
+  }
+} 

@@ -1,0 +1,179 @@
+// Modern Color Palette for Askarr
+
+// Primary Colors
+$primary: #4361ee; // Main brand color
+$primary-light: #4895ef;
+$primary-dark: #3f37c9;
+
+// Secondary Colors
+$secondary: #4cc9f0;
+$secondary-light: #72efdd;
+$secondary-dark: #3a86ff;
+
+// Accent Colors
+$accent-1: #f72585; // Pink
+$accent-2: #7209b7; // Purple
+$accent-3: #4cc9f0; // Cyan
+
+// Neutral Colors
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+// Success, Warning, Danger, Info
+$success: #2ecc71;
+$success-light: #7ae582;
+$success-dark: #25a25a;
+
+$warning: #f39c12;
+$warning-light: #ffbe0b;
+$warning-dark: #e67e22;
+
+$danger: #e74c3c;
+$danger-light: #ff5d8f;
+$danger-dark: #c0392b;
+
+$info: #3498db;
+$info-light: #73e2e6;
+$info-dark: #2980b9;
+
+// Dark Mode Colors
+$dark-bg: #121212;
+$dark-surface: #1e1e1e;
+$dark-surface-2: #2d2d2d;
+$dark-text-primary: rgba(255, 255, 255, 0.87);
+$dark-text-secondary: rgba(255, 255, 255, 0.6);
+
+// CSS Variables for easy access in JS
+:root {
+  --primary: #{$primary};
+  --primary-light: #{$primary-light};
+  --primary-dark: #{$primary-dark};
+  
+  --secondary: #{$secondary};
+  --secondary-light: #{$secondary-light};
+  --secondary-dark: #{$secondary-dark};
+  
+  --accent-1: #{$accent-1};
+  --accent-2: #{$accent-2};
+  --accent-3: #{$accent-3};
+  
+  --success: #{$success};
+  --success-light: #{$success-light};
+  --success-dark: #{$success-dark};
+  
+  --warning: #{$warning};
+  --warning-light: #{$warning-light};
+  --warning-dark: #{$warning-dark};
+  
+  --danger: #{$danger};
+  --danger-light: #{$danger-light};
+  --danger-dark: #{$danger-dark};
+  
+  --info: #{$info};
+  --info-light: #{$info-light};
+  --info-dark: #{$info-dark};
+  
+  --gray-100: #{$gray-100};
+  --gray-200: #{$gray-200};
+  --gray-300: #{$gray-300};
+  --gray-400: #{$gray-400};
+  --gray-500: #{$gray-500};
+  --gray-600: #{$gray-600};
+  --gray-700: #{$gray-700};
+  --gray-800: #{$gray-800};
+  --gray-900: #{$gray-900};
+}
+
+// Dark mode variables
+.dark-mode {
+  --primary: #{lighten($primary, 5%)};
+  --primary-light: #{lighten($primary-light, 5%)};
+  --primary-dark: #{lighten($primary-dark, 5%)};
+  
+  --secondary: #{lighten($secondary, 5%)};
+  --secondary-light: #{lighten($secondary-light, 5%)};
+  --secondary-dark: #{lighten($secondary-dark, 5%)};
+  
+  --accent-1: #{lighten($accent-1, 5%)};
+  --accent-2: #{lighten($accent-2, 5%)};
+  --accent-3: #{lighten($accent-3, 5%)};
+  
+  --success: #{lighten($success, 5%)};
+  --success-light: #{lighten($success-light, 5%)};
+  --success-dark: #{lighten($success-dark, 5%)};
+  
+  --warning: #{lighten($warning, 5%)};
+  --warning-light: #{lighten($warning-light, 5%)};
+  --warning-dark: #{lighten($warning-dark, 5%)};
+  
+  --danger: #{lighten($danger, 5%)};
+  --danger-light: #{lighten($danger-light, 5%)};
+  --danger-dark: #{lighten($danger-dark, 5%)};
+  
+  --info: #{lighten($info, 5%)};
+  --info-light: #{lighten($info-light, 5%)};
+  --info-dark: #{lighten($info-dark, 5%)};
+  
+  --gray-100: #{$dark-surface-2};
+  --gray-200: #{$dark-surface};
+  --gray-300: #{darken($dark-surface, 3%)};
+  --gray-400: #{darken($dark-surface, 6%)};
+  --gray-500: #{$dark-text-secondary};
+  --gray-600: #{rgba($dark-text-secondary, 0.8)};
+  --gray-700: #{rgba($dark-text-primary, 0.8)};
+  --gray-800: #{rgba($dark-text-primary, 0.9)};
+  --gray-900: #{$dark-text-primary};
+}
+
+// Color utility classes
+.bg-primary { background-color: var(--primary) !important; }
+.bg-primary-light { background-color: var(--primary-light) !important; }
+.bg-primary-dark { background-color: var(--primary-dark) !important; }
+
+.bg-secondary { background-color: var(--secondary) !important; }
+.bg-secondary-light { background-color: var(--secondary-light) !important; }
+.bg-secondary-dark { background-color: var(--secondary-dark) !important; }
+
+.bg-accent-1 { background-color: var(--accent-1) !important; }
+.bg-accent-2 { background-color: var(--accent-2) !important; }
+.bg-accent-3 { background-color: var(--accent-3) !important; }
+
+.bg-success { background-color: var(--success) !important; }
+.bg-warning { background-color: var(--warning) !important; }
+.bg-danger { background-color: var(--danger) !important; }
+.bg-info { background-color: var(--info) !important; }
+
+.text-primary { color: var(--primary) !important; }
+.text-primary-light { color: var(--primary-light) !important; }
+.text-primary-dark { color: var(--primary-dark) !important; }
+
+.text-secondary { color: var(--secondary) !important; }
+.text-secondary-light { color: var(--secondary-light) !important; }
+.text-secondary-dark { color: var(--secondary-dark) !important; }
+
+.text-accent-1 { color: var(--accent-1) !important; }
+.text-accent-2 { color: var(--accent-2) !important; }
+.text-accent-3 { color: var(--accent-3) !important; }
+
+.text-success { color: var(--success) !important; }
+.text-warning { color: var(--warning) !important; }
+.text-danger { color: var(--danger) !important; }
+.text-info { color: var(--info) !important; }
+
+// Border colors
+.border-primary { border-color: var(--primary) !important; }
+.border-secondary { border-color: var(--secondary) !important; }
+.border-accent-1 { border-color: var(--accent-1) !important; }
+.border-accent-2 { border-color: var(--accent-2) !important; }
+.border-accent-3 { border-color: var(--accent-3) !important; }
+.border-success { border-color: var(--success) !important; }
+.border-warning { border-color: var(--warning) !important; }
+.border-danger { border-color: var(--danger) !important; }
+.border-info { border-color: var(--info) !important; } 

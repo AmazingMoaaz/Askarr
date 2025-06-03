@@ -15,12 +15,14 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useDispatch } from 'react-redux';
 import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
-import { getSettings } from "../../store/actions/SettingsActions"
+import { getSettings } from "../../store/actions/SettingsActions";
+import { ThemeContext } from "../../contexts/ThemeContext";
+import LoadingSpinner from "../Loaders/LoadingSpinner";
 
 // reactstrap components
 import {
@@ -32,7 +34,8 @@ import {
   Nav,
   Container,
   Row,
-  Col
+  Col,
+  Badge
 } from "reactstrap";
 
 
@@ -41,6 +44,7 @@ function Sidebar(props) {
   const [collapseOpen, setCollapseOpen] = useState(false);
   const [disableAuthentication, setDisableAuthentication] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const { darkMode } = useContext(ThemeContext);
 
   const dispatch = useDispatch();
 
@@ -49,8 +53,12 @@ function Sidebar(props) {
       .then(data => {
         setIsLoading(false);
         setDisableAuthentication(data.payload.disableAuthentication);
+      })
+      .catch(error => {
+        console.error("Error loading settings:", error);
+        setIsLoading(false);
       });
-  }, []);
+  }, [dispatch]);
 
 
 
@@ -70,14 +78,6 @@ function Sidebar(props) {
     };
   }
 
-
-
-  // verifies if routeName is the one active (in browser input)
-  // const activeRoute = (routeName) => {
-  //   return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
-  // };
-
-
   // toggles collapse between opened and closed (true/false)
   const toggleCollapse = () => {
     setCollapseOpen(!collapseOpen);
@@ -96,15 +96,20 @@ function Sidebar(props) {
       return (
         !disableAuthentication || (disableAuthentication && prop.supportsAnonymousUser) ?
           <NavItem key={key}>
-            {/* <NavLink */}
             <NavLink
               to={prop.layout + prop.path}
               tag={NavLinkRRD}
               onClick={closeCollapse}
               activeclassname="active"
+              className="d-flex align-items-center"
             >
               <i className={prop.icon} />
-              {prop.name}
+              <span className="nav-link-text">{prop.name}</span>
+              {prop.badge && (
+                <Badge color={prop.badgeColor || "primary"} pill className="ml-auto">
+                  {prop.badge}
+                </Badge>
+              )}
             </NavLink>
           </NavItem>
           : null
@@ -112,11 +117,13 @@ function Sidebar(props) {
     });
   };
 
-
+  if (isLoading) {
+    return <LoadingSpinner size={40} />;
+  }
 
   return (
     <Navbar
-      className={isLoading ? " navbar-vertical fixed-left navbar-light bg-white fade" : "navbar-vertical fixed-left navbar-light bg-white fade show"}
+      className={`navbar-vertical fixed-left ${darkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-white'} fade show`}
       expand="md"
       id="sidenav-main"
     >
@@ -170,25 +177,42 @@ function Sidebar(props) {
               </Col>
             </Row>
           </div>
-          <Nav navbar>
+          <Nav navbar className="mb-md-3">
             {createLinks(routes)}
           </Nav>
-          <hr className="my-3" />
-          <h6 className="navbar-heading text-muted">Support</h6>
-          <ul className="mb-md-3 navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link" target="_blank" href="https://github.com/thomst08/Askarr/wiki"><i className="fas big fa-book" style={{ color: 'darkgreen' }}></i>Wiki</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" target="_blank" href="https://www.paypal.com/donate/?business=QT2Y72ABMYJNG&no_recurring=0&currency_code=AUD"><i className="fas big fa-heart text-red"></i>Donate</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" target="_blank" href="https://discord.gg/atjrUen5fJ"><i className="fab big fa-discord" style={{ color: '#7289DA' }}></i>Discord</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" target="_blank" href="https://github.com/thomst08/Askarr/issues"><i className="fab big fa-github" style={{ color: 'black' }} ></i>Github</a>
-            </li>
-          </ul>
+          <hr className={`my-3 ${darkMode ? 'border-dark' : ''}`} />
+          <h6 className={`navbar-heading ${darkMode ? 'text-light' : 'text-muted'}`}>Support</h6>
+          <Nav navbar className="mb-md-3">
+            <NavItem>
+              <NavLink href="https://github.com/thomst08/Askarr/wiki" target="_blank" className="nav-link-icon">
+                <i className="fas fa-book mr-2" style={{ color: darkMode ? '#28a745' : 'darkgreen' }}></i>
+                <span className="nav-link-text">Wiki</span>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="https://www.paypal.com/donate/?business=QT2Y72ABMYJNG&no_recurring=0&currency_code=AUD" target="_blank" className="nav-link-icon">
+                <i className="fas fa-heart mr-2 text-red"></i>
+                <span className="nav-link-text">Donate</span>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="https://discord.gg/atjrUen5fJ" target="_blank" className="nav-link-icon">
+                <i className="fab fa-discord mr-2" style={{ color: '#7289DA' }}></i>
+                <span className="nav-link-text">Discord</span>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="https://github.com/thomst08/Askarr/issues" target="_blank" className="nav-link-icon">
+                <i className="fab fa-github mr-2" style={{ color: darkMode ? '#fff' : '#000' }}></i>
+                <span className="nav-link-text">Github</span>
+              </NavLink>
+            </NavItem>
+          </Nav>
+          <div className="mt-auto text-center py-4">
+            <small className={`${darkMode ? 'text-light' : 'text-muted'}`}>
+              Askarr v2.1.7
+            </small>
+          </div>
         </Collapse>
       </Container>
     </Navbar>
@@ -199,8 +223,6 @@ function Sidebar(props) {
 Sidebar.defaultProps = {
   routes: [{}]
 };
-
-
 
 Sidebar.propTypes = {
   // links that will be displayed inside the component
@@ -218,6 +240,5 @@ Sidebar.propTypes = {
     imgAlt: PropTypes.string.isRequired
   })
 };
-
 
 export default Sidebar;

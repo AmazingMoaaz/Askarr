@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Select } from "react-dropdown-select";
 
 import {
@@ -7,46 +7,51 @@ import {
 
 
 function Dropdown(props) {
-  const [selectedValues, setSelectedValues] = useState([{ name: "", value: 838738 }]);
+  const [selectedValues, setSelectedValues] = useState([]);
 
   // Add null/undefined checks for props.items
   const items = props.items || [];
   
-  let newSelectedValues = items.length > 0 
-    ? items.filter(x => x.value === props.value).length > 0 
-      ? items.filter(x => x.value === props.value) 
-      : [items[0]] 
-    : [];
-    
-  if (JSON.stringify(selectedValues) !== JSON.stringify(newSelectedValues))
-    setSelectedValues(newSelectedValues);
+  useEffect(() => {
+    // Update selectedValues when props.value changes
+    if (props.value && items.length > 0) {
+      const newSelectedValue = items.find(item => item.value === props.value);
+      if (newSelectedValue) {
+        setSelectedValues([newSelectedValue]);
+      } else if (items.length > 0) {
+        setSelectedValues([items[0]]);
+      }
+    } else if (items.length > 0) {
+      setSelectedValues([items[0]]);
+    } else {
+      setSelectedValues([]);
+    }
+  }, [props.value, items]);
 
-
-  const onValueChange = (value) =>
-    props.onChange(value);
-
+  const onValueChange = (value) => {
+    if (value && value.length > 0) {
+      props.onChange(value[0].value);
+    }
+  };
 
   return (
     <FormGroup className={props.className}>
-      <label
-        className="form-control-label">
-        {props.name}
-      </label>
+      {props.name && (
+        <label className="form-control-label">
+          {props.name}
+        </label>
+      )}
 
       <Select
-        placeholder=""
+        placeholder={props.placeholder || ""}
         className="dropdown"
         options={items}
         values={selectedValues}
         labelField="name"
         valueField="value"
-        searchable={false}
+        searchable={props.searchable || false}
         clearable={false}
-        onChange={(value) => {
-          if (typeof (value) !== "undefined" && value.length > 0) {
-            onValueChange(value[0].value);
-          }
-        }}
+        onChange={onValueChange}
       />
     </FormGroup>
   );

@@ -1,6 +1,7 @@
 export const HAS_REGISTERED = "auth:has_registered";
 export const LOGGED_IN = "auth:logged_in";
 export const LOGGED_OUT = "auth:logged_out";
+export const ACCOUNT_FETCHED = "auth:account_fetched";
 
 export function setHasRegistered(hasRegistered) {
     return {
@@ -19,6 +20,13 @@ export function setLoggedIn(token) {
 export function setLoggedOut() {
     return {
         type: LOGGED_OUT
+    };
+};
+
+export function setAccountFetched(account) {
+    return {
+        type: ACCOUNT_FETCHED,
+        payload: account
     };
 };
 

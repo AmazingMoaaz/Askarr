@@ -1,0 +1,219 @@
+// Modern table styles
+@import "color-palette";
+
+// Enhanced tables
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  
+  // Table header
+  thead th {
+    background-color: rgba($primary, 0.05);
+    color: $gray-700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    border-bottom: 1px solid $gray-200;
+    padding: 1rem;
+    vertical-align: middle;
+    position: relative;
+    
+    // Sort icons
+    &.sortable {
+      cursor: pointer;
+      user-select: none;
+      
+      &:after {
+        content: '\f0dc';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        margin-left: 0.5rem;
+        opacity: 0.5;
+      }
+      
+      &.asc:after {
+        content: '\f0de';
+        opacity: 1;
+        color: $primary;
+      }
+      
+      &.desc:after {
+        content: '\f0dd';
+        opacity: 1;
+        color: $primary;
+      }
+    }
+  }
+  
+  // Table body
+  tbody {
+    tr {
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: rgba($primary, 0.05);
+      }
+      
+      &.selected {
+        background-color: rgba($primary, 0.1);
+      }
+    }
+    
+    td {
+      padding: 1rem;
+      vertical-align: middle;
+      border-top: 1px solid $gray-200;
+      color: $gray-700;
+    }
+  }
+  
+  // Striped tables
+  &.table-striped {
+    tbody tr:nth-of-type(odd) {
+      background-color: rgba($gray-100, 0.5);
+      
+      &:hover {
+        background-color: rgba($primary, 0.05);
+      }
+    }
+  }
+  
+  // Bordered tables
+  &.table-bordered {
+    border: 1px solid $gray-200;
+    
+    th, td {
+      border: 1px solid $gray-200;
+    }
+  }
+}
+
+// Table actions
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  .btn-action {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.15s ease;
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+  }
+}
+
+// Table pagination
+.table-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  
+  .pagination {
+    margin-bottom: 0;
+    
+    .page-item {
+      &.active .page-link {
+        background-color: $primary;
+        border-color: $primary;
+      }
+      
+      .page-link {
+        padding: 0.5rem 0.75rem;
+        color: $primary;
+        border: 1px solid $gray-300;
+        border-radius: 0.25rem;
+        margin: 0 0.2rem;
+        
+        &:hover {
+          background-color: $gray-100;
+        }
+      }
+    }
+  }
+  
+  .pagination-info {
+    color: $gray-600;
+    font-size: 0.875rem;
+  }
+}
+
+// Responsive tables
+.table-responsive {
+  border-radius: 0.5rem;
+  box-shadow: 0 0 2rem 0 rgba($gray-500, 0.15);
+  
+  .table {
+    margin-bottom: 0;
+  }
+}
+
+// Dark mode support
+.dark-mode {
+  .table {
+    color: $dark-text-primary;
+    
+    thead th {
+      background-color: rgba($primary, 0.1);
+      color: $dark-text-primary;
+      border-bottom: 1px solid rgba($white, 0.1);
+    }
+    
+    tbody {
+      tr {
+        &:hover {
+          background-color: rgba($white, 0.05);
+        }
+        
+        &.selected {
+          background-color: rgba($primary, 0.2);
+        }
+      }
+      
+      td {
+        border-top: 1px solid rgba($white, 0.1);
+        color: $dark-text-primary;
+      }
+    }
+    
+    &.table-striped {
+      tbody tr:nth-of-type(odd) {
+        background-color: rgba($black, 0.1);
+        
+        &:hover {
+          background-color: rgba($white, 0.05);
+        }
+      }
+    }
+    
+    &.table-bordered {
+      border: 1px solid rgba($white, 0.1);
+      
+      th, td {
+        border: 1px solid rgba($white, 0.1);
+      }
+    }
+  }
+  
+  .table-responsive {
+    box-shadow: 0 0 2rem 0 rgba($black, 0.2);
+  }
+  
+  .pagination-info {
+    color: $dark-text-secondary;
+  }
+} 

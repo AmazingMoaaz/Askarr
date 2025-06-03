@@ -4,6 +4,7 @@
   outline: none;
   box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02) !important;
   border: 0;
+  display: flex;
   align-items: center;
   -webkit-align-items: center;
   -webkit-transition: box-shadow .15s ease;
@@ -12,21 +13,26 @@
   padding: 0.625rem 0.75rem;
   width: 100%;
   line-height: 1.5;
-  color:#8898aa;
-  background-color:#fff;
+  color: #8898aa;
+  background-color: #fff;
   background-clip: padding-box;
   border-radius: 0.375rem;
   font-weight: 400;
   font-size: 0.875rem;
+  z-index: 1;
+  margin-top: 0;
 
   .react-dropdown-select-input {
-    color:#8898aa;
+    color: #8898aa;
     font-weight: 400;
     font-size: 0.875rem;
     padding-left: 1px;
+    min-width: 0;
+    max-width: 90%;
   }
 
   div[role="list"] {
+    position: absolute;
     width: 100%;
     padding: 0;
     margin-bottom: 0;
@@ -36,10 +42,14 @@
     -webkit-transition: box-shadow .15s ease;
     transition: box-shadow .15s ease;
     border-radius: 0.375rem;
+    left: 0;
+    z-index: 1050;
+    top: 100%;
+    overflow: hidden;
 
     span:first-child{
       border-radius: 0.375rem 0.375rem 0 0;
-      }
+    }
 
     span:last-child{
       border-radius: 0 0 0.375rem 0.375rem;
@@ -50,7 +60,7 @@
       padding: 15px;
       background-color: #fff;
       margin-bottom: 0 !important;
-      color:#8898aa;
+      color: #8898aa;
       font-weight: 400;
       font-size: 0.875rem;
       
@@ -69,6 +79,9 @@
   .react-dropdown-select-content {
     height: 23px !important;
     overflow: hidden !important;
+    width: calc(100% - 30px);
+    display: flex;
+    align-items: center;
   }
 
   .react-dropdown-select-type-multi {
@@ -79,15 +92,22 @@
   .react-dropdown-select-item-selected {
     background: #5e72e4 !important;
     color: #fff !important;
-    }
+  }
 
   .react-dropdown-select-dropdown-handle {
     height: 36px !important;
     transition: 0.2s ease;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     svg {
-      width: 30px !important;
-      height: 30px !important;
+      width: 24px !important;
+      height: 24px !important;
 
       path{
         stroke: none !important;
@@ -121,4 +141,9 @@
     height:46px;
     margin-top: 32px;
   }
+}
+
+// Fix for the FormGroup containing dropdowns to align with other form elements
+.form-group .react-dropdown-select.dropdown {
+  margin-top: 0;
 }

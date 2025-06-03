@@ -1,7 +1,7 @@
-
 // Core
 
 @import "custom/functions";
+@import "custom/color-variables";
 @import "custom/variables";
 @import "custom/mixins";
 
@@ -54,14 +54,37 @@
 // React differences
 @import "react/react-differences";
 
+// Custom Dark Mode
+@import "custom/dark-mode";
+
+// Modern UI Components
+@import "custom/modern-inputs";
+@import "custom/modern-tables";
+@import "custom/modern-cards";
+@import "custom/modern-buttons";
+@import "custom/sortable-table";
 
 .dropdown {
     & .react-dropdown-select-content.react-dropdown-select-type-single {
         text-overflow: ellipsis !important;
-          white-space: nowrap;
-          text-decoration: none;
-          overflow: hidden;
-          position: relative;
-          display: inline-block;
+        white-space: nowrap;
+        text-decoration: none;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        max-width: 90%;
     }
+    
+    & .react-dropdown-select-dropdown-handle {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+// Fixes duplicate label issue in dropdowns
+.form-group label + .dropdown label {
+    display: none;
 }

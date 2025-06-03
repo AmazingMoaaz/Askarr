@@ -1,0 +1,103 @@
+// Override Bootstrap's color variables with our custom palette
+@import "color-palette";
+
+// Override Bootstrap theme colors
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $gray-100,
+  "dark": $gray-800,
+  "accent-1": $accent-1,
+  "accent-2": $accent-2,
+  "accent-3": $accent-3
+);
+
+// Override Bootstrap grays
+$white:    #fff;
+$gray-100: $gray-100;
+$gray-200: $gray-200;
+$gray-300: $gray-300;
+$gray-400: $gray-400;
+$gray-500: $gray-500;
+$gray-600: $gray-600;
+$gray-700: $gray-700;
+$gray-800: $gray-800;
+$gray-900: $gray-900;
+$black:    #000;
+
+// Override Bootstrap component colors
+$body-bg:                   $white;
+$body-color:                $gray-900;
+
+$link-color:                $primary;
+$link-hover-color:          darken($link-color, 15%);
+
+$component-active-color:    $white;
+$component-active-bg:       $primary;
+
+// Override card colors
+$card-cap-bg:               rgba($primary, .03);
+$card-border-color:         rgba($black, .05);
+
+// Override input colors
+$input-bg:                  $white;
+$input-disabled-bg:         $gray-200;
+$input-color:               $gray-900;
+$input-border-color:        $gray-300;
+$input-focus-border-color:  lighten($primary, 25%);
+$input-focus-box-shadow:    0 0 0 0.2rem rgba($primary, .25);
+
+// Override dropdown colors
+$dropdown-bg:               $white;
+$dropdown-border-color:     rgba($black, .05);
+$dropdown-divider-bg:       $gray-200;
+$dropdown-link-color:       $gray-900;
+$dropdown-link-hover-color: darken($gray-900, 5%);
+$dropdown-link-hover-bg:    $gray-100;
+$dropdown-link-active-color: $component-active-color;
+$dropdown-link-active-bg:   $component-active-bg;
+
+// Override navbar colors
+$navbar-light-color:        rgba($black, .6);
+$navbar-light-hover-color:  rgba($black, .8);
+$navbar-light-active-color: rgba($black, .9);
+$navbar-light-brand-color:  $navbar-light-active-color;
+
+$navbar-dark-color:         rgba($white, .7);
+$navbar-dark-hover-color:   rgba($white, .8);
+$navbar-dark-active-color:  rgba($white, .9);
+$navbar-dark-brand-color:   $navbar-dark-active-color;
+
+// Override pagination colors
+$pagination-color:          $link-color;
+$pagination-bg:             $white;
+$pagination-border-color:   $gray-300;
+$pagination-hover-color:    $link-hover-color;
+$pagination-hover-bg:       $gray-200;
+$pagination-hover-border-color: $gray-300;
+$pagination-active-color:   $component-active-color;
+$pagination-active-bg:      $component-active-bg;
+$pagination-active-border-color: $pagination-active-bg;
+
+// Dark mode overrides (these will be applied via CSS variables)
+.dark-mode {
+  --body-bg: #{$dark-bg};
+  --body-color: #{$dark-text-primary};
+  
+  --card-cap-bg: #{rgba($primary, .1)};
+  --card-border-color: #{rgba($white, .05)};
+  
+  --input-bg: #{$dark-surface};
+  --input-color: #{$dark-text-primary};
+  --input-border-color: #{rgba($white, .1)};
+  
+  --dropdown-bg: #{$dark-surface};
+  --dropdown-border-color: #{rgba($white, .05)};
+  --dropdown-divider-bg: #{rgba($white, .1)};
+  --dropdown-link-color: #{$dark-text-primary};
+  --dropdown-link-hover-bg: #{rgba($white, .05)};
+} 

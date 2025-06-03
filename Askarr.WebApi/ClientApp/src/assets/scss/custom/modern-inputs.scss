@@ -1,0 +1,180 @@
+// Modern form inputs and controls
+@import "color-palette";
+
+// Enhanced form controls
+.form-control {
+  border-radius: 0.5rem;
+  border: 1px solid $gray-300;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+  box-shadow: none;
+  
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba($primary, 0.15);
+    border-color: $primary;
+  }
+  
+  &.is-valid {
+    border-color: $success;
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba($success, 0.25);
+    }
+  }
+  
+  &.is-invalid {
+    border-color: $danger;
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba($danger, 0.25);
+    }
+  }
+}
+
+// Custom selects
+.custom-select,
+.react-dropdown-select {
+  border-radius: 0.5rem !important;
+  padding: 0.75rem 1rem !important;
+  border: 1px solid $gray-300 !important;
+  min-height: 45px !important;
+  box-shadow: none !important;
+  
+  &:focus, &:active, &.active {
+    box-shadow: 0 0 0 0.2rem rgba($primary, 0.15) !important;
+    border-color: $primary !important;
+  }
+}
+
+// Custom checkboxes and radios
+.custom-control {
+  padding-left: 1.75rem;
+  
+  .custom-control-input {
+    &:checked ~ .custom-control-label::before {
+      background-color: $primary;
+      border-color: $primary;
+    }
+    
+    &:focus ~ .custom-control-label::before {
+      box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
+    }
+  }
+  
+  .custom-control-label {
+    &::before {
+      border-radius: 0.25rem;
+      border: 1px solid $gray-400;
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+    
+    &::after {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+}
+
+// Input groups
+.input-group {
+  .input-group-text {
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    background-color: $gray-100;
+    border: 1px solid $gray-300;
+  }
+  
+  .input-group-prepend .input-group-text {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .input-group-append .input-group-text {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .form-control {
+    &:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    
+    &:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+// Form labels
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: $gray-700;
+}
+
+// Floating labels
+.form-group.has-floating-label {
+  position: relative;
+  
+  .form-control {
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .floating-label {
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+    font-size: 0.75rem;
+    color: $gray-600;
+    pointer-events: none;
+    transition: all 0.2s ease;
+  }
+  
+  .form-control:focus + .floating-label,
+  .form-control:not(:placeholder-shown) + .floating-label {
+    top: 0.25rem;
+    color: $primary;
+  }
+}
+
+// Dark mode support
+.dark-mode {
+  .form-control {
+    background-color: $dark-surface-2;
+    border-color: rgba($white, 0.1);
+    color: $dark-text-primary;
+    
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
+      border-color: $primary;
+    }
+    
+    &::placeholder {
+      color: $dark-text-secondary;
+    }
+  }
+  
+  .custom-select,
+  .react-dropdown-select {
+    background-color: $dark-surface-2 !important;
+    border-color: rgba($white, 0.1) !important;
+    color: $dark-text-primary !important;
+  }
+  
+  .input-group-text {
+    background-color: $dark-surface;
+    border-color: rgba($white, 0.1);
+    color: $dark-text-primary;
+  }
+  
+  .form-label {
+    color: $dark-text-primary;
+  }
+  
+  .floating-label {
+    color: $dark-text-secondary;
+  }
+} 
