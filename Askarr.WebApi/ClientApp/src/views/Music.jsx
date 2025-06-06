@@ -1,12 +1,12 @@
-
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from "reactstrap";
 import { getSettings } from "../store/actions/MusicClientsActions";
-import { saveDisabledClient } from "../store/actions/MusicClientsActions"
+import { saveDisabledClient } from "../store/actions/MusicClientsActions";
 import { saveLidarrClient } from "../store/actions/LidarrClientActions";
-import Dropdown from "../components/Inputs/Dropdown"
 import Lidarr from "../components/DownloadClients/Lidarr/Lidarr";
+import ClientCard from "../components/Cards/ClientCard";
+import ModernHeader from "../components/Headers/ModernHeader";
 
 // reactstrap components
 import {
@@ -14,17 +14,14 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
   Form,
   Container,
   Row,
-  Col
+  Col,
+  Spinner
 } from "reactstrap";
-// core components
-import UserHeader from "../components/Headers/UserHeader.jsx";
 
-
-function Music(props) {
+function Music() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -35,14 +32,12 @@ function Music(props) {
   const [lidarr, setLidarr] = useState({});
   const [isLidarrValid, setIsLidarrValid] = useState(false);
 
-
   const reduxState = useSelector((state) => {
     return {
       settings: state.music
     };
   });
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     dispatch(getSettings())
@@ -53,16 +48,12 @@ function Music(props) {
       });
   }, []);
 
-
   useEffect(() => {
     if (!isSubmitted)
       return;
 
     if (!isSaving) {
-      if ((client === "Disabled"
-        || (client === "Lidarr"
-          && isLidarrValid)
-      )) {
+      if ((client === "Disabled" || (client === "Lidarr" && isLidarrValid))) {
         setIsSaving(true);
 
         let saveAction = null;
@@ -103,10 +94,9 @@ function Music(props) {
     }
   }, [isSubmitted]);
 
-
-  const onClientChange = () => {
+  const onClientChange = (newClient) => {
+    setClient(newClient);
     setLidarr(reduxState.settings.lidarr);
-
     setSaveAttempted(false);
     setIsSubmitted(false);
   }
@@ -116,106 +106,131 @@ function Music(props) {
     setIsSubmitted(true);
   }
 
-
-
+  const renderClientConfig = () => {
+    if (client === "Disabled") return null;
+    
+    if (client === "Lidarr") {
+      return (
+        <Lidarr
+          onChange={values => setLidarr(values)}
+          onValidate={value => setIsLidarrValid(value)}
+          isSubmitted={isSubmitted}
+          isSaving={isSaving}
+        />
+      );
+    }
+    
+    return null;
+  }
 
   return (
     <>
-      <UserHeader title="Music" description="This page is for configuring the connection between your bot and your favorite music management client" />
+      <ModernHeader 
+        title="Music" 
+        description="Configure connection between your bot and music client"
+        icon="fas fa-music"
+      />
+      
       <Container className="mt--7" fluid>
         <Row>
           <Col className="order-xl-1" xl="12">
-            <Card className="bg-secondary shadow">
+            <Card className="modern-card shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
-                  <Col xs="8">
-                    <h3 className="mb-0">Configuration</h3>
-                  </Col>
-                  <Col className="text-right" xs="4">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      size="sm"
-                    >
-                      Settings
-                    </Button>
+                  <Col>
+                    <h3 className="mb-0">Download Client</h3>
+                    <p className="text-sm text-muted mb-0">
+                      Select a download client for music requests
+                    </p>
                   </Col>
                 </Row>
               </CardHeader>
+              
               <CardBody className={isLoading ? "fade" : "fade show"}>
-                <Form className="complex">
-                  <h6 className="heading-small text-muted mb-4">
-                    General Settings
-                  </h6>
-                  <div className="pl-lg-4">
+                {isLoading ? (
+                  <div className="text-center py-4">
+                    <Spinner color="primary" />
+                  </div>
+                ) : (
+                  <Form className="modern-form">
                     <Row>
-                      <Col lg="6">
-                        <Dropdown
-                          name="Download Client"
-                          value={client}
-                          items={[{ name: "Disabled", value: "Disabled" }, { name: "Lidarr", value: "Lidarr" }]}
-                          onChange={newClient => { setClient(newClient); onClientChange(); }}
+                      <Col lg="4" className="mx-auto">
+                        <ClientCard
+                          title="Disabled"
+                          description="No music download client"
+                          icon="fas fa-ban"
+                          isActive={client === "Disabled"}
+                          onClick={() => onClientChange("Disabled")}
+                          color="secondary"
+                        />
+                      </Col>
+                      <Col lg="4" className="mx-auto">
+                        <ClientCard
+                          title="Lidarr"
+                          description="Connect to Lidarr for music management"
+                          icon="fas fa-music"
+                          isActive={client === "Lidarr"}
+                          onClick={() => onClientChange("Lidarr")}
+                          color="primary"
                         />
                       </Col>
                     </Row>
-                    <Row>
-                      <Col lg="6">
-                        {
-                          reduxState.settings.client !== client && reduxState.settings.client !== "Disabled" ?
-                            <Alert className="text-center" color="warning">
-                              <strong>Changing the download client will delete all pending music notifications.</strong>
-                            </Alert>
-                            : null
-                        }
-                      </Col>
-                    </Row>
-                  </div>
-                  {
-                    client !== "Disabled"
-                      ? <>
+                    
+                    {reduxState.settings.client !== client && reduxState.settings.client !== "Disabled" && (
+                      <Row className="mt-4">
+                        <Col>
+                          <Alert className="text-center" color="warning">
+                            <strong>Changing the download client will delete all pending music notifications.</strong>
+                          </Alert>
+                        </Col>
+                      </Row>
+                    )}
+                    
+                    {client !== "Disabled" && (
+                      <>
                         <hr className="my-4" />
-                        {
-                          client == "Lidarr" ?
-                            <>
-                              <Lidarr
-                                onChange={values => setLidarr(values)}
-                                onValidate={value => setIsLidarrValid(value)}
-                                isSubmitted={isSubmitted}
-                                isSaving={isSaving}
-                              />
-                            </>
-                            : null
-                        }
+                        {renderClientConfig()}
                       </>
-                      : null
-                  }
-                  <div className="pl-lg-4">
-                    <Row>
+                    )}
+                    
+                    <Row className="mt-4">
                       <Col>
-                        <FormGroup className="mt-4">
-                          {
-                            saveAttempted && !isSaving ?
-                              !saveSuccess ? (
-                                <Alert className="text-center" color="danger">
-                                  <strong>{saveError}</strong>
-                                </Alert>)
-                                : <Alert className="text-center" color="success">
-                                  <strong>Settings updated successfully.</strong>
-                                </Alert>
-                              : null
-                          }
-                        </FormGroup>
-                        <FormGroup className="text-right">
-                          <button className="btn btn-icon btn-3 btn-primary" onClick={onSaving} disabled={isSaving} type="button">
-                            <span className="btn-inner--icon"><i className="fas fa-save"></i></span>
-                            <span className="btn-inner--text">Save Changes</span>
-                          </button>
-                        </FormGroup>
+                        {saveAttempted && !isSaving && (
+                          saveSuccess ? (
+                            <Alert className="text-center" color="success">
+                              <strong>Settings updated successfully.</strong>
+                            </Alert>
+                          ) : (
+                            <Alert className="text-center" color="danger">
+                              <strong>{saveError}</strong>
+                            </Alert>
+                          )
+                        )}
+                        
+                        <div className="text-right">
+                          <Button
+                            color="primary"
+                            className="modern-btn"
+                            onClick={onSaving}
+                            disabled={isSaving}
+                          >
+                            {isSaving ? (
+                              <>
+                                <Spinner size="sm" className="mr-2" />
+                                Saving...
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-save mr-2"></i>
+                                Save Changes
+                              </>
+                            )}
+                          </Button>
+                        </div>
                       </Col>
                     </Row>
-                  </div>
-                </Form>
+                  </Form>
+                )}
               </CardBody>
             </Card>
           </Col>

@@ -28,6 +28,8 @@ import Dropdown from "../components/Inputs/Dropdown"
 import Sonarr from "../components/DownloadClients/Sonarr/Sonarr"
 import Ombi from "../components/DownloadClients/Ombi"
 import Overseerr from "../components/DownloadClients/Overseerr/TvShows/OverseerrTvShow"
+import ClientCard from "../components/Cards/ClientCard"
+import ModernHeader from "../components/Headers/ModernHeader"
 
 // reactstrap components
 import {
@@ -35,15 +37,12 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
   Form,
   Container,
   Row,
-  Col
+  Col,
+  Spinner
 } from "reactstrap";
-// core components
-import UserHeader from "../components/Headers/UserHeader.jsx";
-
 
 function TvShows() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -61,14 +60,12 @@ function TvShows() {
   const [overseerr, setOverseerr] = useState({});
   const [isOverseerrValid, setIsOverseerrValid] = useState(false);
 
-
   const reduxState = useSelector((state) => {
     return {
       settings: state.tvShows
     }
   });
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     dispatch(getSettings())
@@ -82,16 +79,14 @@ function TvShows() {
       });
   }, []);
 
-
   useEffect(() => {
+    if (!isSubmitted) return;
+    
     if (!isSaving) {
       if ((client === "Disabled"
-        || (client === "Sonarr"
-          && isSonarrValid)
-        || (client === "Ombi"
-          && isOmbiValid)
-        || (client === "Overseerr"
-          && isOverseerrValid)
+        || (client === "Sonarr" && isSonarrValid)
+        || (client === "Ombi" && isOmbiValid)
+        || (client === "Overseerr" && isOverseerrValid)
       )) {
         setIsSaving(true);
 
@@ -149,20 +144,8 @@ function TvShows() {
     }
   }, [isSubmitted]);
 
-
-  useEffect(() => {
-    onClientChange()
-  }, [client]);
-
-
-
-
-  // const validateNonEmptyString = value => {
-  //   return /\S/.test(value);
-  // }
-
-
-  const onClientChange = () => {
+  const onClientChange = (newClient) => {
+    setClient(newClient);
     setSonarr(reduxState.settings.sonarr);
     setOmbi(reduxState.settings.ombi);
     setOverseerr(reduxState.settings.overseerr);
@@ -175,128 +158,191 @@ function TvShows() {
     setIsSubmitted(true);
   };
 
-
-
-
+  const renderClientConfig = () => {
+    if (client === "Disabled") return null;
+    
+    if (client === "Sonarr") {
+      return (
+        <Sonarr 
+          onChange={newSonarr => setSonarr(newSonarr)} 
+          onValidate={newIsSonarrValid => setIsSonarrValid(newIsSonarrValid)} 
+          isSubmitted={isSubmitted} 
+          isSaving={isSaving} 
+        />
+      );
+    }
+    
+    if (client === "Ombi") {
+      return (
+        <Ombi 
+          type={"tvshow"} 
+          settings={ombi} 
+          onChange={newOmbi => setOmbi(newOmbi)} 
+          onValidate={newIsOmbiValid => setIsOmbiValid(newIsOmbiValid)} 
+          isSubmitted={isSubmitted} 
+        />
+      );
+    }
+    
+    if (client === "Overseerr") {
+      return (
+        <Overseerr 
+          onChange={newOverseerr => setOverseerr(newOverseerr)} 
+          onValidate={newIsOverseerrValid => setIsOverseerrValid(newIsOverseerrValid)} 
+          isSubmitted={isSubmitted} 
+          isSaving={isSaving} 
+        />
+      );
+    }
+    
+    return null;
+  }
 
   return (
     <>
-      <UserHeader title="TV Shows" description="This page is for configuring the connection between your bot and your favorite tv shows download client" />
+      <ModernHeader 
+        title="TV Shows" 
+        description="Configure connection between your bot and TV shows download client"
+        icon="fas fa-tv"
+      />
+      
       <Container className="mt--7" fluid>
         <Row>
           <Col className="order-xl-1" xl="12">
-            <Card className="bg-secondary shadow">
+            <Card className="modern-card shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
-                  <Col xs="8">
-                    <h3 className="mb-0">Configuration</h3>
-                  </Col>
-                  <Col className="text-right" xs="4">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      size="sm"
-                    >
-                      Settings
-                    </Button>
+                  <Col>
+                    <h3 className="mb-0">Download Client</h3>
+                    <p className="text-sm text-muted mb-0">
+                      Select a download client for TV show requests
+                    </p>
                   </Col>
                 </Row>
               </CardHeader>
+              
               <CardBody className={isLoading ? "fade" : "fade show"}>
-                <Form className="complex">
-                  <h6 className="heading-small text-muted mb-4">
-                    General Settings
-                  </h6>
-                  <div className="pl-lg-4">
+                {isLoading ? (
+                  <div className="text-center py-4">
+                    <Spinner color="primary" />
+                  </div>
+                ) : (
+                  <Form className="modern-form">
                     <Row>
-                      <Col lg="6">
-                        <Dropdown
-                          name="Download Client"
-                          value={client}
-                          items={[{ name: "Disabled", value: "Disabled" }, { name: "Sonarr", value: "Sonarr" }, { name: "Overseerr", value: "Overseerr" }, { name: "Ombi", value: "Ombi" }]}
-                          onChange={newClient => { setClient(newClient) }} />
+                      <Col lg="3">
+                        <ClientCard
+                          title="Disabled"
+                          description="No TV show download client"
+                          icon="fas fa-ban"
+                          isActive={client === "Disabled"}
+                          onClick={() => onClientChange("Disabled")}
+                          color="secondary"
+                        />
                       </Col>
-                      {
-                        client !== "Disabled"
-                          ? <>
-                            <Col lg="6">
+                      <Col lg="3">
+                        <ClientCard
+                          title="Sonarr"
+                          description="Connect to Sonarr for TV show management"
+                          icon="fas fa-tv"
+                          isActive={client === "Sonarr"}
+                          onClick={() => onClientChange("Sonarr")}
+                          color="primary"
+                        />
+                      </Col>
+                      <Col lg="3">
+                        <ClientCard
+                          title="Overseerr"
+                          description="Connect to Overseerr for TV show requests"
+                          icon="fas fa-server"
+                          isActive={client === "Overseerr"}
+                          onClick={() => onClientChange("Overseerr")}
+                          color="info"
+                        />
+                      </Col>
+                      <Col lg="3">
+                        <ClientCard
+                          title="Ombi"
+                          description="Connect to Ombi for TV show requests"
+                          icon="fas fa-database"
+                          isActive={client === "Ombi"}
+                          onClick={() => onClientChange("Ombi")}
+                          color="warning"
+                        />
+                      </Col>
+                    </Row>
+                    
+                    {reduxState.settings.client !== client && reduxState.settings.client !== "Disabled" && (
+                      <Row className="mt-4">
+                        <Col>
+                          <Alert className="text-center" color="warning">
+                            <strong>Changing the download client will delete all pending TV show notifications.</strong>
+                          </Alert>
+                        </Col>
+                      </Row>
+                    )}
+                    
+                    {client !== "Disabled" && (
+                      <>
+                        <hr className="my-4" />
+                        <Row>
+                          <Col md="6" lg="4">
+                            <div className="form-group">
+                              <label className="form-control-label">Season Restrictions</label>
                               <Dropdown
                                 name="Season Restrictions"
                                 value={restrictions}
-                                items={[{ name: "No restrictions", value: "None" }, { name: "Force all seasons", value: "AllSeasons" }, { name: "Force single season", value: "SingleSeason" }]}
-                                onChange={newRestrictions => { setRestrictions(newRestrictions) }} />
-                            </Col>
-                          </>
-                          : null
-                      }
-                    </Row>
-                    <Row>
-                      <Col lg="6">
-                        {
-                          reduxState.settings.client !== client && reduxState.settings.client !== "Disabled" ?
-                            <Alert className="text-center" color="warning">
-                              <strong>Changing the download client will delete all pending tv notifications.</strong>
-                            </Alert>
-                            : null
-                        }
-                      </Col>
-                    </Row>
-                  </div>
-                  {
-                    client !== "Disabled"
-                      ? <>
-                        <hr className="my-4" />
-                        {
-                          client === "Ombi"
-                            ? <>
-                              <Ombi type={"tv"} settings={ombi} onChange={newOmbi => { setOmbi(newOmbi) }} onValidate={newIsOmbiValid => setIsOmbiValid(newIsOmbiValid)} isSubmitted={isSubmitted} />
-                            </>
-                            : null
-                        }
-                        {
-                          client === "Overseerr"
-                            ? <>
-                              <Overseerr onChange={newOverseerr => setOverseerr(newOverseerr)} onValidate={newIsOverseerrValid => setIsOverseerrValid(newIsOverseerrValid)} isSubmitted={isSubmitted} isSaving={isSaving} />
-                            </>
-                            : null
-                        }
-                        {
-                          client === "Sonarr"
-                            ? <>
-                              <Sonarr onChange={newSonarr => setSonarr(newSonarr)} onValidate={newIsSonarrValid => setIsSonarrValid(newIsSonarrValid)} isSubmitted={isSubmitted} isSaving={isSaving} />
-                            </>
-                            : null
-                        }
+                                items={[
+                                  { name: "No restrictions", value: "None" }, 
+                                  { name: "Force all seasons", value: "AllSeasons" }, 
+                                  { name: "Force single season", value: "SingleSeason" }
+                                ]}
+                                onChange={newRestrictions => { setRestrictions(newRestrictions) }}
+                              />
+                            </div>
+                          </Col>
+                        </Row>
+                        {renderClientConfig()}
                       </>
-                      : null
-                  }
-                  <div className="pl-lg-4">
-                    <Row>
+                    )}
+                    
+                    <Row className="mt-4">
                       <Col>
-                        <FormGroup className="mt-4">
-                          {
-                            saveAttempted && !isSaving ?
-                              !saveSuccess ? (
-                                <Alert className="text-center" color="danger">
-                                  <strong>{saveError}</strong>
-                                </Alert>)
-                                : <Alert className="text-center" color="success">
-                                  <strong>Settings updated successfully.</strong>
-                                </Alert>
-                              : null
-                          }
-                        </FormGroup>
-                        <FormGroup className="text-right">
-                          <button className="btn btn-icon btn-3 btn-primary" onClick={onSaving} disabled={isSaving} type="button">
-                            <span className="btn-inner--icon"><i className="fas fa-save"></i></span>
-                            <span className="btn-inner--text">Save Changes</span>
-                          </button>
-                        </FormGroup>
+                        {saveAttempted && !isSaving && (
+                          saveSuccess ? (
+                            <Alert className="text-center" color="success">
+                              <strong>Settings updated successfully.</strong>
+                            </Alert>
+                          ) : (
+                            <Alert className="text-center" color="danger">
+                              <strong>{saveError}</strong>
+                            </Alert>
+                          )
+                        )}
+                        
+                        <div className="text-right">
+                          <Button
+                            color="primary"
+                            className="modern-btn"
+                            onClick={onSaving}
+                            disabled={isSaving}
+                          >
+                            {isSaving ? (
+                              <>
+                                <Spinner size="sm" className="mr-2" />
+                                Saving...
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-save mr-2"></i>
+                                Save Changes
+                              </>
+                            )}
+                          </Button>
+                        </div>
                       </Col>
                     </Row>
-                  </div>
-                </Form>
+                  </Form>
+                )}
               </CardBody>
             </Card>
           </Col>

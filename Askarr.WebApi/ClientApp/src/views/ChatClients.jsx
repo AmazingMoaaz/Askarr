@@ -16,15 +16,13 @@
 
 */
 import { useEffect, useState } from "react";
-import { Oval } from 'react-loader-spinner'
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from "reactstrap";
-import { testSettings } from "../store/actions/ChatClientsActions"
-import { testTelegramSettings } from "../store/actions/ChatClientsActions"
-import { getSettings } from "../store/actions/ChatClientsActions"
-import { save } from "../store/actions/ChatClientsActions"
-import MultiDropdown from "../components/Inputs/MultiDropdown"
-import Dropdown from "../components/Inputs/Dropdown"
+import { testSettings, testTelegramSettings, getSettings, save } from "../store/actions/ChatClientsActions";
+import MultiDropdown from "../components/Inputs/MultiDropdown";
+import Dropdown from "../components/Inputs/Dropdown";
+import ClientCard from "../components/Cards/ClientCard";
+import ModernHeader from "../components/Headers/ModernHeader";
 
 // reactstrap components
 import {
@@ -32,16 +30,22 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
   Form,
   Input,
   Container,
   Row,
-  Col
+  Col,
+  Nav,
+  NavItem,
+  NavLink,
+  TabContent,
+  TabPane,
+  FormGroup,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Spinner
 } from "reactstrap";
-// core components
-import UserHeader from "../components/Headers/UserHeader.jsx";
-
 
 function ChatClients(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -91,7 +95,6 @@ function ChatClients(props) {
   const dispatch = useDispatch();
   const userToken = useSelector(state => state.user.token);
 
-
   useEffect(() => {
     dispatch(getSettings(props.token))
       .then(data => {
@@ -120,30 +123,34 @@ function ChatClients(props) {
         setTelegramEnableRequestsThroughDirectMessages(data.payload.telegramEnableRequestsThroughDirectMessages);
         setTelegramAutomaticallyNotifyRequesters(data.payload.telegramAutomaticallyNotifyRequesters || true);
         setTelegramNotificationMode(data.payload.telegramNotificationMode || "PrivateMessages");
+        
+        // Set appropriate active tab based on selected client
+        if (data.payload.client === "Discord") {
+          setActiveTab("discord");
+        } else if (data.payload.client === "Telegram") {
+          setActiveTab("telegram");
+        } else {
+          setActiveTab("general");
+        }
       });
   }, []);
-
 
   useEffect(() => {
     if (chatClientChanged)
       triggerChatClientValidation();
   }, [chatClientChanged]);
 
-
   useEffect(() => {
     if (clientIdChanged)
-      triggerClientIdValidation()
+      triggerClientIdValidation();
   }, [clientIdChanged]);
-
 
   useEffect(() => {
     if (botTokenChanged)
-      triggerBotTokenValidation()
+      triggerBotTokenValidation();
   }, [botTokenChanged]);
 
-
-
-
+  // Validation functions
   const validateChatClient = () => {
     return /\S/.test(chatClient);
   };
@@ -160,19 +167,17 @@ function ChatClients(props) {
     return /\S/.test(telegramBotToken);
   };
 
-
-
-  const onChatClientChange = (event) => {
-    const newChatClient = event.target.value;
-    setChatClient(newChatClient);
+  // Event handlers
+  const onChatClientChange = (newClient) => {
+    setChatClient(newClient);
     setChatClientChanged(true);
     
     // Set appropriate active tab based on selected client
-    if (newChatClient === "Discord") {
+    if (newClient === "Discord") {
       setActiveTab("discord");
-    } else if (newChatClient === "Telegram") {
+    } else if (newClient === "Telegram") {
       setActiveTab("telegram");
-    } else if (newChatClient === "Discord,Telegram") {
+    } else if (newClient === "Discord,Telegram") {
       setActiveTab("general");
     } else {
       setActiveTab("general");
@@ -192,11 +197,9 @@ function ChatClients(props) {
     setClientIdChanged(true);
   };
 
-
   const triggerClientIdValidation = () => {
     setClientIdInvalid(!validateClientId());
   };
-
 
   const onBotTokenChange = (event) => {
     setBotToken(event.target.value);
@@ -216,7 +219,11 @@ function ChatClients(props) {
     setTelegramBotTokenInvalid(!validateTelegramBotToken());
   };
 
-
+  const onToggleTab = (tab) => {
+    if (activeTab !== tab) {
+      setActiveTab(tab);
+    }
+  };
 
   const onSaving = (e) => {
     e.preventDefault();
@@ -229,8 +236,8 @@ function ChatClients(props) {
     let validationPassed = validateChatClient();
     
     if (isUsingDiscord) {
-    triggerClientIdValidation();
-    triggerBotTokenValidation();
+      triggerClientIdValidation();
+      triggerBotTokenValidation();
       validationPassed = validationPassed && validateClientId() && validateBotToken();
     }
     
@@ -239,832 +246,773 @@ function ChatClients(props) {
       validationPassed = validationPassed && validateTelegramBotToken();
     }
 
-    if (!isSaving) {
-      if (validationPassed) {
-        setIsSaving(true);
+    if (!isSaving && validationPassed) {
+      setIsSaving(true);
 
-        dispatch(save({
-          client: chatClient,
-          clientId: isUsingDiscord ? clientId : "",
-          botToken: isUsingDiscord ? botToken : "",
-          telegramBotToken: isUsingTelegram ? telegramBotToken : "",
-          statusMessage: statusMessage,
-          monitoredChannels: monitoredChannels,
-          telegramMonitoredChats: telegramMonitoredChats,
-          telegramNotificationChats: telegramNotificationChats,
-          telegramMovieRoles: telegramMovieRoles,
-          telegramTvRoles: telegramTvRoles,
-          telegramMusicRoles: telegramMusicRoles,
-          tvShowRoles: tvShowRoles,
-          movieRoles: movieRoles,
-          musicRoles: musicRoles,
-          enableRequestsThroughDirectMessages: isUsingDiscord ? enableRequestsThroughDirectMessages : false,
-          telegramEnableRequestsThroughDirectMessages: isUsingTelegram ? telegramEnableRequestsThroughDirectMessages : false,
-          automaticallyNotifyRequesters: automaticallyNotifyRequesters,
-          telegramAutomaticallyNotifyRequesters: telegramAutomaticallyNotifyRequesters,
-          notificationMode: notificationMode,
-          telegramNotificationMode: telegramNotificationMode,
-          notificationChannels: notificationChannels,
-          automaticallyPurgeCommandMessages: automaticallyPurgeCommandMessages,
-          language: language,
-        }))
-          .then(data => {
-            setIsSaving(false);
+      dispatch(save({
+        client: chatClient,
+        clientId: isUsingDiscord ? clientId : "",
+        botToken: isUsingDiscord ? botToken : "",
+        telegramBotToken: isUsingTelegram ? telegramBotToken : "",
+        statusMessage: statusMessage,
+        monitoredChannels: monitoredChannels,
+        enableRequestsThroughDirectMessages: enableRequestsThroughDirectMessages,
+        tvShowRoles: tvShowRoles,
+        movieRoles: movieRoles,
+        musicRoles: musicRoles,
+        automaticallyNotifyRequesters: automaticallyNotifyRequesters,
+        notificationMode: notificationMode,
+        notificationChannels: notificationChannels,
+        automaticallyPurgeCommandMessages: automaticallyPurgeCommandMessages,
+        language: language,
+        telegramMonitoredChats: telegramMonitoredChats,
+        telegramNotificationChats: telegramNotificationChats,
+        telegramMovieRoles: telegramMovieRoles,
+        telegramTvRoles: telegramTvRoles,
+        telegramMusicRoles: telegramMusicRoles,
+        telegramEnableRequestsThroughDirectMessages: telegramEnableRequestsThroughDirectMessages,
+        telegramNotificationMode: telegramNotificationMode,
+        telegramAutomaticallyNotifyRequesters: telegramAutomaticallyNotifyRequesters
+      })).then(data => {
+        setIsSaving(false);
 
-            if (data.ok) {
-              setSaveAttempted(true);
-              setSaveError("");
-              setSaveSuccess(true);
-            } else {
-              let error = "An unknown error occurred while saving.";
+        if (data.ok) {
+          setSaveAttempted(true);
+          setSaveError("");
+          setSaveSuccess(true);
+        }
+        else {
+          let error = "An unknown error occurred while saving.";
 
-              if (typeof (data.error) === "string")
-                error = data.error;
+          if (typeof (data.error) === "string")
+            error = data.error;
 
-              setSaveAttempted(true);
-              setSaveError(error);
-              setSaveSuccess(false);
-            }
-          });
-      } else {
-        setSaveAttempted(true);
-        setSaveError("Some fields are invalid, please fix them before saving.");
-        setSaveSuccess(false);
-      }
+          setSaveAttempted(true);
+          setSaveError(error);
+          setSaveSuccess(false);
+        }
+      });
+    } else {
+      setSaveAttempted(true);
+      setSaveError("Some fields are invalid, please fix them before saving.");
+      setSaveSuccess(false);
     }
-  }
+  };
 
   const onTestSettings = (e) => {
     e.preventDefault();
 
-    triggerChatClientValidation();
-    
-    // Determine which service to test based on selected chat client and active tab
-    const isTestingDiscord = (chatClient === "Discord" || chatClient === "Discord,Telegram") && 
-                            (activeTab === "discord" || activeTab === "general");
-    const isTestingTelegram = (chatClient === "Telegram" || chatClient === "Discord,Telegram") && 
-                              (activeTab === "telegram" || activeTab === "general");
-    
-    let validationPassed = true;
-    
-    if (isTestingDiscord) {
-    triggerClientIdValidation();
-    triggerBotTokenValidation();
-      validationPassed = validateChatClient() && validateBotToken() && validateClientId();
-    } else if (isTestingTelegram) {
-      triggerTelegramBotTokenValidation();
-      validationPassed = validateChatClient() && validateTelegramBotToken();
-    }
-    
     if (!isTestingSettings) {
-      if (validationPassed) {
       setIsTestingSettings(true);
+      setTestSettingsRequested(true);
 
-        if (isTestingDiscord) {
-          // Test Discord connection
-      dispatch(testSettings({
-            chatClient: "Discord",
-        clientId: clientId,
-        botToken: botToken,
-      }))
-        .then(data => {
-          setIsTestingSettings(false);
+      dispatch(testSettings()).then(data => {
+        setIsTestingSettings(false);
 
-          if (data.ok) {
-            setTestSettingsRequested(true);
-            setTestSettingsError("");
-            setTestSettingsSuccess(true);
-          } else {
-                let error = "An unknown error occurred while testing Discord settings.";
-
-            if (typeof (data.error) === "string")
-              error = data.error;
-
-            setTestSettingsRequested(true);
-            setTestSettingsError(error);
-            setTestSettingsSuccess(false);
-          }
-        });
-        } else if (isTestingTelegram) {
-          // Test Telegram connection
-          dispatch({
-            type: 'TEST_TELEGRAM_SETTINGS_REQUEST',
-            payload: {
-              chatClient: "Telegram",
-              botToken: telegramBotToken,
-            }
-          });
-
-          dispatch(testTelegramSettings({
-            chatClient: "Telegram",
-            botToken: telegramBotToken,
-          }))
-          .then(data => {
-            setIsTestingSettings(false);
-
-            if (data.ok) {
-              setTestSettingsRequested(true);
-              setTestSettingsError("");
-              setTestSettingsSuccess(true);
-            } else {
-              let error = "An unknown error occurred while testing Telegram settings.";
-
-              if (typeof (data.error) === "string")
-                error = data.error;
-
-              setTestSettingsRequested(true);
-              setTestSettingsError(error);
-              setTestSettingsSuccess(false);
-            }
-          })
-          .catch(error => {
-            setIsTestingSettings(false);
-            setTestSettingsRequested(true);
-            setTestSettingsError("Failed to test Telegram connection: " + error.message);
-            setTestSettingsSuccess(false);
-          });
+        if (data.ok) {
+          setTestSettingsSuccess(true);
+          setTestSettingsError("");
         }
-      } else {
-        setTestSettingsRequested(true);
-        setTestSettingsError("Some fields are invalid, please fix them before testing.");
-        setTestSettingsSuccess(false);
-      }
-    }
-  }
+        else {
+          let error = "An unknown error occurred while testing the settings.";
 
-  const onGenerateInviteLink = (e) => {
-    e.preventDefault();
+          if (typeof (data.error) === "string")
+            error = data.error;
 
-    triggerChatClientValidation();
-    triggerClientIdValidation();
-    triggerBotTokenValidation();
-
-    if (!isCopyingLink
-      && validateChatClient()
-      && validateBotToken()
-      && validateClientId()) {
-      setIsCopyingLink(true);
-
-      let linkElement = document.getElementById("discordlink");
-      linkElement.classList.remove("d-none");
-      linkElement.focus();
-      linkElement.select();
-      let text = linkElement.value;
-      navigator.clipboard.writeText(text);
-      linkElement.classList.add("d-none");
-
-      // let thisRef = this;
-      setTimeout(() => { setIsCopyingLink(false) }, 3000);
+          setTestSettingsSuccess(false);
+          setTestSettingsError(error);
+        }
+      });
     }
   };
 
+  const onTestTelegramSettings = (e) => {
+    e.preventDefault();
 
+    if (!isTestingSettings) {
+      setIsTestingSettings(true);
+      setTestSettingsRequested(true);
 
+      dispatch(testTelegramSettings()).then(data => {
+        setIsTestingSettings(false);
 
+        if (data.ok) {
+          setTestSettingsSuccess(true);
+          setTestSettingsError("");
+        }
+        else {
+          let error = "An unknown error occurred while testing the settings.";
+
+          if (typeof (data.error) === "string")
+            error = data.error;
+
+          setTestSettingsSuccess(false);
+          setTestSettingsError(error);
+        }
+      });
+    }
+  };
 
   return (
     <>
-      <UserHeader
+      <ModernHeader
         title="Chat Clients"
-        description="Configure your bot to interact with Discord and Telegram."
+        description="Configure connection between your bot and chat platforms"
+        icon="fas fa-comments"
       />
+      
       <Container className="mt--7" fluid>
-            <Card className="bg-secondary shadow">
+        <Row>
+          <Col className="order-xl-1" xl="12">
+            <Card className="modern-card shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
-                  <Col xs="8">
-                <h3 className="mb-0">Chat Bot Configuration</h3>
+                  <Col>
+                    <h3 className="mb-0">Chat Platforms</h3>
+                    <p className="text-sm text-muted mb-0">
+                      Select which chat platforms to use for your bot
+                    </p>
                   </Col>
                 </Row>
               </CardHeader>
-          <CardBody>
-            {isLoading && (
-              <div className="text-center">
-                <Oval color="#5e72e4" secondaryColor="#5e72e4" height={40} width={40} />
-              </div>
-            )}
-
-            {saveAttempted && (
-              <Alert
-                color={saveSuccess ? "success" : "danger"}
-                toggle={() => setSaveAttempted(false)}
-              >
-                {saveSuccess
-                  ? "Settings have been saved successfully."
-                  : saveError}
-              </Alert>
-            )}
-
-            {testSettingsRequested && (
-              <Alert
-                color={testSettingsSuccess ? "success" : "danger"}
-                toggle={() => setTestSettingsRequested(false)}
-              >
-                {testSettingsSuccess
-                  ? "Test was successful! Your bot token is valid."
-                  : testSettingsError}
-              </Alert>
-            )}
-
-            {!isLoading && (
-              <Form onSubmit={(e) => e.preventDefault()}>
-                <h6 className="heading-small text-muted mb-4">General Settings</h6>
-                  <div className="pl-lg-4">
+              
+              <CardBody className={isLoading ? "fade" : "fade show"}>
+                {isLoading ? (
+                  <div className="text-center py-4">
+                    <Spinner color="primary" />
+                  </div>
+                ) : (
+                  <Form className="modern-form">
                     <Row>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                          htmlFor="input-chat-client"
-                          >
-                          Chat Client*
-                          </label>
-                          <Input
-                          className="form-control-alternative"
-                          id="input-chat-client"
-                          placeholder="Select a chat client"
-                          type="select"
-                            value={chatClient}
-                            onChange={onChatClientChange}
-                          invalid={chatClientInvalid}
-                          >
-                          <option value="">Select a chat client</option>
-                            <option value="Discord">Discord</option>
-                            <option value="Telegram">Telegram</option>
-                          <option value="Discord,Telegram">Both Discord & Telegram</option>
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                    <Col lg="6">
-                      <FormGroup>
-                        <label className="form-control-label" htmlFor="input-language">
-                          Language
-                        </label>
-                        <Dropdown
-                          id="input-language"
-                          placeholder="Select a language"
-                          items={availableLanguages.map(x => ({ name: x, value: x.toLowerCase() }))}
-                          value={language}
-                          onChange={(value) => setLanguage(value)}
+                      <Col lg="3">
+                        <ClientCard
+                          title="Discord"
+                          description="Connect to Discord for chat integration"
+                          icon="fab fa-discord"
+                          isActive={chatClient === "Discord"}
+                          onClick={() => onChatClientChange("Discord")}
+                          color="primary"
                         />
-                      </FormGroup>
-                    </Col>
-                    </Row>
-                  </div>
-                
-                {/* Navigation Tabs */}
-                <div className="nav-tabs-wrapper mt-5">
-                  <ul className="nav nav-tabs">
-                    <li className="nav-item">
-                      <a 
-                        className={`nav-link ${activeTab === "general" ? "active" : ""}`}
-                        onClick={() => setActiveTab("general")}
-                        href="#general"
-                        role="tab"
-                        data-toggle="tab"
-                      >
-                        General
-                      </a>
-                    </li>
-                    {(chatClient === "Discord" || chatClient === "Discord,Telegram") && (
-                      <li className="nav-item">
-                        <a 
-                          className={`nav-link ${activeTab === "discord" ? "active" : ""}`}
-                          onClick={() => setActiveTab("discord")}
-                          href="#discord"
-                          role="tab"
-                          data-toggle="tab"
-                        >
-                          Discord
-                        </a>
-                      </li>
-                    )}
-                    {(chatClient === "Telegram" || chatClient === "Discord,Telegram") && (
-                      <li className="nav-item">
-                        <a 
-                          className={`nav-link ${activeTab === "telegram" ? "active" : ""}`}
-                          onClick={() => setActiveTab("telegram")}
-                          href="#telegram"
-                          role="tab"
-                          data-toggle="tab"
-                        >
-                          Telegram
-                        </a>
-                      </li>
-                    )}
-                  </ul>
-                </div>
-                
-                <div className="tab-content">
-                  {/* General Tab */}
-                  <div className={`tab-pane ${activeTab === "general" ? "active" : ""}`} id="general">
-                    <h6 className="heading-small text-muted mb-4">Bot Status</h6>
-                    <div className="pl-lg-4">
-                      <Row>
-                        <Col lg="12">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-status-message"
-                            >
-                              Status Message
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              id="input-status-message"
-                              placeholder="Set your bot status message"
-                              type="text"
-                              value={statusMessage}
-                              onChange={onStatusMessageChange}
-                            />
-                        </FormGroup>
+                      </Col>
+                      <Col lg="3">
+                        <ClientCard
+                          title="Telegram"
+                          description="Connect to Telegram for chat integration"
+                          icon="fab fa-telegram"
+                          isActive={chatClient === "Telegram"}
+                          onClick={() => onChatClientChange("Telegram")}
+                          color="info"
+                        />
+                      </Col>
+                      <Col lg="3">
+                        <ClientCard
+                          title="Both"
+                          description="Use both Discord and Telegram"
+                          icon="fas fa-globe"
+                          isActive={chatClient === "Discord,Telegram"}
+                          onClick={() => onChatClientChange("Discord,Telegram")}
+                          color="success"
+                        />
+                      </Col>
+                      <Col lg="3">
+                        <ClientCard
+                          title="Disabled"
+                          description="No chat integration"
+                          icon="fas fa-ban"
+                          isActive={chatClient === ""}
+                          onClick={() => onChatClientChange("")}
+                          color="secondary"
+                        />
                       </Col>
                     </Row>
-                    </div>
-                  </div>
-                  
-                  {/* Discord Tab */}
-                  {(chatClient === "Discord" || chatClient === "Discord,Telegram") && (
-                    <div className={`tab-pane ${activeTab === "discord" ? "active" : ""}`} id="discord">
-                      <h6 className="heading-small text-muted mb-4">Discord Configuration</h6>
-                  <div className="pl-lg-4">
-                    <Row>
-                      <Col lg="6">
-                            <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-client-id"
-                          >
-                                Client ID*
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            id="input-client-id"
-                                placeholder="Discord client ID"
-                            type="text"
-                                value={clientId}
-                                onChange={onClientIdChange}
-                                invalid={clientIdInvalid}
-                              />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                            <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-bot-token"
-                          >
-                                Bot Token*
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            id="input-bot-token"
-                                placeholder="Discord bot token"
-                                type="password"
-                                value={botToken}
-                                onChange={onBotTokenChange}
-                                invalid={botTokenInvalid}
-                              />
-                            </FormGroup>
-                          </Col>
-                        </Row>
-                        
-                        <Row className="mb-4">
-                          <Col lg="12">
-                            <Button
-                              color="primary"
-                              size="sm"
-                              type="button"
-                              onClick={onGenerateInviteLink}
-                              disabled={isCopyingLink}
-                            >
-                              {isCopyingLink ? "Copied!" : "Copy Invite Link"}
-                            </Button>
-                            <Input
-                              id="discordlink"
-                            type="text"
-                              className="d-none"
-                              value={`https://discord.com/oauth2/authorize?client_id=${clientId}&scope=bot%20applications.commands&permissions=8`}
-                              readOnly
-                            />
-                            <small className="text-muted d-block mt-2">
-                              Use this link to invite your bot to your Discord server
-                            </small>
-                          </Col>
-                        </Row>
-                        
-                        <Row>
-                          <Col lg="12">
-                            <FormGroup>
-                              <label className="form-control-label" htmlFor="input-notification-mode">
-                                Notification Mode
-                              </label>
-                              <Input
-                                className="form-control-alternative"
-                                id="input-notification-mode"
-                                placeholder="Select notification mode"
-                                type="select"
-                                value={notificationMode}
-                                onChange={(e) => setNotificationMode(e.target.value)}
+                    
+                    {chatClient && (
+                      <>
+                        <hr className="my-4" />
+                        <Nav tabs className="mb-4">
+                          {chatClient === "Discord,Telegram" && (
+                            <NavItem>
+                              <NavLink
+                                className={activeTab === "general" ? "active" : ""}
+                                onClick={() => onToggleTab("general")}
+                                style={{ cursor: "pointer" }}
                               >
-                                <option value="PrivateMessages">Private Messages</option>
-                                <option value="Channels">Channels</option>
-                              </Input>
-                        </FormGroup>
-                      </Col>
-                    </Row>
+                                <i className="fas fa-cog mr-2"></i>
+                                General
+                              </NavLink>
+                            </NavItem>
+                          )}
+                          
+                          {(chatClient === "Discord" || chatClient === "Discord,Telegram") && (
+                            <NavItem>
+                              <NavLink
+                                className={activeTab === "discord" ? "active" : ""}
+                                onClick={() => onToggleTab("discord")}
+                                style={{ cursor: "pointer" }}
+                              >
+                                <i className="fab fa-discord mr-2"></i>
+                                Discord
+                              </NavLink>
+                            </NavItem>
+                          )}
+                          
+                          {(chatClient === "Telegram" || chatClient === "Discord,Telegram") && (
+                            <NavItem>
+                              <NavLink
+                                className={activeTab === "telegram" ? "active" : ""}
+                                onClick={() => onToggleTab("telegram")}
+                                style={{ cursor: "pointer" }}
+                              >
+                                <i className="fab fa-telegram mr-2"></i>
+                                Telegram
+                              </NavLink>
+                            </NavItem>
+                          )}
+                        </Nav>
                         
-                        <Row>
-                          <Col lg="12">
-                            <FormGroup>
-                              <div className="custom-control custom-checkbox mb-3">
-                                <input
-                                  className="custom-control-input"
-                                  id="check-private-responses"
-                                  type="checkbox"
-                                  checked={automaticallyPurgeCommandMessages}
-                                  onChange={(e) => setAutomaticallyPurgeCommandMessages(e.target.checked)}
-                                />
-                                <label
-                                  className="custom-control-label"
-                                  htmlFor="check-private-responses"
-                                >
-                                  Make command responses only visible to you (private responses)
-                                </label>
-                              </div>
-                            </FormGroup>
-                          </Col>
-                        </Row>
-                        
-                        {/* Continue with existing Discord settings */}
-                    <Row>
-                      <Col lg="6">
-                        <FormGroup>
-                          <MultiDropdown
-                            name="Roles allowed to request tv shows"
-                            create={true}
-                            searchable={true}
-                            placeholder="Enter role ids here. Leave blank for all roles."
-                            labelField="name"
-                            valueField="id"
-                            dropdownHandle={false}
-                            selectedItems={tvShowRoles.map(x => { return { name: x, id: x } })}
-                            items={tvShowRoles.map(x => { return { name: x, id: x } })}
-                            onChange={newTvShowRoles => setTvShowRoles(newTvShowRoles.filter(x => /\S/.test(x.id)).map(x => x.id.trim()))} />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup>
-                          <MultiDropdown
-                            name="Roles allowed to request movies"
-                            create={true}
-                            searchable={true}
-                            placeholder="Enter role ids here. Leave blank for all roles."
-                            labelField="name"
-                            valueField="id"
-                            dropdownHandle={false}
-                            selectedItems={movieRoles.map(x => { return { name: x, id: x } })}
-                            items={movieRoles.map(x => { return { name: x, id: x } })}
-                            onChange={newMovieRoles => setMovieRoles(newMovieRoles.filter(x => /\S/.test(x.id)).map(x => x.id.trim()))} />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup>
-                          <MultiDropdown
-                            name="Roles allowed to request music"
-                            create={true}
-                            searchable={true}
-                            placeholder="Enter role ids here. Leave blank for all roles."
-                            labelField="name"
-                            valueField="id"
-                            dropdownHandle={false}
-                            selectedItems={musicRoles.map(x => { return { name: x, id: x } })}
-                            items={musicRoles.map(x => { return { name: x, id: x } })}
-                            onChange={newMusicRoles => setMusicRoles(newMusicRoles.filter(x => /\S/.test(x.id)).map(x => x.id.trim()))} />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="12">
-                        <FormGroup>
-                          <MultiDropdown
-                            name="Channel(s) to monitor"
-                            create={true}
-                            searchable={true}
-                            placeholder="Enter channels ids here. Leave blank for all channels."
-                            labelField="name"
-                            valueField="id"
-                            dropdownHandle={false}
-                            selectedItems={monitoredChannels.map(x => { return { name: x, id: x } })}
-                            items={monitoredChannels.map(x => { return { name: x, id: x } })}
-                            onChange={newMonitoredChannels => setMonitoredChannels(newMonitoredChannels.filter(x => /\S/.test(x.id)).map(x => x.id.trim().replace(/#/g, '').replace(/\s+/g, '-')))} />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </div>
-                    </div>
-                  )}
+                        <TabContent activeTab={activeTab}>
+                          <TabPane tabId="general">
+                            <Row>
+                              <Col md="6">
+                                <FormGroup>
+                                  <label className="form-control-label">Status Message</label>
+                                  <Input
+                                    type="text"
+                                    value={statusMessage}
+                                    onChange={onStatusMessageChange}
+                                    placeholder="Status message"
+                                  />
+                                  <small className="form-text text-muted">
+                                    This will be displayed as the bot's status message
+                                  </small>
+                                </FormGroup>
+                              </Col>
+                              <Col md="6">
+                                <FormGroup>
+                                  <label className="form-control-label">Language</label>
+                                  <Dropdown
+                                    name="Language"
+                                    value={language}
+                                    items={availableLanguages.map(lang => ({ name: lang, value: lang.toLowerCase() }))}
+                                    onChange={newLanguage => setLanguage(newLanguage)}
+                                  />
+                                  <small className="form-text text-muted">
+                                    The language used by the bot
+                                  </small>
+                                </FormGroup>
+                              </Col>
+                            </Row>
+                          </TabPane>
+                          
+                          <TabPane tabId="discord">
+                            <Row className="mb-4">
+                              <Col lg="12">
+                                <Card className="border-0 shadow-sm mb-3">
+                                  <CardBody>
+                                    <h5 className="text-primary mb-3">
+                                      <i className="fab fa-discord mr-2"></i>
+                                      Bot Configuration
+                                    </h5>
+                                    <Row>
+                                      <Col md="6">
+                                        <FormGroup>
+                                          <label className="form-control-label">Client ID</label>
+                                          <Input
+                                            type="text"
+                                            value={clientId}
+                                            onChange={onClientIdChange}
+                                            invalid={clientIdInvalid}
+                                            placeholder="Enter Discord client ID"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Found in your Discord Developer Portal
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                      <Col md="6">
+                                        <FormGroup>
+                                          <label className="form-control-label">Bot Token</label>
+                                          <Input
+                                            type="password"
+                                            value={botToken}
+                                            onChange={onBotTokenChange}
+                                            invalid={botTokenInvalid}
+                                            placeholder="Enter Discord bot token"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Used to authenticate your bot
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                    </Row>
+                                  </CardBody>
+                                </Card>
+                              </Col>
+                            </Row>
 
-                  {/* Telegram Tab */}
-                  {(chatClient === "Telegram" || chatClient === "Discord,Telegram") && (
-                    <div className={`tab-pane ${activeTab === "telegram" ? "active" : ""}`} id="telegram">
-                      <h6 className="heading-small text-muted mb-4">Telegram Configuration</h6>
-                      <div className="pl-lg-4">
-                    <Row>
-                          <Col lg="12">
-                            <Alert color="info" className="mb-4">
-                              <h4 className="alert-heading"><i className="ni ni-bell-55 mr-2"></i>Getting Started with Telegram</h4>
-                              <ol className="mb-0">
-                                <li>Create a bot on Telegram using <a href="https://t.me/BotFather" target="_blank" rel="noopener noreferrer">@BotFather</a></li>
-                                <li>Copy the API token BotFather gives you and paste it below</li>
-                                <li>Find your bot on Telegram by searching for its username</li>
-                                <li>Start a chat with your bot by clicking "Start" or sending "/start"</li>
-                                <li>Add your bot to groups where you want it to respond to commands</li>
-                                <li>To get chat IDs, use <a href="https://t.me/RawDataBot" target="_blank" rel="noopener noreferrer">@RawDataBot</a> in your chats</li>
-                              </ol>
-                            </Alert>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col lg="12">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                                htmlFor="input-telegram-bot-token"
-                          >
-                                Telegram Bot Token*
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                                id="input-telegram-bot-token"
-                                placeholder="Telegram bot token"
-                                type="password"
-                                value={telegramBotToken}
-                                onChange={onTelegramBotTokenChange}
-                                invalid={telegramBotTokenInvalid}
-                              />
-                              <small className="text-muted">
-                                Obtain your bot token from @BotFather on Telegram
-                              </small>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                        
-                        <Row className="mt-4">
-                          <Col lg="12">
-                            <h6 className="heading-small text-muted mb-3">Bot Behavior</h6>
-                      </Col>
-                    </Row>
-                        
-                          <Row>
-                          <Col lg="6">
-                            <FormGroup>
-                              <div className="custom-control custom-checkbox mb-3">
-                                <input
-                                  className="custom-control-input"
-                                  id="check-enable-telegram-dms"
-                                  type="checkbox"
-                                  checked={telegramEnableRequestsThroughDirectMessages}
-                                  onChange={(e) => setTelegramEnableRequestsThroughDirectMessages(e.target.checked)}
-                                />
-                                <label
-                                  className="custom-control-label"
-                                  htmlFor="check-enable-telegram-dms"
+                            <Row className="mb-4">
+                              <Col lg="12">
+                                <Card className="border-0 shadow-sm mb-3">
+                                  <CardBody>
+                                    <h5 className="text-primary mb-3">
+                                      <i className="fas fa-cog mr-2"></i>
+                                      Channel Settings
+                                    </h5>
+                                    <Row>
+                                      <Col md="12" className="mb-3">
+                                        <FormGroup>
+                                          <label className="form-control-label">Command Channels</label>
+                                          <Input
+                                            type="textarea"
+                                            rows="2"
+                                            value={monitoredChannels.join("\n")}
+                                            onChange={(e) => setMonitoredChannels(e.target.value.split("\n").filter(c => c.trim()))}
+                                            placeholder="Enter channel IDs (one per line)"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Channels where bot will respond to commands
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                    </Row>
+                                    <Row>
+                                      <Col md="6">
+                                        <FormGroup>
+                                          <label className="form-control-label">Notification Mode</label>
+                                          <Input
+                                            type="select"
+                                            value={notificationMode}
+                                            onChange={(e) => setNotificationMode(e.target.value)}
+                                          >
+                                            <option value="PrivateMessages">Private Messages</option>
+                                            <option value="Channels">Channels</option>
+                                          </Input>
+                                          <small className="form-text text-muted">
+                                            How notifications will be delivered
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                      <Col md="6">
+                                        <FormGroup>
+                                          <label className="form-control-label">Notification Channels</label>
+                                          <Input
+                                            type="textarea"
+                                            rows="2"
+                                            value={notificationChannels.join("\n")}
+                                            onChange={(e) => setNotificationChannels(e.target.value.split("\n").filter(c => c.trim()))}
+                                            placeholder="Enter channel IDs (one per line)"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Channels for sending notifications
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                    </Row>
+                                  </CardBody>
+                                </Card>
+                              </Col>
+                            </Row>
+
+                            <Row className="mb-4">
+                              <Col lg="12">
+                                <Card className="border-0 shadow-sm mb-3">
+                                  <CardBody>
+                                    <h5 className="text-primary mb-3">
+                                      <i className="fas fa-user-lock mr-2"></i>
+                                      Permission Settings
+                                    </h5>
+                                    <Row>
+                                      <Col md="4">
+                                        <FormGroup>
+                                          <label className="form-control-label">Movie Access Roles</label>
+                                          <Input
+                                            type="textarea"
+                                            rows="2"
+                                            value={movieRoles.join("\n")}
+                                            onChange={(e) => setMovieRoles(e.target.value.split("\n").filter(r => r.trim()))}
+                                            placeholder="Enter role IDs (one per line)"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Leave empty to allow all users
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                      <Col md="4">
+                                        <FormGroup>
+                                          <label className="form-control-label">TV Show Access Roles</label>
+                                          <Input
+                                            type="textarea"
+                                            rows="2"
+                                            value={tvShowRoles.join("\n")}
+                                            onChange={(e) => setTvShowRoles(e.target.value.split("\n").filter(r => r.trim()))}
+                                            placeholder="Enter role IDs (one per line)"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Leave empty to allow all users
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                      <Col md="4">
+                                        <FormGroup>
+                                          <label className="form-control-label">Music Access Roles</label>
+                                          <Input
+                                            type="textarea"
+                                            rows="2"
+                                            value={musicRoles.join("\n")}
+                                            onChange={(e) => setMusicRoles(e.target.value.split("\n").filter(r => r.trim()))}
+                                            placeholder="Enter role IDs (one per line)"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Leave empty to allow all users
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                    </Row>
+                                  </CardBody>
+                                </Card>
+                              </Col>
+                            </Row>
+
+                            <Row className="mb-4">
+                              <Col lg="12">
+                                <Card className="border-0 shadow-sm mb-3">
+                                  <CardBody>
+                                    <h5 className="text-primary mb-3">
+                                      <i className="fas fa-toggle-on mr-2"></i>
+                                      Behavior Settings
+                                    </h5>
+                                    <Row>
+                                      <Col md="4">
+                                        <div className="custom-control custom-switch mb-3">
+                                          <input
+                                            className="custom-control-input"
+                                            id="enableRequestsThroughDirectMessages"
+                                            type="checkbox"
+                                            checked={enableRequestsThroughDirectMessages}
+                                            onChange={e => setEnableRequestsThroughDirectMessages(e.target.checked)}
+                                          />
+                                          <label className="custom-control-label" htmlFor="enableRequestsThroughDirectMessages">
+                                            Allow DM requests
+                                          </label>
+                                        </div>
+                                      </Col>
+                                      <Col md="4">
+                                        <div className="custom-control custom-switch mb-3">
+                                          <input
+                                            className="custom-control-input"
+                                            id="automaticallyNotifyRequesters"
+                                            type="checkbox"
+                                            checked={automaticallyNotifyRequesters}
+                                            onChange={e => setAutomaticallyNotifyRequesters(e.target.checked)}
+                                          />
+                                          <label className="custom-control-label" htmlFor="automaticallyNotifyRequesters">
+                                            Auto-notify requesters
+                                          </label>
+                                        </div>
+                                      </Col>
+                                      <Col md="4">
+                                        <div className="custom-control custom-switch mb-3">
+                                          <input
+                                            className="custom-control-input"
+                                            id="automaticallyPurgeCommandMessages"
+                                            type="checkbox"
+                                            checked={automaticallyPurgeCommandMessages}
+                                            onChange={e => setAutomaticallyPurgeCommandMessages(e.target.checked)}
+                                          />
+                                          <label className="custom-control-label" htmlFor="automaticallyPurgeCommandMessages">
+                                            Auto-delete commands
+                                          </label>
+                                        </div>
+                                      </Col>
+                                    </Row>
+                                  </CardBody>
+                                </Card>
+                              </Col>
+                            </Row>
+                          </TabPane>
+                          
+                          <TabPane tabId="telegram">
+                            <Row className="mb-4">
+                              <Col lg="12">
+                                <Card className="border-0 shadow-sm mb-3">
+                                  <CardBody>
+                                    <h5 className="text-primary mb-3">
+                                      <i className="fab fa-telegram mr-2"></i>
+                                      Bot Configuration
+                                    </h5>
+                                    <Row>
+                                      <Col md="12">
+                                        <FormGroup>
+                                          <label className="form-control-label">Bot Token</label>
+                                          <Input
+                                            type="password"
+                                            value={telegramBotToken}
+                                            onChange={onTelegramBotTokenChange}
+                                            invalid={telegramBotTokenInvalid}
+                                            placeholder="Enter Telegram bot token from @BotFather"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Create a bot on Telegram using @BotFather to get your token
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                    </Row>
+                                  </CardBody>
+                                </Card>
+                              </Col>
+                            </Row>
+
+                            <Row className="mb-4">
+                              <Col lg="12">
+                                <Card className="border-0 shadow-sm mb-3">
+                                  <CardBody>
+                                    <h5 className="text-primary mb-3">
+                                      <i className="fas fa-comment mr-2"></i>
+                                      Chat Settings
+                                    </h5>
+                                    <Row>
+                                      <Col md="6" className="mb-3">
+                                        <FormGroup>
+                                          <label className="form-control-label">Command Chats</label>
+                                          <Input
+                                            type="textarea"
+                                            rows="2"
+                                            value={telegramMonitoredChats.join("\n")}
+                                            onChange={(e) => setTelegramMonitoredChats(e.target.value.split("\n").filter(c => c.trim()))}
+                                            placeholder="Enter chat IDs (one per line)"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Telegram chats where bot responds to commands
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                      <Col md="6" className="mb-3">
+                                        <FormGroup>
+                                          <label className="form-control-label">Notification Chats</label>
+                                          <Input
+                                            type="textarea"
+                                            rows="2"
+                                            value={telegramNotificationChats.join("\n")}
+                                            onChange={(e) => setTelegramNotificationChats(e.target.value.split("\n").filter(c => c.trim()))}
+                                            placeholder="Enter chat IDs (one per line)"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Telegram chats for sending notifications
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                    </Row>
+                                    <Row>
+                                      <Col md="6">
+                                        <FormGroup>
+                                          <label className="form-control-label">Notification Mode</label>
+                                          <Input
+                                            type="select"
+                                            value={telegramNotificationMode}
+                                            onChange={(e) => setTelegramNotificationMode(e.target.value)}
+                                          >
+                                            <option value="PrivateMessages">Private Messages</option>
+                                            <option value="Channels">Channels</option>
+                                            <option value="Both">Both</option>
+                                          </Input>
+                                          <small className="form-text text-muted">
+                                            How notifications will be delivered
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                    </Row>
+                                  </CardBody>
+                                </Card>
+                              </Col>
+                            </Row>
+
+                            <Row className="mb-4">
+                              <Col lg="12">
+                                <Card className="border-0 shadow-sm mb-3">
+                                  <CardBody>
+                                    <h5 className="text-primary mb-3">
+                                      <i className="fas fa-user-lock mr-2"></i>
+                                      User Access Settings
+                                    </h5>
+                                    <Row>
+                                      <Col md="4">
+                                        <FormGroup>
+                                          <label className="form-control-label">Movie Access</label>
+                                          <Input
+                                            type="textarea"
+                                            rows="2"
+                                            value={telegramMovieRoles.join("\n")}
+                                            onChange={(e) => setTelegramMovieRoles(e.target.value.split("\n").filter(r => r.trim()))}
+                                            placeholder="Enter user IDs (one per line)"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Users who can request movies
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                      <Col md="4">
+                                        <FormGroup>
+                                          <label className="form-control-label">TV Show Access</label>
+                                          <Input
+                                            type="textarea"
+                                            rows="2"
+                                            value={telegramTvRoles.join("\n")}
+                                            onChange={(e) => setTelegramTvRoles(e.target.value.split("\n").filter(r => r.trim()))}
+                                            placeholder="Enter user IDs (one per line)"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Users who can request TV shows
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                      <Col md="4">
+                                        <FormGroup>
+                                          <label className="form-control-label">Music Access</label>
+                                          <Input
+                                            type="textarea"
+                                            rows="2"
+                                            value={telegramMusicRoles.join("\n")}
+                                            onChange={(e) => setTelegramMusicRoles(e.target.value.split("\n").filter(r => r.trim()))}
+                                            placeholder="Enter user IDs (one per line)"
+                                          />
+                                          <small className="form-text text-muted">
+                                            Users who can request music
+                                          </small>
+                                        </FormGroup>
+                                      </Col>
+                                    </Row>
+                                  </CardBody>
+                                </Card>
+                              </Col>
+                            </Row>
+
+                            <Row className="mb-4">
+                              <Col lg="12">
+                                <Card className="border-0 shadow-sm mb-3">
+                                  <CardBody>
+                                    <h5 className="text-primary mb-3">
+                                      <i className="fas fa-toggle-on mr-2"></i>
+                                      Behavior Settings
+                                    </h5>
+                                    <Row>
+                                      <Col md="6">
+                                        <div className="custom-control custom-switch mb-3">
+                                          <input
+                                            className="custom-control-input"
+                                            id="telegramEnableRequestsThroughDirectMessages"
+                                            type="checkbox"
+                                            checked={telegramEnableRequestsThroughDirectMessages}
+                                            onChange={e => setTelegramEnableRequestsThroughDirectMessages(e.target.checked)}
+                                          />
+                                          <label className="custom-control-label" htmlFor="telegramEnableRequestsThroughDirectMessages">
+                                            Allow DM requests
+                                          </label>
+                                        </div>
+                                      </Col>
+                                      <Col md="6">
+                                        <div className="custom-control custom-switch mb-3">
+                                          <input
+                                            className="custom-control-input"
+                                            id="telegramAutomaticallyNotifyRequesters"
+                                            type="checkbox"
+                                            checked={telegramAutomaticallyNotifyRequesters}
+                                            onChange={e => setTelegramAutomaticallyNotifyRequesters(e.target.checked)}
+                                          />
+                                          <label className="custom-control-label" htmlFor="telegramAutomaticallyNotifyRequesters">
+                                            Auto-notify requesters
+                                          </label>
+                                        </div>
+                                      </Col>
+                                    </Row>
+                                  </CardBody>
+                                </Card>
+                              </Col>
+                            </Row>
+
+                            <Row>
+                              <Col className="text-right">
+                                <Button
+                                  color="info"
+                                  className="modern-btn"
+                                  onClick={onTestTelegramSettings}
+                                  disabled={isTestingSettings}
                                 >
-                                  Enable requests through direct messages
-                                </label>
-                              </div>
-                              </FormGroup>
-                            </Col>
-                          <Col lg="6">
-                            <FormGroup>
-                              <div className="custom-control custom-checkbox mb-3">
-                                <input
-                            className="custom-control-input"
-                                  id="check-telegram-auto-notify"
-                            type="checkbox"
-                                  checked={telegramAutomaticallyNotifyRequesters}
-                                  onChange={(e) => setTelegramAutomaticallyNotifyRequesters(e.target.checked)}
-                          />
-                          <label
-                            className="custom-control-label"
-                                  htmlFor="check-telegram-auto-notify"
-                          >
-                                  Automatically notify requesters
-                          </label>
-                              </div>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                        
-                        <Row className="mt-4">
-                          <Col lg="12">
-                            <h6 className="heading-small text-muted mb-3">Chats & Permissions</h6>
-                          </Col>
-                        </Row>
-                        
-                    <Row>
-                          <Col lg="12">
-                            <FormGroup>
-                              <label className="form-control-label" htmlFor="input-telegram-monitored-chats">
-                                Monitored Chat IDs
-                              </label>
-                              <div className="mb-2">
-                          <Input
-                                  type="textarea"
-                                  className="form-control-alternative"
-                                  id="input-telegram-monitored-chats"
-                                  placeholder="Enter chat IDs, one per line"
-                                  rows="3"
-                                  value={telegramMonitoredChats.join('\n')}
-                                  onChange={(e) => setTelegramMonitoredChats(e.target.value.split('\n').map(id => id.trim()).filter(id => id))}
-                          />
-                              </div>
-                              <small className="text-muted">
-                                Enter the chat IDs where your bot should respond to commands. Use @RawDataBot in a chat to get its ID.
-                                <br />Group chat IDs typically start with a minus sign (e.g., -1001234567890).
-                              </small>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                        
-                        <Row className="mt-4">
-                          <Col lg="12">
-                            <h6 className="heading-small text-muted mb-3">Notification Settings</h6>
-                      </Col>
-                    </Row>
-                        
-                    <Row>
-                      <Col lg="6">
-                            <FormGroup>
-                              <label className="form-control-label" htmlFor="input-telegram-notification-mode">
-                                Notification Mode
-                              </label>
-                              <Input
-                                className="form-control-alternative"
-                                id="input-telegram-notification-mode"
-                                placeholder="Select notification mode"
-                                type="select"
-                                value={telegramNotificationMode}
-                                onChange={(e) => setTelegramNotificationMode(e.target.value)}
-                              >
-                                <option value="PrivateMessages">Private Messages</option>
-                                <option value="Channels">Channels/Groups</option>
-                                <option value="Both">Both</option>
-                              </Input>
-                            </FormGroup>
-                          </Col>
-                          <Col lg="6">
-                            <FormGroup>
-                              <label className="form-control-label" htmlFor="input-telegram-notification-chats">
-                                Notification Chats
-                              </label>
-                              <div className="mb-2">
-                              <Input
-                                  type="textarea"
-                                className="form-control-alternative"
-                                  id="input-telegram-notification-chats"
-                                  placeholder="Enter notification chat IDs, one per line"
-                                  rows="3"
-                                  value={telegramNotificationChats.join('\n')}
-                                  onChange={(e) => setTelegramNotificationChats(e.target.value.split('\n').map(id => id.trim()).filter(id => id))}
-                                />
-                              </div>
-                              <small className="text-muted">
-                                Enter the chat IDs where notifications should be sent.
-                              </small>
-                            </FormGroup>
-                          </Col>
-                        </Row>
-                        
-                        <Row className="mt-4">
-                          <Col lg="12">
-                            <h6 className="heading-small text-muted mb-3">Access Control</h6>
-                      </Col>
-                    </Row>
-                        
-                    <Row>
-                          <Col lg="4">
-                            <FormGroup>
-                              <label className="form-control-label" htmlFor="input-telegram-movie-roles">
-                                Users with Movie Access
-                              </label>
-                              <Input
-                                type="textarea"
-                                className="form-control-alternative"
-                                id="input-telegram-movie-roles"
-                                placeholder="Enter user IDs, one per line"
-                                rows="3"
-                                value={telegramMovieRoles.join('\n')}
-                                onChange={(e) => setTelegramMovieRoles(e.target.value.split('\n').map(id => id.trim()).filter(id => id))}
-                              />
-                              <small className="text-muted">
-                                Leave empty to allow all users
-                              </small>
-                            </FormGroup>
-                          </Col>
-                          <Col lg="4">
-                                  <FormGroup>
-                              <label className="form-control-label" htmlFor="input-telegram-tv-roles">
-                                Users with TV Show Access
-                              </label>
-                              <Input
-                                type="textarea"
-                                className="form-control-alternative"
-                                id="input-telegram-tv-roles"
-                                placeholder="Enter user IDs, one per line"
-                                rows="3"
-                                value={telegramTvRoles.join('\n')}
-                                onChange={(e) => setTelegramTvRoles(e.target.value.split('\n').map(id => id.trim()).filter(id => id))}
-                              />
-                              <small className="text-muted">
-                                Leave empty to allow all users
-                              </small>
-                                  </FormGroup>
-                          </Col>
-                          <Col lg="4">
-                            <FormGroup>
-                              <label className="form-control-label" htmlFor="input-telegram-music-roles">
-                                Users with Music Access
-                              </label>
-                                    <Input
-                                type="textarea"
-                                className="form-control-alternative"
-                                id="input-telegram-music-roles"
-                                placeholder="Enter user IDs, one per line"
-                                rows="3"
-                                value={telegramMusicRoles.join('\n')}
-                                onChange={(e) => setTelegramMusicRoles(e.target.value.split('\n').map(id => id.trim()).filter(id => id))}
-                              />
-                              <small className="text-muted">
-                                Leave empty to allow all users
-                              </small>
-                                  </FormGroup>
+                                  {isTestingSettings ? (
+                                    <>
+                                      <Spinner size="sm" className="mr-2" />
+                                      Testing...
+                                    </>
+                                  ) : (
+                                    <>
+                                      <i className="fas fa-vial mr-2"></i>
+                                      Test Telegram Settings
+                                    </>
+                                  )}
+                                </Button>
+                              </Col>
+                            </Row>
+                            {testSettingsRequested && !isTestingSettings && (
+                              <Row className="mt-3">
+                                <Col>
+                                  {testSettingsSuccess ? (
+                                    <Alert color="success">
+                                      <strong>Telegram settings tested successfully!</strong>
+                                    </Alert>
+                                  ) : (
+                                    <Alert color="danger">
+                                      <strong>{testSettingsError}</strong>
+                                    </Alert>
+                                  )}
                                 </Col>
                               </Row>
-                        
-                        <Row className="mt-3">
-                          <Col lg="12">
-                            <Alert color="warning">
-                              <strong>Note:</strong> Telegram doesn't support role-based permissions like Discord. 
-                              Access control is managed by user ID. You'll need to get user IDs by having them interact with your bot.
-                            </Alert>
-                          </Col>
-                        </Row>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                  <hr className="my-4" />
-                  
-                <Row className="align-items-center">
-                  <Col className="text-right" lg="12">
-                    {chatClient && (
-                      <Button
-                        color="info"
-                        size="md"
-                        type="button"
-                        onClick={onTestSettings}
-                        disabled={isTestingSettings}
-                      >
-                        {isTestingSettings ? (
-                          <>
-                            <span className="btn-inner--icon">
-                              <Oval color="#FFF" height={15} width={15} />
-                            </span>
-                            <span className="btn-inner--text ml-2">Testing...</span>
-                          </>
-                        ) : (
-                          "Test Connection"
-                        )}
-                      </Button>
+                            )}
+                          </TabPane>
+                        </TabContent>
+                      </>
                     )}
-                    <Button
-                      color="primary"
-                      size="md"
-                      type="button"
-                      onClick={onSaving}
-                      disabled={isSaving}
-                      className="ml-2"
-                    >
-                      {isSaving ? (
-                        <>
-                          <span className="btn-inner--icon">
-                            <Oval color="#FFF" height={15} width={15} />
-                          </span>
-                          <span className="btn-inner--text ml-2">Saving...</span>
-                        </>
-                      ) : (
-                        "Save Settings"
-                      )}
-                    </Button>
+                    
+                    <Row className="mt-4">
+                      <Col>
+                        {saveAttempted && !isSaving && (
+                          saveSuccess ? (
+                            <Alert className="text-center" color="success">
+                              <strong>Settings updated successfully.</strong>
+                            </Alert>
+                          ) : (
+                            <Alert className="text-center" color="danger">
+                              <strong>{saveError}</strong>
+                            </Alert>
+                          )
+                        )}
+                        
+                        <div className="text-right">
+                          <Button
+                            color="primary"
+                            className="modern-btn"
+                            onClick={onSaving}
+                            disabled={isSaving}
+                          >
+                            {isSaving ? (
+                              <>
+                                <Spinner size="sm" className="mr-2" />
+                                Saving...
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-save mr-2"></i>
+                                Save Changes
+                              </>
+                            )}
+                          </Button>
+                        </div>
                       </Col>
                     </Row>
-                </Form>
-            )}
+                  </Form>
+                )}
               </CardBody>
             </Card>
+          </Col>
+        </Row>
       </Container>
     </>
   );

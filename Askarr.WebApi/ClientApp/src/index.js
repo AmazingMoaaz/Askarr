@@ -26,9 +26,11 @@ import { configureStore } from "@reduxjs/toolkit";
 import "./assets/vendor/nucleo/css/nucleo.css";
 import "./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/argon-dashboard-react.scss";
+import "./assets/scss/modern-layout.scss";
 
 import AdminLayout from "./layouts/Admin.jsx";
 import AuthLayout from "./layouts/Auth.jsx";
+import ModernLayout from "./layouts/Modern.jsx";
 import UserReducer from './store/reducers/UserReducer';
 import ChatClients from './store/reducers/ChatClientsReducer';
 import SettingsReducer from './store/reducers/SettingsReducer';
@@ -39,8 +41,6 @@ import OverseerrClients from './store/reducers/OverseerrClientsReducer';
 import TvShowsClients from './store/reducers/TvShowsClientsReducer';
 import LidarrClients from "./store/reducers/LidarrClientsReducer.jsx";
 import MusicClients from "./store/reducers/MusicClientsReducer.jsx";
-
-
 
 function combinedMovieClientsReducer(state = {}, action) {
   if (action.type.includes("radarr")) {
@@ -97,9 +97,9 @@ fetch("../api/settings", {
       <Provider store={store}>
         <BrowserRouter basename={data.baseUrl}>
           <Routes>
-            <Route path="/admin/*" element={<AdminLayout />} />
+            <Route path="/admin/*" element={<ModernLayout />} />
             <Route path="/auth/*" element={<AuthLayout />} />
-            <Route path="*" element={() => <Navigate to="/auth/login" />} />
+            <Route path="*" element={<Navigate to="/auth/login" />} />
           </Routes>
         </BrowserRouter>
       </Provider>

@@ -27,6 +27,8 @@ import Dropdown from "../components/Inputs/Dropdown"
 import Radarr from "../components/DownloadClients/Radarr/Radarr"
 import Ombi from "../components/DownloadClients/Ombi"
 import Overseerr from "../components/DownloadClients/Overseerr/Movies/OverseerrMovie"
+import ClientCard from "../components/Cards/ClientCard"
+import ModernHeader from "../components/Headers/ModernHeader"
 
 // reactstrap components
 import {
@@ -34,17 +36,17 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
   Form,
   Container,
   Row,
-  Col
+  Col,
+  Spinner
 } from "reactstrap";
 // core components
 import UserHeader from "../components/Headers/UserHeader.jsx";
 
 
-function Movies(props) {
+function Movies() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -152,7 +154,8 @@ function Movies(props) {
   // }
 
 
-  const onClientChange = () => {
+  const onClientChange = (newClient) => {
+    setClient(newClient);
     setRadarr(reduxState.settings.radarr);
     setOmbi(reduxState.settings.ombi);
     setOverseerr(reduxState.settings.overseerr);
@@ -165,114 +168,174 @@ function Movies(props) {
     setIsSubmitted(true);
   }
 
-
-
+  const renderClientConfig = () => {
+    if (client === "Disabled") return null;
+    
+    if (client === "Radarr") {
+      return (
+        <Radarr 
+          onChange={newRadarr => setRadarr(newRadarr)} 
+          onValidate={newIsRadarrValid => setIsRadarrValid(newIsRadarrValid)} 
+          isSubmitted={isSubmitted} 
+          isSaving={isSaving} 
+        />
+      );
+    }
+    
+    if (client === "Ombi") {
+      return (
+        <Ombi 
+          type={"movie"} 
+          settings={ombi} 
+          onChange={newOmbi => setOmbi(newOmbi)} 
+          onValidate={newIsOmbiValid => setIsOmbiValid(newIsOmbiValid)} 
+          isSubmitted={isSubmitted} 
+        />
+      );
+    }
+    
+    if (client === "Overseerr") {
+      return (
+        <Overseerr 
+          onChange={newOverseerr => setOverseerr(newOverseerr)} 
+          onValidate={newIsOverseerrValid => setIsOverseerrValid(newIsOverseerrValid)} 
+          isSubmitted={isSubmitted} 
+          isSaving={isSaving} 
+        />
+      );
+    }
+    
+    return null;
+  }
 
   return (
     <>
-      <UserHeader title="Movies" description="This page is for configuring the connection between your bot and your favorite movie download client" />
+      <ModernHeader 
+        title="Movies" 
+        description="Configure connection between your bot and movie download client"
+        icon="fas fa-film"
+      />
+      
       <Container className="mt--7" fluid>
         <Row>
           <Col className="order-xl-1" xl="12">
-            <Card className="bg-secondary shadow">
+            <Card className="modern-card shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
-                  <Col xs="8">
-                    <h3 className="mb-0">Configuration</h3>
-                  </Col>
-                  <Col className="text-right" xs="4">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      size="sm"
-                    >
-                      Settings
-                    </Button>
+                  <Col>
+                    <h3 className="mb-0">Download Client</h3>
+                    <p className="text-sm text-muted mb-0">
+                      Select a download client for movie requests
+                    </p>
                   </Col>
                 </Row>
               </CardHeader>
+              
               <CardBody className={isLoading ? "fade" : "fade show"}>
-                <Form className="complex">
-                  <h6 className="heading-small text-muted mb-4">
-                    General Settings
-                  </h6>
-                  <div className="pl-lg-4">
-                    <Row>
-                      <Col lg="6">
-                        <Dropdown
-                          name="Download Client"
-                          value={client}
-                          items={[{ name: "Disabled", value: "Disabled" }, { name: "Radarr", value: "Radarr" }, { name: "Overseerr", value: "Overseerr" }, { name: "Ombi", value: "Ombi" }]}
-                          onChange={newClient => { setClient(newClient); onClientChange(); }} />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col lg="6">
-                        {
-                          reduxState.settings.client !== client && reduxState.settings.client !== "Disabled" ?
-                            <Alert className="text-center" color="warning">
-                              <strong>Changing the download client will delete all pending movie notifications.</strong>
-                            </Alert>
-                            : null
-                        }
-                      </Col>
-                    </Row>
+                {isLoading ? (
+                  <div className="text-center py-4">
+                    <Spinner color="primary" />
                   </div>
-                  {
-                    client !== "Disabled"
-                      ? <>
+                ) : (
+                  <Form className="modern-form">
+                    <Row>
+                      <Col lg="3">
+                        <ClientCard
+                          title="Disabled"
+                          description="No movie download client"
+                          icon="fas fa-ban"
+                          isActive={client === "Disabled"}
+                          onClick={() => onClientChange("Disabled")}
+                          color="secondary"
+                        />
+                      </Col>
+                      <Col lg="3">
+                        <ClientCard
+                          title="Radarr"
+                          description="Connect to Radarr for movie management"
+                          icon="fas fa-film"
+                          isActive={client === "Radarr"}
+                          onClick={() => onClientChange("Radarr")}
+                          color="primary"
+                        />
+                      </Col>
+                      <Col lg="3">
+                        <ClientCard
+                          title="Overseerr"
+                          description="Connect to Overseerr for movie requests"
+                          icon="fas fa-server"
+                          isActive={client === "Overseerr"}
+                          onClick={() => onClientChange("Overseerr")}
+                          color="info"
+                        />
+                      </Col>
+                      <Col lg="3">
+                        <ClientCard
+                          title="Ombi"
+                          description="Connect to Ombi for movie requests"
+                          icon="fas fa-database"
+                          isActive={client === "Ombi"}
+                          onClick={() => onClientChange("Ombi")}
+                          color="warning"
+                        />
+                      </Col>
+                    </Row>
+                    
+                    {reduxState.settings.client !== client && reduxState.settings.client !== "Disabled" && (
+                      <Row className="mt-4">
+                        <Col>
+                          <Alert className="text-center" color="warning">
+                            <strong>Changing the download client will delete all pending movie notifications.</strong>
+                          </Alert>
+                        </Col>
+                      </Row>
+                    )}
+                    
+                    {client !== "Disabled" && (
+                      <>
                         <hr className="my-4" />
-                        {
-                          client === "Ombi"
-                            ? <>
-                              <Ombi type={"movie"} settings={ombi} onChange={newOmbi => setOmbi(newOmbi)} onValidate={newIsOmbiValid => setIsOmbiValid(newIsOmbiValid)} isSubmitted={isSubmitted} />
-                            </>
-                            : null
-                        }
-                        {
-                          client === "Overseerr"
-                            ? <>
-                              <Overseerr onChange={newOverseerr => setOverseerr(newOverseerr)} onValidate={newIsOverseerrValid => setIsOverseerrValid(newIsOverseerrValid)} isSubmitted={isSubmitted} isSaving={isSaving} />
-                            </>
-                            : null
-                        }
-                        {
-                          client === "Radarr"
-                            ? <>
-                              <Radarr onChange={newRadarr => setRadarr(newRadarr)} onValidate={newIsRadarrValid => setIsRadarrValid(newIsRadarrValid)} isSubmitted={isSubmitted} isSaving={isSaving} />
-                            </>
-                            : null
-                        }
+                        {renderClientConfig()}
                       </>
-                      : null
-                  }
-                  <div className="pl-lg-4">
-                    <Row>
+                    )}
+                    
+                    <Row className="mt-4">
                       <Col>
-                        <FormGroup className="mt-4">
-                          {
-                            saveAttempted && !isSaving ?
-                              !saveSuccess ? (
-                                <Alert className="text-center" color="danger">
-                                  <strong>{saveError}</strong>
-                                </Alert>)
-                                : <Alert className="text-center" color="success">
-                                  <strong>Settings updated successfully.</strong>
-                                </Alert>
-                              : null
-                          }
-                        </FormGroup>
-                        <FormGroup className="text-right">
-                          <button className="btn btn-icon btn-3 btn-primary" onClick={onSaving} disabled={isSaving} type="button">
-                            <span className="btn-inner--icon"><i className="fas fa-save"></i></span>
-                            <span className="btn-inner--text">Save Changes</span>
-                          </button>
-                        </FormGroup>
+                        {saveAttempted && !isSaving && (
+                          saveSuccess ? (
+                            <Alert className="text-center" color="success">
+                              <strong>Settings updated successfully.</strong>
+                            </Alert>
+                          ) : (
+                            <Alert className="text-center" color="danger">
+                              <strong>{saveError}</strong>
+                            </Alert>
+                          )
+                        )}
+                        
+                        <div className="text-right">
+                          <Button
+                            color="primary"
+                            className="modern-btn"
+                            onClick={onSaving}
+                            disabled={isSaving}
+                          >
+                            {isSaving ? (
+                              <>
+                                <Spinner size="sm" className="mr-2" />
+                                Saving...
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-save mr-2"></i>
+                                Save Changes
+                              </>
+                            )}
+                          </Button>
+                        </div>
                       </Col>
                     </Row>
-                  </div>
-                </Form>
+                  </Form>
+                )}
               </CardBody>
             </Card>
           </Col>
