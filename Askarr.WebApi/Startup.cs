@@ -42,7 +42,12 @@ namespace Askarr.WebApi
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            // Build configuration with environment variables
+            var builder = new ConfigurationBuilder()
+                .AddConfiguration(configuration)
+                .AddEnvironmentVariables(prefix: "ASKARR_");
+                
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -69,6 +74,25 @@ namespace Askarr.WebApi
 
             var authenticationSettings = Configuration.GetSection("Authentication");
             var applicationSettings = Configuration.Get<ApplicationSettings>();
+
+            // Override settings with environment variables if set
+            var envPort = Configuration["PORT"];
+            if (!string.IsNullOrEmpty(envPort) && int.TryParse(envPort, out int port))
+            {
+                applicationSettings.Port = port;
+            }
+
+            var envBaseUrl = Configuration["BASE_URL"];
+            if (!string.IsNullOrEmpty(envBaseUrl))
+            {
+                applicationSettings.BaseUrl = envBaseUrl;
+            }
+
+            var envDisableAuth = Configuration["DISABLE_AUTHENTICATION"];
+            if (!string.IsNullOrEmpty(envDisableAuth) && bool.TryParse(envDisableAuth, out bool disableAuth))
+            {
+                applicationSettings.DisableAuthentication = disableAuth;
+            }
 
             if (applicationSettings.DisableAuthentication)
             {

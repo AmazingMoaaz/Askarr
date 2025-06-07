@@ -93,27 +93,17 @@ Askarr is a sophisticated chat integration solution for media server ecosystems.
     <tr>
       <td align="center" width="33%">
         <div style="padding:15px; margin-bottom:10px;">
-          <img src="https://raw.githubusercontent.com/Sonarr/Sonarr/develop/Logo/128.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(38, 198, 218, 0.6));"/>
+          <img src="https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Sonarr/icon.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(38, 198, 218, 0.6));"/>
         </div>
         <h3>Sonarr</h3>
         <p><strong>Versions V2-V4 Compatible</strong></p>
-        <ul align="left">
-          <li><strong>Advanced Season Management</strong></li>
-          <li><strong>Episode Tracking</strong></li>
-          <li><strong>Quality Profiles</strong></li>
-        </ul>
       </td>
       <td align="center" width="33%">
         <div style="padding:15px; margin-bottom:10px;">
-          <img src="https://raw.githubusercontent.com/Radarr/Radarr/develop/Logo/128.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(245, 124, 0, 0.6));"/>
+          <img src="https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Radarr/icon.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(245, 124, 0, 0.6));"/>
         </div>
         <h3>Radarr</h3>
         <p><strong>Versions V2-V5 Compatible</strong></p>
-        <ul align="left">
-          <li><strong>Multi-Instance Support</strong></li>
-          <li><strong>Quality Definitions</strong></li>
-          <li><strong>Movie Library Management</strong></li>
-        </ul>
       </td>
       <td align="center" width="33%">
         <div style="padding:15px; margin-bottom:10px;">
@@ -121,11 +111,6 @@ Askarr is a sophisticated chat integration solution for media server ecosystems.
         </div>
         <h3>Lidarr</h3>
         <p><strong>Versions V1-V2 Compatible</strong></p>
-        <ul align="left">
-          <li><strong>Artist Tracking</strong></li>
-          <li><strong>Album Management</strong></li>
-          <li><strong>Music Quality Profiles</strong></li>
-        </ul>
       </td>
     </tr>
   </table>
@@ -203,6 +188,23 @@ Askarr is a sophisticated chat integration solution for media server ecosystems.
       --restart=unless-stopped \
       AmazingMoaaz/askarr
 ```
+
+### Docker with Environment Variables
+
+```bash
+# Installation with custom environment variables
+docker run -d \
+  --name askarr \
+  -p 8080:4545 \
+  -v /path/to/config:/root/config \
+  -e ASKARR_PORT=4545 \
+  -e ASKARR_BASE_URL=/askarr \
+  -e ASKARR_CONFIG_DIR=/root/config \
+  --restart=unless-stopped \
+  AmazingMoaaz/askarr
+```
+
+For more details on available environment variables, see [ENVIRONMENT_VARIABLES.md](Askarr.WebApi/ENVIRONMENT_VARIABLES.md).
 
 ### Quick Start Commands
 

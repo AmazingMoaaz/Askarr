@@ -6,3 +6,9 @@ services:
     volumes:
     - ./config:/root/config
     restart: unless-stopped
+    environment:
+      - ASKARR_PORT=4545
+      - ASKARR_BASE_URL=/askarr
+      - ASKARR_CONFIG_DIR=/root/config
+      # Uncomment to disable authentication
+      # - ASKARR_DISABLE_AUTHENTICATION=true
