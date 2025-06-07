@@ -189,23 +189,6 @@ Askarr is a sophisticated chat integration solution for media server ecosystems.
       AmazingMoaaz/askarr
 ```
 
-### Docker with Environment Variables
-
-```bash
-# Installation with custom environment variables
-docker run -d \
-  --name askarr \
-  -p 8080:4545 \
-  -v /path/to/config:/root/config \
-  -e ASKARR_PORT=4545 \
-  -e ASKARR_BASE_URL=/askarr \
-  -e ASKARR_CONFIG_DIR=/root/config \
-  --restart=unless-stopped \
-  AmazingMoaaz/askarr
-```
-
-For more details on available environment variables, see [ENVIRONMENT_VARIABLES.md](Askarr.WebApi/ENVIRONMENT_VARIABLES.md).
-
 ### Quick Start Commands
 
 ```bash

@@ -103,59 +103,6 @@ namespace  Askarr.WebApi
                 }
             }
 
-            // Check environment variables for configuration
-            string envPort = Environment.GetEnvironmentVariable("ASKARR_PORT");
-            string envBaseUrl = Environment.GetEnvironmentVariable("ASKARR_BASE_URL");
-            string envConfigDir = Environment.GetEnvironmentVariable("ASKARR_CONFIG_DIR");
-
-            // If config directory is set via environment variable and not via command line
-            if (!string.IsNullOrEmpty(envConfigDir) && !SettingsFile.CommandLineSettings)
-            {
-                SettingsFile.SettingsFolder = envConfigDir;
-                SettingsFile.CommandLineSettings = true;
-                Console.WriteLine($"Using config directory from environment variable: {envConfigDir}");
-            }
-
-            // Parse port from environment variable if set and not specified via command line
-            if (!string.IsNullOrEmpty(envPort) && cliPort == -1)
-            {
-                if (int.TryParse(envPort, out int parsedPort))
-                {
-                    if (parsedPort >= 0 && parsedPort <= 65535)
-                    {
-                        cliPort = parsedPort;
-                        Console.WriteLine($"Using port from environment variable: {parsedPort}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Warning: Invalid port in environment variable (must be 0-65535): {envPort}");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine($"Warning: Could not parse port from environment variable: {envPort}");
-                }
-            }
-
-            // Use base URL from environment variable if set and not specified via command line
-            if (!string.IsNullOrEmpty(envBaseUrl) && cliBaseUrl == null)
-            {
-                if (envBaseUrl == "/")
-                {
-                    cliBaseUrl = string.Empty;
-                }
-                else if (envBaseUrl.EndsWith("/"))
-                {
-                    Console.WriteLine($"Warning: Base URL in environment variable ends with a slash, removing: {envBaseUrl}");
-                    cliBaseUrl = envBaseUrl.TrimEnd('/');
-                }
-                else
-                {
-                    cliBaseUrl = envBaseUrl;
-                }
-                Console.WriteLine($"Using base URL from environment variable: {cliBaseUrl}");
-            }
-
             try
             {
                 if (!SettingsFile.CommandLineSettings)

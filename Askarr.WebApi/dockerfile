@@ -33,12 +33,6 @@ RUN chmod -R 755 /root
 
 WORKDIR /root/
 
-# Default environment variables that can be overridden
 ENV ASPNETCORE_URLS="http://*:4545"
-ENV ASKARR_PORT=4545
-ENV ASKARR_BASE_URL=""
-ENV ASKARR_CONFIG_DIR="/root/config"
-# ENV ASKARR_DISABLE_AUTHENTICATION=false
-
 EXPOSE 4545/tcp
 ENTRYPOINT ["dotnet", "Askarr.WebApi.dll"]
