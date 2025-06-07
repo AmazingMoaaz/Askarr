@@ -1,7 +1,7 @@
 #  Askarr
 
 <div align="center">
-  <img src="Logos/Askarr/logo.svg" width="200" alt="Askarr Logo">
+  <img src="Logos/logo.svg" width="250" alt="Askarr Logo">
   
   <h2>Advanced Media Request Management via Chat Integration</h2>
   <p>Enterprise-grade solution for Sonarr, Radarr, Lidarr, Overseerr and Ombi</p>

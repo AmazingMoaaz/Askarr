@@ -29,7 +29,7 @@ import { hasRegistered as validateRegistration } from "../store/actions/UserActi
 import { validateLogin } from "../store/actions/UserActions"
 
 import routes from "../routes.js";
-import AskarrLogo from "../assets/img/brand/askarr.svg";
+import AskarrLogo from "../assets/img/brand/logo.svg";
 
 function Auth() {
   const [isLoading, setIsLoading] = useState(true);

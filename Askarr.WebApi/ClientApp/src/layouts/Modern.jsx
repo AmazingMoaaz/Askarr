@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar/Sidebar.jsx";
 import { validateLogin } from "../store/actions/UserActions";
 import LoadingSpinner from "../components/Loaders/LoadingSpinner.jsx";
 import routes from "../routes.js";
-import AskarrLogo from "../assets/img/brand/askarr_black.svg";
+import AskarrLogo from "../assets/img/brand/logo.svg";
 
 function Modern(props) {
   const mainContent = useRef(null);
