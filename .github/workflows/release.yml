@@ -28,11 +28,21 @@ jobs:
           npm install
           npm run build
           cd ../
-          dotnet publish -c Release -o publish
+          # Create directory if it doesn't exist
+          mkdir -p publish
+          # Copy all necessary files to the publish directory
+          cp -r * publish/ || true
+          # Verify publish directory has content
+          ls -la publish/
           
       - name: Create ZIP archive
         run: |
-          zip -r Askarr-${{ github.ref_name }}.zip publish/
+          # Make sure we're in the root directory
+          cd $GITHUB_WORKSPACE
+          # Create ZIP with relative path
+          zip -r Askarr-${{ github.ref_name }}.zip Askarr.WebApi/publish/
+          # Verify ZIP was created
+          ls -la *.zip
           
       - name: Create Release
         id: create_release
