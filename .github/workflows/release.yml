@@ -22,6 +22,10 @@ jobs:
         with:
           node-version: '18'
           
+      - name: Get version from version.txt
+        id: get_version
+        run: echo "VERSION=$(cat version.txt)" >> $GITHUB_OUTPUT
+          
       - name: Build project
         run: |
           cd Askarr.WebApi/ClientApp
@@ -32,6 +36,10 @@ jobs:
           mkdir -p publish
           # Copy all necessary files to the publish directory
           cp -r * publish/ || true
+          # Add version information
+          echo "VERSION=${{ steps.get_version.outputs.VERSION }}" > publish/version.txt
+          echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> publish/version.txt
+          echo "VCS_REF=${{ github.sha }}" >> publish/version.txt
           # Verify publish directory has content
           ls -la publish/
           
@@ -40,6 +48,8 @@ jobs:
           # Make sure we're in the root directory
           cd $GITHUB_WORKSPACE
           # Create ZIP with relative path
+          zip -r Askarr-v${{ steps.get_version.outputs.VERSION }}.zip Askarr.WebApi/publish/
+          # Also create ZIP with tag name for compatibility
           zip -r Askarr-${{ github.ref_name }}.zip Askarr.WebApi/publish/
           # Verify ZIP was created
           ls -la *.zip
@@ -48,7 +58,9 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
+          name: Askarr v${{ steps.get_version.outputs.VERSION }}
           files: |
+            Askarr-v${{ steps.get_version.outputs.VERSION }}.zip
             Askarr-${{ github.ref_name }}.zip
           draft: false
           prerelease: false

@@ -12,6 +12,7 @@
   [![Discord](https://img.shields.io/discord/837015505195794482?style=flat-square&logo=discord&color=5865F2&logoColor=white)](https://discord.gg/askarr)
   [![Docker Image Size](https://img.shields.io/docker/image-size/amazingmoaaz/askarr/latest?style=flat-square&logo=docker&color=096DD9&logoColor=white)](https://hub.docker.com/r/amazingmoaaz/askarr)
   [![GitHub Last Commit](https://img.shields.io/github/last-commit/amazingmoaaz/askarr?style=flat-square&logo=github&color=F05032&logoColor=white)](https://github.com/AmazingMoaaz/Askarr)
+  [![Version](https://img.shields.io/github/v/release/amazingmoaaz/askarr?style=flat-square&logo=github&color=35B44C&logoColor=white)](https://github.com/AmazingMoaaz/Askarr/releases)
 </div>
 
 ---
@@ -205,6 +206,51 @@ docker run -d \
 <div align="center">
   <p>Access the administration interface at: <code>http://youraddress:4545/</code></p>
 </div>
+
+## 📦 Versioning and Releases
+
+Askarr follows [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH).
+
+### Version Types
+- **MAJOR**: Incompatible API changes
+- **MINOR**: Backward-compatible functionality additions
+- **PATCH**: Backward-compatible bug fixes
+- **HOTFIX**: Emergency fixes for critical issues (format: X.Y.Z-hfN)
+
+### Docker Tags
+- `latest`: Latest stable release
+- `X.Y.Z`: Specific version (e.g., `2.1.10`)
+- `X.Y`: Major.Minor version (e.g., `2.1`)
+
+### Updating Askarr
+To update to the latest version:
+```bash
+docker pull amazingmoaaz/askarr:latest
+```
+
+For a specific version:
+```bash
+docker pull amazingmoaaz/askarr:2.1.10
+```
+
+### Release Process for Developers
+Askarr includes a version management script to facilitate releases:
+
+```powershell
+# Bump patch version (2.1.9 → 2.1.10)
+.\bump-version.ps1 patch
+
+# Bump minor version (2.1.10 → 2.2.0)
+.\bump-version.ps1 minor
+
+# Bump major version (2.2.0 → 3.0.0)
+.\bump-version.ps1 major
+
+# Create hotfix (2.1.10 → 2.1.10-hf1)
+.\bump-version.ps1 hotfix
+```
+
+After running the script, follow the displayed instructions to push the new version.
 
 ---
 

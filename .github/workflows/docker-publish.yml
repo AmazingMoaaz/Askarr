@@ -26,6 +26,10 @@ jobs:
         with:
           username: ${{ env.DOCKER_HUB_USERNAME }}
           password: ${{ env.DOCKER_HUB_ACCESS_TOKEN }}
+          
+      - name: Get version from version.txt
+        id: get_version
+        run: echo "VERSION=$(cat version.txt)" >> $GITHUB_OUTPUT
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -36,12 +40,34 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=raw,value=${{ steps.get_version.outputs.VERSION }},enable=true
+
+      - name: Prepare Docker build context
+        run: |
+          # Ensure logo.svg is available in the Docker build context
+          mkdir -p docker-build-context/assets
+          cp Logos/Askarr/logo.svg docker-build-context/assets/
+          # Copy the rest of the necessary files
+          cp -R Askarr.WebApi/* docker-build-context/
+          # Create a metadata file for the Docker image
+          echo "VERSION=${{ steps.get_version.outputs.VERSION }}" > docker-build-context/version.txt
+          echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> docker-build-context/version.txt
+          echo "VCS_REF=${{ github.sha }}" >> docker-build-context/version.txt
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: ./Askarr.WebApi
+          context: ./docker-build-context
           file: ./Askarr.WebApi/dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }} 
+          labels: |
+            ${{ steps.meta.outputs.labels }}
+            org.opencontainers.image.title=Askarr
+            org.opencontainers.image.description=Askarr Discord Bot
+            org.opencontainers.image.version=${{ steps.get_version.outputs.VERSION }}
+            org.opencontainers.image.created=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
+            org.opencontainers.image.authors=Askarr Team
+            org.opencontainers.image.url=${{ github.event.repository.html_url }}
+            org.opencontainers.image.source=${{ github.event.repository.clone_url }}
+            org.opencontainers.image.revision=${{ github.sha }} 
