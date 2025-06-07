@@ -17,6 +17,7 @@ namespace  Askarr.WebApi.Controllers.ChatClients
         public bool EnableRequestsThroughDirectMessages { get; set; }
         public string[] NotificationChannels { get; set; }
         public bool AutomaticallyPurgeCommandMessages { get; set; }
+        public bool UsePrivateResponses { get; set; }
 
         // Telegram specific settings
         public string TelegramBotToken { get; set; }

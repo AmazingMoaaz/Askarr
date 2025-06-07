@@ -56,7 +56,7 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
             await _context.CreateResponseAsync(
                 InteractionResponseType.ChannelMessageWithSource, 
                 new DiscordInteractionResponseBuilder()
-                    .AsEphemeral(_discordSettings.AutomaticallyPurgeCommandMessages)
+                    .AsEphemeral(_discordSettings.UsePrivateResponses)
                     .WithContent(message));
         }
 

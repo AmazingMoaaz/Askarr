@@ -25,6 +25,7 @@ namespace  Askarr.WebApi.Controllers.ChatClients
                 settings.ChatClients.Discord.NotificationMode = chatClientsSettings.Discord.NotificationMode;
                 settings.ChatClients.Discord.NotificationChannels = JToken.FromObject(chatClientsSettings.Discord.NotificationChannels);
                 settings.ChatClients.Discord.AutomaticallyPurgeCommandMessages = chatClientsSettings.Discord.AutomaticallyPurgeCommandMessages;
+                settings.ChatClients.Discord.UsePrivateResponses = chatClientsSettings.Discord.UsePrivateResponses;
 
                 settings.BotClient.Client = botClientSettings.Client;
 

@@ -37,6 +37,7 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
                 NotificationMode = settings.ChatClients.Discord.NotificationMode,
                 NotificationChannels = settings.ChatClients.Discord.NotificationChannels.ToObject<string[]>(),
                 AutomaticallyPurgeCommandMessages = settings.ChatClients.Discord.AutomaticallyPurgeCommandMessages,
+                UsePrivateResponses = settings.ChatClients.Discord.UsePrivateResponses ?? true,
             };
         }
 

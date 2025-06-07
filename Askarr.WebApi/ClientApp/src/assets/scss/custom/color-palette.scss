@@ -43,13 +43,6 @@ $info: #3498db;
 $info-light: #73e2e6;
 $info-dark: #2980b9;
 
-// Dark Mode Colors
-$dark-bg: #121212;
-$dark-surface: #1e1e1e;
-$dark-surface-2: #2d2d2d;
-$dark-text-primary: rgba(255, 255, 255, 0.87);
-$dark-text-secondary: rgba(255, 255, 255, 0.6);
-
 // CSS Variables for easy access in JS
 :root {
   --primary: #{$primary};
@@ -89,47 +82,6 @@ $dark-text-secondary: rgba(255, 255, 255, 0.6);
   --gray-700: #{$gray-700};
   --gray-800: #{$gray-800};
   --gray-900: #{$gray-900};
-}
-
-// Dark mode variables
-.dark-mode {
-  --primary: #{lighten($primary, 5%)};
-  --primary-light: #{lighten($primary-light, 5%)};
-  --primary-dark: #{lighten($primary-dark, 5%)};
-  
-  --secondary: #{lighten($secondary, 5%)};
-  --secondary-light: #{lighten($secondary-light, 5%)};
-  --secondary-dark: #{lighten($secondary-dark, 5%)};
-  
-  --accent-1: #{lighten($accent-1, 5%)};
-  --accent-2: #{lighten($accent-2, 5%)};
-  --accent-3: #{lighten($accent-3, 5%)};
-  
-  --success: #{lighten($success, 5%)};
-  --success-light: #{lighten($success-light, 5%)};
-  --success-dark: #{lighten($success-dark, 5%)};
-  
-  --warning: #{lighten($warning, 5%)};
-  --warning-light: #{lighten($warning-light, 5%)};
-  --warning-dark: #{lighten($warning-dark, 5%)};
-  
-  --danger: #{lighten($danger, 5%)};
-  --danger-light: #{lighten($danger-light, 5%)};
-  --danger-dark: #{lighten($danger-dark, 5%)};
-  
-  --info: #{lighten($info, 5%)};
-  --info-light: #{lighten($info-light, 5%)};
-  --info-dark: #{lighten($info-dark, 5%)};
-  
-  --gray-100: #{$dark-surface-2};
-  --gray-200: #{$dark-surface};
-  --gray-300: #{darken($dark-surface, 3%)};
-  --gray-400: #{darken($dark-surface, 6%)};
-  --gray-500: #{$dark-text-secondary};
-  --gray-600: #{rgba($dark-text-secondary, 0.8)};
-  --gray-700: #{rgba($dark-text-primary, 0.8)};
-  --gray-800: #{rgba($dark-text-primary, 0.9)};
-  --gray-900: #{$dark-text-primary};
 }
 
 // Color utility classes

@@ -284,11 +284,11 @@ function Movies() {
                     {reduxState.settings.client !== client && reduxState.settings.client !== "Disabled" && (
                       <Row className="mt-4">
                         <Col>
-                          <Alert className="text-center" color="warning">
-                            <strong>Changing the download client will delete all pending movie notifications.</strong>
-                          </Alert>
-                        </Col>
-                      </Row>
+                            <Alert className="text-center" color="warning">
+                              <strong>Changing the download client will delete all pending movie notifications.</strong>
+                            </Alert>
+                      </Col>
+                    </Row>
                     )}
                     
                     {client !== "Disabled" && (
@@ -306,9 +306,9 @@ function Movies() {
                               <strong>Settings updated successfully.</strong>
                             </Alert>
                           ) : (
-                            <Alert className="text-center" color="danger">
-                              <strong>{saveError}</strong>
-                            </Alert>
+                                <Alert className="text-center" color="danger">
+                                  <strong>{saveError}</strong>
+                                </Alert>
                           )
                         )}
                         
@@ -334,7 +334,7 @@ function Movies() {
                         </div>
                       </Col>
                     </Row>
-                  </Form>
+                </Form>
                 )}
               </CardBody>
             </Card>

@@ -138,43 +138,4 @@
     top: 0.25rem;
     color: $primary;
   }
-}
-
-// Dark mode support
-.dark-mode {
-  .form-control {
-    background-color: $dark-surface-2;
-    border-color: rgba($white, 0.1);
-    color: $dark-text-primary;
-    
-    &:focus {
-      box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
-      border-color: $primary;
-    }
-    
-    &::placeholder {
-      color: $dark-text-secondary;
-    }
-  }
-  
-  .custom-select,
-  .react-dropdown-select {
-    background-color: $dark-surface-2 !important;
-    border-color: rgba($white, 0.1) !important;
-    color: $dark-text-primary !important;
-  }
-  
-  .input-group-text {
-    background-color: $dark-surface;
-    border-color: rgba($white, 0.1);
-    color: $dark-text-primary;
-  }
-  
-  .form-label {
-    color: $dark-text-primary;
-  }
-  
-  .floating-label {
-    color: $dark-text-secondary;
-  }
 } 

@@ -81,23 +81,4 @@ $pagination-hover-bg:       $gray-200;
 $pagination-hover-border-color: $gray-300;
 $pagination-active-color:   $component-active-color;
 $pagination-active-bg:      $component-active-bg;
-$pagination-active-border-color: $pagination-active-bg;
-
-// Dark mode overrides (these will be applied via CSS variables)
-.dark-mode {
-  --body-bg: #{$dark-bg};
-  --body-color: #{$dark-text-primary};
-  
-  --card-cap-bg: #{rgba($primary, .1)};
-  --card-border-color: #{rgba($white, .05)};
-  
-  --input-bg: #{$dark-surface};
-  --input-color: #{$dark-text-primary};
-  --input-border-color: #{rgba($white, .1)};
-  
-  --dropdown-bg: #{$dark-surface};
-  --dropdown-border-color: #{rgba($white, .05)};
-  --dropdown-divider-bg: #{rgba($white, .1)};
-  --dropdown-link-color: #{$dark-text-primary};
-  --dropdown-link-hover-bg: #{rgba($white, .05)};
-} 
+$pagination-active-border-color: $pagination-active-bg; 

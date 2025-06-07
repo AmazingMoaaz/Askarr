@@ -48,7 +48,7 @@ namespace  Askarr.WebApi. AskarrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
-                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
+                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.UsePrivateResponses).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<MovieWorkflowFactory>().CreateRequestingWorkflow(ctx.Interaction, [MOVIE_CATEGORY_ID]);
                     await workFlow.SearchMovieAsync(movieTitle.Trim());
@@ -69,7 +69,7 @@ namespace  Askarr.WebApi. AskarrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
-                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
+                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.UsePrivateResponses).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<MovieWorkflowFactory>().CreateRequestingWorkflow(ctx.Interaction, [MOVIE_CATEGORY_ID]);
                     await workFlow.SearchMovieAsync((int)theMovieDbId);
@@ -91,7 +91,7 @@ namespace  Askarr.WebApi. AskarrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
-                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
+                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.UsePrivateResponses).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<TvShowWorkflowFactory>().CreateRequestingWorkflow(ctx.Interaction, [TV_CATEGORY_ID]);
                     await workFlow.SearchTvShowAsync(tvShowTitle.Trim());
@@ -111,7 +111,7 @@ namespace  Askarr.WebApi. AskarrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
-                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
+                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.UsePrivateResponses).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<TvShowWorkflowFactory>().CreateRequestingWorkflow(ctx.Interaction, [TV_CATEGORY_ID]);
                     await workFlow.SearchTvShowAsync((int)tvDbID);
@@ -134,7 +134,7 @@ namespace  Askarr.WebApi. AskarrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
-                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
+                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.UsePrivateResponses).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<MusicWorkflowFactory>().CreateRequestingWorkflow(ctx.Interaction, [MUSIC_CATEGORY_ID]);
                     await workFlow.SearchMusicForArtistAsync(artistName.Trim());
@@ -203,7 +203,7 @@ namespace  Askarr.WebApi. AskarrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
-                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
+                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.UsePrivateResponses).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<MovieWorkflowFactory>().CreateIssueWorkflow(ctx.Interaction, [MOVIE_CATEGORY_ID]);
                     await workFlow.SearchMovieLibraryAsync(movieTitle.Trim());
@@ -224,7 +224,7 @@ namespace  Askarr.WebApi. AskarrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
-                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
+                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.UsePrivateResponses).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<MovieWorkflowFactory>().CreateIssueWorkflow(ctx.Interaction, [MOVIE_CATEGORY_ID]);
                     await workFlow.SearchMovieLibraryAsync((int)(theMovieDbId));
@@ -247,7 +247,7 @@ namespace  Askarr.WebApi. AskarrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
-                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
+                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.UsePrivateResponses).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<TvShowWorkflowFactory>().CreateIssueWorkflow(ctx.Interaction, [TV_CATEGORY_ID]);
                     await workFlow.SearchTvShowLibraryAsync(tvShowTitle.Trim());
@@ -268,7 +268,7 @@ namespace  Askarr.WebApi. AskarrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
-                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
+                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.UsePrivateResponses).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<TvShowWorkflowFactory>().CreateIssueWorkflow(ctx.Interaction, [TV_CATEGORY_ID]);
                     await workFlow.SearchTvShowLibraryAsync((int)tvShowId);

@@ -98,6 +98,7 @@ namespace Askarr.WebApi.Controllers.ChatClients
                 NotificationMode = _chatClientsSettings.Discord.NotificationMode,
                 NotificationChannels = _chatClientsSettings.Discord.NotificationChannels ?? Array.Empty<string>(),
                 AutomaticallyPurgeCommandMessages = _chatClientsSettings.Discord.AutomaticallyPurgeCommandMessages,
+                UsePrivateResponses = _chatClientsSettings.Discord.UsePrivateResponses,
                 // Telegram settings
                 TelegramBotToken = activeClient.Contains("Telegram") ? _telegramSettings.BotToken : "",
                 TelegramMonitoredChats = _telegramSettings.MonitoredChats ?? Array.Empty<string>(),
@@ -266,6 +267,7 @@ namespace Askarr.WebApi.Controllers.ChatClients
                     _chatClientsSettings.Discord.NotificationMode = model.NotificationMode;
                     _chatClientsSettings.Discord.NotificationChannels = (model.NotificationChannels ?? Array.Empty<string>()).Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Trim()).ToArray();
                     _chatClientsSettings.Discord.AutomaticallyPurgeCommandMessages = model.AutomaticallyPurgeCommandMessages;
+                    _chatClientsSettings.Discord.UsePrivateResponses = model.UsePrivateResponses;
                 }
 
                 if (useTelegram)

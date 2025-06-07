@@ -23,6 +23,7 @@ namespace  Askarr.WebApi.Controllers.ChatClients
                 NotificationMode = (string)settings.ChatClients.Discord.NotificationMode,
                 NotificationChannels = settings.ChatClients.Discord.NotificationChannels.ToObject<string[]>(),
                 AutomaticallyPurgeCommandMessages = (bool)settings.ChatClients.Discord.AutomaticallyPurgeCommandMessages,
+                UsePrivateResponses = settings.ChatClients.Discord.UsePrivateResponses != null ? (bool)settings.ChatClients.Discord.UsePrivateResponses : true,
             };
 
             return new ChatClientsSettings

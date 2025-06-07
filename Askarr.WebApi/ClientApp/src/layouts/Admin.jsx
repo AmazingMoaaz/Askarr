@@ -23,10 +23,8 @@ import { Container } from "reactstrap";
 // core components
 import AdminFooter from "../components/Footers/AdminFooter.jsx";
 import Sidebar from "../components/Sidebar/Sidebar.jsx";
-import AdminNavbar from "../components/Navbars/AdminNavbar.jsx";
 import { validateLogin } from "../store/actions/UserActions";
 import LoadingSpinner from "../components/Loaders/LoadingSpinner.jsx";
-import { ThemeProvider } from "../contexts/ThemeContext.jsx";
 
 import routes from "../routes.js";
 import AskarrLogo from "../assets/img/brand/askarr_black.svg";
@@ -76,37 +74,34 @@ function Admin(props) {
   }
 
   return (
-    <ThemeProvider>
-      <>
-        <Sidebar
-          {...props}
-          routes={routes}
-          logo={{
-            innerLink: "/admin/",
-            imgSrc: AskarrLogo,
-            imgAlt: "Askarr Logo"
-          }}
-        />
-        <div className="main-content" ref={mainContent}>
-          <AdminNavbar {...props} brandText="Askarr Dashboard" />
-          <Routes>
-            {
-              reduxState.isLoggedIn
-                ? getRoutes(routes)
-                : null
-            }
-            {
-              reduxState.isLoggedIn 
-                ? <Route path="*" element={<Navigate to="/admin/chatclients" />} />
-                : <Route path="*" element={<Navigate to="/auth/" />} />
-            }
-          </Routes>
-          <Container fluid>
-            <AdminFooter />
-          </Container>
-        </div>
-      </>
-    </ThemeProvider>
+    <>
+      <Sidebar
+        {...props}
+        routes={routes}
+        logo={{
+          innerLink: "/admin/",
+          imgSrc: AskarrLogo,
+          imgAlt: "Askarr Logo"
+        }}
+      />
+      <div className="main-content" ref={mainContent}>
+        <Routes>
+          {
+            reduxState.isLoggedIn
+              ? getRoutes(routes)
+              : null
+          }
+          {
+            reduxState.isLoggedIn 
+              ? <Route path="*" element={<Navigate to="/admin/chatclients" />} />
+              : <Route path="*" element={<Navigate to="/auth/" />} />
+          }
+        </Routes>
+        <Container fluid>
+          <AdminFooter />
+        </Container>
+      </div>
+    </>
   );
 }
 

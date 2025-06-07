@@ -50,19 +50,30 @@
 
 @import "custom/vendors";
 
-
 // React differences
 @import "react/react-differences";
 
-// Custom Dark Mode
-@import "custom/dark-mode";
+// Custom Components
+@import "custom/dropdown";
+@import "custom/navbar";
+@import "custom/popover";
+@import "custom/separator";
+@import "custom/footer";
+@import "custom/card";
+@import "custom/type";
+@import "custom/content";
+@import "custom/sidebar";
+@import "custom/tables";
+@import "custom/buttons";
+@import "custom/inputs";
+@import "custom/forms";
 
 // Modern UI Components
+@import "custom/modern-cards";
+@import "custom/sortable-table";
 @import "custom/modern-inputs";
 @import "custom/modern-tables";
-@import "custom/modern-cards";
 @import "custom/modern-buttons";
-@import "custom/sortable-table";
 
 .dropdown {
     & .react-dropdown-select-content.react-dropdown-select-type-single {

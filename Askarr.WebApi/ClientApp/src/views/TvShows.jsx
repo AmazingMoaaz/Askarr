@@ -299,8 +299,8 @@ function TvShows() {
                                 onChange={newRestrictions => { setRestrictions(newRestrictions) }}
                               />
                             </div>
-                          </Col>
-                        </Row>
+                      </Col>
+                    </Row>
                         {renderClientConfig()}
                       </>
                     )}
@@ -313,9 +313,9 @@ function TvShows() {
                               <strong>Settings updated successfully.</strong>
                             </Alert>
                           ) : (
-                            <Alert className="text-center" color="danger">
-                              <strong>{saveError}</strong>
-                            </Alert>
+                                <Alert className="text-center" color="danger">
+                                  <strong>{saveError}</strong>
+                                </Alert>
                           )
                         )}
                         
@@ -341,7 +341,7 @@ function TvShows() {
                         </div>
                       </Col>
                     </Row>
-                  </Form>
+                </Form>
                 )}
               </CardBody>
             </Card>

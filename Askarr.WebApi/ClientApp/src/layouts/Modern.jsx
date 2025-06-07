@@ -3,10 +3,8 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from "reactstrap";
 import Sidebar from "../components/Sidebar/Sidebar.jsx";
-import AdminNavbar from "../components/Navbars/AdminNavbar.jsx";
 import { validateLogin } from "../store/actions/UserActions";
 import LoadingSpinner from "../components/Loaders/LoadingSpinner.jsx";
-import { ThemeProvider } from "../contexts/ThemeContext.jsx";
 import routes from "../routes.js";
 import AskarrLogo from "../assets/img/brand/askarr_black.svg";
 
@@ -52,37 +50,34 @@ function Modern(props) {
   }
 
   return (
-    <ThemeProvider>
-      <div className="modern-layout">
-        <Sidebar
-          {...props}
-          routes={routes}
-          logo={{
-            innerLink: "/admin/",
-            imgSrc: AskarrLogo,
-            imgAlt: "Askarr Logo"
-          }}
-          className="sidebar-modern"
-        />
-        <div className="main-content modern-main-content" ref={mainContent}>
-          <AdminNavbar {...props} brandText="Askarr Dashboard" className="navbar-modern" />
-          <div className="modern-content-wrapper">
-            <Routes>
-              {
-                isLoggedIn
-                  ? getRoutes(routes)
-                  : null
-              }
-              {
-                isLoggedIn 
-                  ? <Route path="*" element={<Navigate to="/admin/chatclients" />} />
-                  : <Route path="*" element={<Navigate to="/auth/" />} />
-              }
-            </Routes>
-          </div>
+    <div className="modern-layout">
+      <Sidebar
+        {...props}
+        routes={routes}
+        logo={{
+          innerLink: "/admin/",
+          imgSrc: AskarrLogo,
+          imgAlt: "Askarr Logo"
+        }}
+        className="sidebar-modern"
+      />
+      <div className="main-content modern-main-content" ref={mainContent}>
+        <div className="modern-content-wrapper">
+          <Routes>
+            {
+              isLoggedIn
+                ? getRoutes(routes)
+                : null
+            }
+            {
+              isLoggedIn 
+                ? <Route path="*" element={<Navigate to="/admin/chatclients" />} />
+                : <Route path="*" element={<Navigate to="/auth/" />} />
+            }
+          </Routes>
         </div>
       </div>
-    </ThemeProvider>
+    </div>
   );
 }
 

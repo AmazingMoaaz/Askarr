@@ -529,17 +529,17 @@ namespace Askarr.WebApi.AskarrBot
         {
             try
             {
-                var settings = _serviceProvider.Get<DiscordSettingsProvider>()?.Provide() ?? new DiscordSettings { AutomaticallyPurgeCommandMessages = false };
+                var settings = _serviceProvider.Get<DiscordSettingsProvider>()?.Provide() ?? new DiscordSettings { UsePrivateResponses = false };
                 
                 if (args.Exception is SlashExecutionChecksFailedException slex)
                 {
                     foreach (var check in slex.FailedChecks)
                         if (check is RequireChannelsAttribute requireChannelAttribute)
-                            await args.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandNotAvailableInChannel));
+                            await args.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.UsePrivateResponses).WithContent(Language.Current.DiscordCommandNotAvailableInChannel));
                         else if (check is RequireRolesAttribute requireRoleAttribute)
-                            await args.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandMissingRoles));
+                            await args.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.UsePrivateResponses).WithContent(Language.Current.DiscordCommandMissingRoles));
                         else
-                            await args.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandUnknownPrecondition));
+                            await args.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.UsePrivateResponses).WithContent(Language.Current.DiscordCommandUnknownPrecondition));
                 }
             }
             catch (System.Exception ex)

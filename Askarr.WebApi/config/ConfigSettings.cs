@@ -44,6 +44,7 @@ namespace Askarr.WebApi.config
         public string NotificationMode { get; set; } = "PrivateMessages";
         public string[] NotificationChannels { get; set; } = Array.Empty<string>();
         public bool AutomaticallyPurgeCommandMessages { get; set; } = true;
+        public bool UsePrivateResponses { get; set; } = true;
     }
 
     public class TelegramSettings

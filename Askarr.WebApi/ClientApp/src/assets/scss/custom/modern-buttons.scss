@@ -236,30 +236,4 @@
 
 @keyframes spinner {
   to {transform: rotate(360deg);}
-}
-
-// Dark mode support
-.dark-mode {
-  .btn-secondary {
-    background-color: $dark-surface-2;
-    border-color: $dark-surface-2;
-    color: $dark-text-primary;
-    
-    &:hover, &:focus, &:active {
-      background-color: lighten($dark-surface-2, 5%);
-      border-color: lighten($dark-surface-2, 5%);
-      color: $dark-text-primary;
-    }
-  }
-  
-  .btn-outline-secondary {
-    color: $dark-text-primary;
-    border-color: rgba($white, 0.1);
-    
-    &:hover {
-      background-color: $dark-surface-2;
-      border-color: $dark-surface-2;
-      color: $dark-text-primary;
-    }
-  }
 } 

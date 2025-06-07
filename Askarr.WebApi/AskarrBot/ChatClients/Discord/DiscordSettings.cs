@@ -23,6 +23,7 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
         public string NotificationMode { get; set; }
         public string[] NotificationChannels { get; set; }
         public bool AutomaticallyPurgeCommandMessages { get; set; }
+        public bool UsePrivateResponses { get; set; } = true;
 
         public override bool Equals(object obj)
         {
@@ -44,7 +45,8 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
                    AutomaticallyNotifyRequesters == settings.AutomaticallyNotifyRequesters &&
                    NotificationMode == settings.NotificationMode &&
                    NotificationChannels.SequenceEqual(settings.NotificationChannels) &&
-                   AutomaticallyPurgeCommandMessages == settings.AutomaticallyPurgeCommandMessages;
+                   AutomaticallyPurgeCommandMessages == settings.AutomaticallyPurgeCommandMessages &&
+                   UsePrivateResponses == settings.UsePrivateResponses;
         }
 
         public override int GetHashCode()
@@ -68,6 +70,7 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Discord
             hash.Add(NotificationMode);
             hash.Add(NotificationChannels);
             hash.Add(AutomaticallyPurgeCommandMessages);
+            hash.Add(UsePrivateResponses);
             return hash.ToHashCode();
         }
     }

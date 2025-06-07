@@ -179,11 +179,11 @@ function Music() {
                     {reduxState.settings.client !== client && reduxState.settings.client !== "Disabled" && (
                       <Row className="mt-4">
                         <Col>
-                          <Alert className="text-center" color="warning">
-                            <strong>Changing the download client will delete all pending music notifications.</strong>
-                          </Alert>
-                        </Col>
-                      </Row>
+                            <Alert className="text-center" color="warning">
+                              <strong>Changing the download client will delete all pending music notifications.</strong>
+                            </Alert>
+                      </Col>
+                    </Row>
                     )}
                     
                     {client !== "Disabled" && (
@@ -201,9 +201,9 @@ function Music() {
                               <strong>Settings updated successfully.</strong>
                             </Alert>
                           ) : (
-                            <Alert className="text-center" color="danger">
-                              <strong>{saveError}</strong>
-                            </Alert>
+                                <Alert className="text-center" color="danger">
+                                  <strong>{saveError}</strong>
+                                </Alert>
                           )
                         )}
                         
@@ -229,7 +229,7 @@ function Music() {
                         </div>
                       </Col>
                     </Row>
-                  </Form>
+                </Form>
                 )}
               </CardBody>
             </Card>

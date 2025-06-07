@@ -15,13 +15,12 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
 import { getSettings } from "../../store/actions/SettingsActions";
-import { ThemeContext } from "../../contexts/ThemeContext";
 import LoadingSpinner from "../Loaders/LoadingSpinner";
 
 // reactstrap components
@@ -44,7 +43,6 @@ function Sidebar(props) {
   const [collapseOpen, setCollapseOpen] = useState(false);
   const [disableAuthentication, setDisableAuthentication] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const { darkMode } = useContext(ThemeContext);
 
   const dispatch = useDispatch();
 
@@ -123,7 +121,7 @@ function Sidebar(props) {
 
   return (
     <Navbar
-      className={`navbar-vertical fixed-left ${darkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-white'} fade show`}
+      className="navbar-vertical fixed-left navbar-light bg-white fade show"
       expand="md"
       id="sidenav-main"
     >
@@ -180,12 +178,12 @@ function Sidebar(props) {
           <Nav navbar className="mb-md-3">
             {createLinks(routes)}
           </Nav>
-          <hr className={`my-3 ${darkMode ? 'border-dark' : ''}`} />
-          <h6 className={`navbar-heading ${darkMode ? 'text-light' : 'text-muted'}`}>Support</h6>
+          <hr className="my-3" />
+          <h6 className="navbar-heading text-muted">Support</h6>
           <Nav navbar className="mb-md-3">
             <NavItem>
               <NavLink href="https://github.com/thomst08/Askarr/wiki" target="_blank" className="nav-link-icon">
-                <i className="fas fa-book mr-2" style={{ color: darkMode ? '#28a745' : 'darkgreen' }}></i>
+                <i className="fas fa-book mr-2" style={{ color: 'darkgreen' }}></i>
                 <span className="nav-link-text">Wiki</span>
               </NavLink>
             </NavItem>
@@ -203,13 +201,13 @@ function Sidebar(props) {
             </NavItem>
             <NavItem>
               <NavLink href="https://github.com/thomst08/Askarr/issues" target="_blank" className="nav-link-icon">
-                <i className="fab fa-github mr-2" style={{ color: darkMode ? '#fff' : '#000' }}></i>
+                <i className="fab fa-github mr-2" style={{ color: '#000' }}></i>
                 <span className="nav-link-text">Github</span>
               </NavLink>
             </NavItem>
           </Nav>
           <div className="mt-auto text-center py-4">
-            <small className={`${darkMode ? 'text-light' : 'text-muted'}`}>
+            <small className="text-muted">
               Askarr v2.1.7
             </small>
           </div>
