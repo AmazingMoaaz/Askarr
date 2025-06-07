@@ -93,14 +93,14 @@ Askarr is a sophisticated chat integration solution for media server ecosystems.
     <tr>
       <td align="center" width="33%">
         <div style="padding:15px; margin-bottom:10px;">
-          <img src="https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Sonarr/icon.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(38, 198, 218, 0.6));"/>
+          <img src="https://raw.githubusercontent.com/Sonarr/Sonarr/develop/Logo/128.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(38, 198, 218, 0.6));"/>
         </div>
         <h3>Sonarr</h3>
         <p><strong>Versions V2-V4 Compatible</strong></p>
       </td>
       <td align="center" width="33%">
         <div style="padding:15px; margin-bottom:10px;">
-          <img src="https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Radarr/icon.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(245, 124, 0, 0.6));"/>
+          <img src="https://raw.githubusercontent.com/Radarr/Radarr/develop/Logo/128.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(245, 124, 0, 0.6));"/>
         </div>
         <h3>Radarr</h3>
         <p><strong>Versions V2-V5 Compatible</strong></p>

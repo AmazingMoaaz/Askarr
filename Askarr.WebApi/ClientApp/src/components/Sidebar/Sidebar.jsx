@@ -208,7 +208,7 @@ function Sidebar(props) {
           </Nav>
           <div className="mt-auto text-center py-4">
             <small className="text-muted">
-              Askarr v2.1.7
+              Askarr v1.0.0
             </small>
           </div>
         </Collapse>
