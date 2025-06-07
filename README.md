@@ -1,4 +1,4 @@
-# <img src="Logos/Askarr/logo.svg" width="50" alt="Askarr Logo"> Askarr
+#  Askarr
 
 <div align="center">
   <img src="Logos/Askarr/logo.svg" width="200" alt="Askarr Logo">
