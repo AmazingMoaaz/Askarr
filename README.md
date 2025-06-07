@@ -145,7 +145,6 @@ Askarr is a sophisticated chat integration solution for media server ecosystems.
         <div style="padding:20px; margin-bottom:10px;">
           <img src="https://raw.githubusercontent.com/sct/overseerr/07dc8d755a0e94d100ecd8b1e950e43da1c0a7dd/public/logo_full.svg" width="150" style="filter: drop-shadow(0px 0px 8px rgba(114, 190, 250, 0.6));"/>
         </div>
-        <h3>Overseerr</h3>
         <ul align="left">
           <li><strong>Elegant UI Integration</strong></li>
           <li><strong>Advanced Request Management</strong></li>
@@ -157,7 +156,6 @@ Askarr is a sophisticated chat integration solution for media server ecosystems.
         <div style="padding:20px; margin-bottom:10px;">
           <img src="https://raw.githubusercontent.com/Ombi-app/Ombi/master/src/Ombi/wwwroot/images/logo.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(255, 154, 0, 0.6));"/>
         </div>
-        <h3>Ombi</h3>
         <ul align="left">
           <li><strong>V3/V4 Compatibility</strong></li>
           <li><strong>Advanced Quota Management</strong></li>
