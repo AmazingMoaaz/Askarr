@@ -1,0 +1,45 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Build project
+        run: |
+          cd Askarr.WebApi/ClientApp
+          npm install
+          npm run build
+          cd ../
+          dotnet publish -c Release -o publish
+          
+      - name: Create ZIP archive
+        run: |
+          zip -r Askarr-${{ github.ref_name }}.zip publish/
+          
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            Askarr-${{ github.ref_name }}.zip
+          draft: false
+          prerelease: false
+          generate_release_notes: true 
