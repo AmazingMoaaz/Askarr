@@ -46,7 +46,7 @@ jobs:
         run: |
           # Ensure logo.svg is available in the Docker build context
           mkdir -p docker-build-context/assets
-          cp Logos/Askarr/logo.svg docker-build-context/assets/
+          cp Logos/logo.svg docker-build-context/assets/
           # Copy the rest of the necessary files
           cp -R Askarr.WebApi/* docker-build-context/
           # Create a metadata file for the Docker image
