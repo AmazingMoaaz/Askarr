@@ -293,27 +293,27 @@ function ChatClients(props) {
         language: language
       };
     
-      const isUsingDiscord = chatClient === "Discord" || chatClient === "Discord,Telegram";
-      const isUsingTelegram = chatClient === "Telegram" || chatClient === "Discord,Telegram";
-      
-      let validationPassed = validateChatClient();
-      
-      if (isUsingDiscord) {
-        triggerClientIdValidation();
-        triggerBotTokenValidation();
-        validationPassed = validationPassed && validateClientId() && validateBotToken();
-      }
-      
-      if (isUsingTelegram) {
-        triggerTelegramBotTokenValidation();
-        validationPassed = validationPassed && validateTelegramBotToken();
-      }
+    const isUsingDiscord = chatClient === "Discord" || chatClient === "Discord,Telegram";
+    const isUsingTelegram = chatClient === "Telegram" || chatClient === "Discord,Telegram";
+    
+    let validationPassed = validateChatClient();
+    
+    if (isUsingDiscord) {
+    triggerClientIdValidation();
+    triggerBotTokenValidation();
+      validationPassed = validationPassed && validateClientId() && validateBotToken();
+    }
+    
+    if (isUsingTelegram) {
+      triggerTelegramBotTokenValidation();
+      validationPassed = validationPassed && validateTelegramBotToken();
+    }
 
       if (validationPassed) {
         dispatch(save(saveModel))
           .then(result => {
             setIsSaving(false);
-            setSaveAttempted(true);
+              setSaveAttempted(true);
 
             if (result.ok) {
               setSaveError("");
@@ -540,7 +540,7 @@ function ChatClients(props) {
                     <Spinner color="primary" />
                   </div>
                 ) : (
-                  <Form onSubmit={(e) => e.preventDefault()}>
+              <Form onSubmit={(e) => e.preventDefault()}>
                     <Row>
                       <Col lg="3">
                         <ClientCard
