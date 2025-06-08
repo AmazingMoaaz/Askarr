@@ -7,7 +7,15 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        arch: [x64, arm64]
+        exclude:
+          # Exclude combinations that aren't commonly used
+          - os: windows-latest
+            arch: arm64
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -25,6 +33,7 @@ jobs:
       - name: Get version from version.txt
         id: get_version
         run: echo "VERSION=$(cat version.txt)" >> $GITHUB_OUTPUT
+        shell: bash
           
       - name: Build project
         run: |
@@ -42,26 +51,49 @@ jobs:
           echo "VCS_REF=${{ github.sha }}" >> publish/version.txt
           # Verify publish directory has content
           ls -la publish/
+        shell: bash
           
       - name: Create ZIP archive
         run: |
           # Make sure we're in the root directory
           cd $GITHUB_WORKSPACE
-          # Create ZIP with relative path
-          zip -r Askarr-v${{ steps.get_version.outputs.VERSION }}.zip Askarr.WebApi/publish/
-          # Also create ZIP with tag name for compatibility
-          zip -r Askarr-${{ github.ref_name }}.zip Askarr.WebApi/publish/
+          # Create ZIP with OS and architecture in the filename
+          zip -r Askarr-v${{ steps.get_version.outputs.VERSION }}-${{ matrix.os }}-${{ matrix.arch }}.zip Askarr.WebApi/publish/
           # Verify ZIP was created
           ls -la *.zip
+        shell: bash
           
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: askarr-${{ matrix.os }}-${{ matrix.arch }}
+          path: Askarr-v${{ steps.get_version.outputs.VERSION }}-${{ matrix.os }}-${{ matrix.arch }}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        
+      - name: Display structure of downloaded files
+        run: ls -R
+        shell: bash
+        
+      - name: Get version from version.txt
+        id: get_version
+        run: |
+          VERSION=$(find . -name "version.txt" -exec cat {} \; | grep VERSION | cut -d'=' -f2 | head -n 1)
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        shell: bash
+        
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
           name: Askarr v${{ steps.get_version.outputs.VERSION }}
           files: |
-            Askarr-v${{ steps.get_version.outputs.VERSION }}.zip
-            Askarr-${{ github.ref_name }}.zip
+            **/Askarr-v*.zip
           draft: false
           prerelease: false
           generate_release_notes: true 
