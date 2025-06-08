@@ -28,6 +28,10 @@ using Askarr.WebApi.AskarrBot.Notifications.Movies;
 using Askarr.WebApi.AskarrBot.Notifications.Music;
 using Askarr.WebApi.AskarrBot.Notifications.TvShows;
 using Askarr.WebApi.AskarrBot.TvShows;
+using Askarr.WebApi.AskarrBot.SlashCommands;
+using Askarr.WebApi.AskarrBot.Language;
+using Askarr.WebApi.config;
+using System.IO;
 
 namespace Askarr.WebApi.AskarrBot
 {
