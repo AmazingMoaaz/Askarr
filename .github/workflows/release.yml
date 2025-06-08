@@ -80,24 +80,29 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: askarr-${{ matrix.os }}-${{ matrix.arch }}
-          path: Askarr-v${{ steps.get_version.outputs.VERSION }}-${{ matrix.os }}-${{ matrix.arch }}.zip
+          path: |
+            Askarr-v${{ steps.get_version.outputs.VERSION }}-${{ matrix.os }}-${{ matrix.arch }}.zip
+            version.txt
 
   release:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Get version from tag name
+        id: get_version
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/v}
+          echo "VERSION=$TAG_NAME" >> $GITHUB_OUTPUT
+        shell: bash
+        
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         
       - name: Display structure of downloaded files
         run: ls -R
-        shell: bash
-        
-      - name: Get version from version.txt
-        id: get_version
-        run: |
-          VERSION=$(find . -name "version.txt" -exec cat {} \; | grep VERSION | cut -d'=' -f2 | head -n 1)
-          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
         shell: bash
         
       - name: Create Release
