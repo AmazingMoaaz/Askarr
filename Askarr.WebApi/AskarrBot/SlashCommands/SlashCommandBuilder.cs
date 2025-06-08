@@ -362,17 +362,9 @@ namespace Askarr.WebApi.AskarrBot
             //Sort list of commands into one list
             List<string> listOfCommands = _commandList.SelectMany(x => x.Value).ToList();
 
-            //Find duplicates for better error reporting
-            var duplicates = listOfCommands.GroupBy(x => x)
-                .Where(g => g.Count() > 1)
-                .Select(g => g.Key)
-                .ToList();
-
             //Find and check there is no duplicates, if there it, this will not work....
-            if (duplicates.Any())
-            {
-                throw new Exception($"Duplicate Slash Commands detected: {string.Join(", ", duplicates)}. Make sure categories do not share the same name.");
-            }
+            if (listOfCommands.Count != listOfCommands.Distinct().Count())
+                throw new Exception("Duplicate Slash Commands detected.  Make sure categories do not share the same name.");
 
             return code;
         }
@@ -468,31 +460,18 @@ namespace Askarr.WebApi.AskarrBot
             }
 
             var sb = new StringBuilder();
-            var existingCommands = new HashSet<string>(commandList);
 
             foreach (var category in categories)
             {
                 var currentTemplate = categoryCommandTemplate;
                 currentTemplate = currentTemplate.Replace(categoryId, category.Id.ToString());
                 currentTemplate = currentTemplate.Replace(slashName, category.Name);
-                
-                var commandName = $"{slashCommand} {category.Name}";
-                if (!existingCommands.Contains(commandName))
-                {
-                    commandList.Add(commandName);
-                    existingCommands.Add(commandName);
-                }
+                commandList.Add($"{slashCommand} {category.Name}");
 
                 if (!string.IsNullOrWhiteSpace(slashDbName) && !string.IsNullOrWhiteSpace(dbPrefix))
                 {
                     currentTemplate = currentTemplate.Replace(slashDbName, $"{category.Name}-{dbPrefix}");
-                    
-                    var dbCommandName = $"{slashCommand} {category.Name}-{dbPrefix}";
-                    if (!existingCommands.Contains(dbCommandName))
-                    {
-                        commandList.Add(dbCommandName);
-                        existingCommands.Add(dbCommandName);
-                    }
+                    commandList.Add($"{slashCommand} {category.Name}-{dbPrefix}");
                 }
 
                 sb.Append(currentTemplate);

@@ -28,10 +28,6 @@ using Askarr.WebApi.AskarrBot.Notifications.Movies;
 using Askarr.WebApi.AskarrBot.Notifications.Music;
 using Askarr.WebApi.AskarrBot.Notifications.TvShows;
 using Askarr.WebApi.AskarrBot.TvShows;
-using Askarr.WebApi.AskarrBot.SlashCommands;
-using Askarr.WebApi.AskarrBot.Language;
-using Askarr.WebApi.config;
-using System.IO;
 
 namespace Askarr.WebApi.AskarrBot
 {
@@ -94,58 +90,37 @@ namespace Askarr.WebApi.AskarrBot
 
         public void Start()
         {
-            try
+            dynamic settings = SettingsFile.Read();
+
+            // Check which chat client should be used
+            string botClient = settings.BotClient.Client;
+
+            // Always start Discord bot first and ensure it's fully initialized
+            try 
             {
-                _movieWorkflowFactory = _serviceProvider.Get<MovieWorkflowFactory>();
-                _tvShowWorkflowFactory = _serviceProvider.Get<TvShowWorkflowFactory>();
-                _musicWorkflowFactory = _serviceProvider.Get<MusicWorkflowFactory>();
-                _overseerrClient = _serviceProvider.Get<OverseerrClient>();
-                _ombiDownloadClient = _serviceProvider.Get<OmbiClient>();
-                _radarrDownloadClient = _serviceProvider.Get<RadarrClient>();
-                _sonarrDownloadClient = _serviceProvider.Get<SonarrClient>();
-                _lidarrDownloadClient = _serviceProvider.Get<LidarrClient>();
-
-                BotClientSettings settings = _serviceProvider.Get<BotClientSettingsProvider>().Provide();
-                var botClient = settings?.Client ?? string.Empty;
-
-                // Create temporary directory if it doesn't exist
-                if (!Directory.Exists(SlashCommandBuilder.TempFolder))
-                {
-                    Console.WriteLine("No temp folder found, creating one...");
-                    Directory.CreateDirectory(SlashCommandBuilder.TempFolder);
-                }
-
-                // Start Telegram bot if configured, regardless of Discord status
-                if (botClient == "Telegram" || botClient == "Both")
-                {
-                    try
-                    {
-                        _logger.LogInformation("Starting Telegram bot...");
-                        StartTelegramBot();
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Failed to start Telegram chat client");
-                    }
-                }
-
-                // Start Discord bot if configured
-                if (botClient == "Discord" || botClient == "Both")
-                {
-                    try 
-                    {
-                        _logger.LogInformation("Starting Discord bot...");
-                        StartDiscordBot();
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Failed to start Discord chat client");
-                    }
-                }
+                _logger.LogInformation("Starting Discord bot...");
+                StartDiscordBot();
+                
+                // Allow Discord bot to fully initialize before starting Telegram
+                Task.Delay(5000).Wait();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to start chat bot");
+                _logger.LogError(ex, "Failed to start Discord chat client");
+            }
+
+            // If Telegram is configured, also start it
+            if (botClient == "Telegram" || botClient == "Both")
+            {
+                try
+                {
+                    _logger.LogInformation("Starting Telegram bot...");
+                    StartTelegramBot();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Failed to start Telegram chat client");
+                }
             }
         }
 
