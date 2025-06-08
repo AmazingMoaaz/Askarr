@@ -53,7 +53,8 @@ jobs:
           ls -la publish/
         shell: bash
           
-      - name: Create ZIP archive
+      - name: Create ZIP archive (Unix)
+        if: matrix.os != 'windows-latest'
         run: |
           # Make sure we're in the root directory
           cd $GITHUB_WORKSPACE
@@ -62,6 +63,18 @@ jobs:
           # Verify ZIP was created
           ls -la *.zip
         shell: bash
+          
+      - name: Create ZIP archive (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          # Make sure we're in the root directory
+          cd $env:GITHUB_WORKSPACE
+          # Create ZIP with OS and architecture in the filename using PowerShell
+          $zipFileName = "Askarr-v${{ steps.get_version.outputs.VERSION }}-${{ matrix.os }}-${{ matrix.arch }}.zip"
+          Compress-Archive -Path ".\Askarr.WebApi\publish\*" -DestinationPath $zipFileName -Force
+          # Verify ZIP was created
+          Get-ChildItem *.zip
+        shell: pwsh
           
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
