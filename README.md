@@ -1,29 +1,3 @@
-# Askarr
-
-<img src="https://raw.githubusercontent.com/amazingmoaaz/askarr/main/Logos/logo.svg" width="200" alt="Askarr Logo"/>
-
-Chatbot for Sonarr, Radarr, Ombi, Overseerr, and more via Discord & Telegram.
-
-## Features
-
-- Integration with media management tools
-- Discord & Telegram support
-- Easy setup and configuration
-
-## Quick Start
-
-```bash
-docker run -d \
-  --name askarr \
-  -p 4545:4545 \
-  -v /path/to/config:/root/config \
-  amazingmoaaz/askarr:latest
-```
-
-## Configuration
-
-See the [documentation](https://github.com/amazingmoaaz/askarr) for detailed configuration options.
-
 #  Askarr
 
 <div align="center">
