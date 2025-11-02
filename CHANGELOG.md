@@ -5,6 +5,123 @@ All notable changes to Askarr will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2025-11-02
+
+### 🎨 Major UI/UX Transformation
+
+#### Epic Visual Redesign
+- **NEW**: Stunning purple gradient background with animated particle effects
+- **NEW**: Glassmorphism design language throughout the application
+- **NEW**: Modern card system with frosted glass effects and backdrop blur
+- **NEW**: 3D depth effects with multi-layer shadows
+- **NEW**: Smooth cubic-bezier animations for premium feel
+
+#### Enhanced Components
+
+**ClientCard Component:**
+- **NEW**: 75px gradient icons with custom colors per client type
+- **NEW**: Shine animation effect that sweeps across icons
+- **NEW**: Animated gradient border for active state
+- **NEW**: Gradient text titles with purple-to-violet effect
+- **NEW**: Enhanced success badge with gradient and glow
+- **IMPROVED**: Hover effects with 10px lift and subtle rotation
+
+**StatsCard Component:**
+- **NEW**: 56px rounded gradient icon containers
+- **NEW**: Gradient value text for all statistics
+- **NEW**: Rotating and scaling icon animations on hover
+- **NEW**: Radial gradient overlay effects
+- **IMPROVED**: 3D card transforms with enhanced shadows
+
+**ModernHeader Component:**
+- **NEW**: 80px glassmorphic icon container with backdrop blur
+- **NEW**: Interactive icon with rotation and scale on hover
+- **NEW**: Gradient text effect on page titles
+- **NEW**: Staggered fade-in animations for title and subtitle
+- **IMPROVED**: Enhanced text shadows for better depth and readability
+
+#### Modern Button Styles
+- **NEW**: Gradient backgrounds for all button types (Primary, Info, Success, Danger, Warning)
+- **NEW**: Ripple effect animation on click
+- **NEW**: 3D transform effects (scale and lift)
+- **NEW**: Color-matched glowing shadows
+- **IMPROVED**: Enhanced hover states with smooth transitions
+
+#### New Animation System
+- **NEW**: `fadeInUp` - Elements slide up while fading in
+- **NEW**: `fadeInDown` - Elements slide down while fading in
+- **NEW**: `pulse` - Gentle breathing effect for emphasis
+- **NEW**: `float` - Floating motion for subtle movement
+- **NEW**: `glow` - Pulsing shadow glow for buttons and badges
+- **NEW**: `shine` - Light sweep animation across elements
+
+#### Utility Classes
+- **NEW**: `.glass-effect` - Apply glassmorphism to any element
+- **NEW**: `.gradient-text` - Gradient text color effect
+- **NEW**: `.gradient-border` - Animated gradient border
+- **NEW**: `.hover-lift` - Standard hover lift effect
+- **NEW**: `.pulse-animation` - Continuous pulse effect
+- **NEW**: `.float-animation` - Continuous float effect
+- **NEW**: `.badge-gradient-*` - Gradient badge variants
+
+#### Color System
+- **NEW**: Epic gradient palette for all UI states:
+  - Primary: Purple to Violet (`#667eea` → `#764ba2`)
+  - Success: Green to Cyan (`#2dce89` → `#2dcecc`)
+  - Info: Cyan to Blue (`#11cdef` → `#1171ef`)
+  - Danger: Red to Orange-Red (`#f5365c` → `#f56036`)
+  - Warning: Orange to Yellow (`#fb6340` → `#fbb140`)
+
+#### Responsive Design
+- **IMPROVED**: Mobile-optimized with adaptive sizing
+- **IMPROVED**: Touch-friendly hover states
+- **IMPROVED**: Smooth transitions across all breakpoints
+- **IMPROVED**: Adaptive spacing and padding for smaller screens
+
+### 🤖 Discord Bot Enhancements
+
+#### Command Structure Changes
+- **CHANGED**: Removed command group wrapper for cleaner commands
+  - Commands are now `/movie`, `/tv`, `/music` instead of `/request movie`, etc.
+  - Provides more intuitive command structure
+  - Matches original bot behavior
+
+#### Enhanced Help Message
+- **IMPROVED**: Better formatted help message with examples
+- **NEW**: Shows command examples: `/movie Deadpool 2`, `/tv Breaking Bad`
+- **IMPROVED**: Dynamic command list based on enabled features
+- **IMPROVED**: Better visual formatting with bold text and separators
+- **IMPROVED**: Clearer issue reporting instructions
+
+### 🎯 Chat Clients Page Enhancements
+- **IMPROVED**: Client selection cards now feature gradient icons with shine effects
+- **IMPROVED**: Active state cards display animated gradient borders
+- **IMPROVED**: Tab interface with modern styling
+- **IMPROVED**: Form inputs with enhanced focus states
+- **IMPROVED**: All buttons now use epic gradient styles
+
+### 🔧 Technical Changes
+
+#### Modified Files
+- `modern-layout.scss` - Complete redesign with glassmorphism and gradients
+- `ModernHeader.jsx` - Enhanced with glassmorphic icon and animations
+- `ClientCard.jsx` - Completely redesigned with gradient effects
+- `StatsCard.jsx` - Modernized with gradient values and animations
+- `SlashCommands.txt` - Removed command group wrapper for root-level commands
+- `english.json` - Enhanced help message format with examples
+
+### 📱 Browser Compatibility
+- **MAINTAINED**: Full support for modern browsers
+- **MAINTAINED**: Fallback styles for older browsers
+- **NEW**: Enhanced backdrop-filter support detection
+
+### 🚀 Performance
+- **OPTIMIZED**: CSS animations use GPU acceleration
+- **OPTIMIZED**: Transform and opacity animations for smooth 60fps
+- **OPTIMIZED**: Efficient cubic-bezier easing functions
+
+---
+
 ## [2.0.0] - 2025-11-02
 
 ### 🎉 Major Features
@@ -54,7 +171,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `VersionController.cs` - Backend API for version management
 - `VersionActions.jsx` - Redux actions for version state
 - `VersionReducer.jsx` - Redux reducer for version information
-- `bump-version.ps1` - PowerShell script for version bumping
 
 #### Modified Components
 - `ChatBot.cs` - Fixed dual platform startup logic
@@ -64,7 +180,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 📚 Documentation
 - **NEW**: Comprehensive CHANGELOG.md
-- **NEW**: Version bumping script with documentation
 - **UPDATED**: README with accurate repository information
 
 ### 🔄 Breaking Changes
@@ -101,8 +216,8 @@ Askarr follows Semantic Versioning (MAJOR.MINOR.PATCH):
 
 ### Docker Tags
 - `latest`: Latest stable release
-- `X.Y.Z`: Specific version (e.g., `2.0.0`)
-- `X.Y`: Major.Minor version (e.g., `2.0`)
+- `X.Y.Z`: Specific version (e.g., `2.5.0`)
+- `X.Y`: Major.Minor version (e.g., `2.5`)
 
 ---
 
@@ -113,4 +228,3 @@ Askarr follows Semantic Versioning (MAJOR.MINOR.PATCH):
 - [Issues](https://github.com/AmazingMoaaz/Askarr/issues)
 - [Wiki](https://github.com/AmazingMoaaz/Askarr/wiki)
 - [Docker Hub](https://hub.docker.com/r/amazingmoaaz/askarr)
-

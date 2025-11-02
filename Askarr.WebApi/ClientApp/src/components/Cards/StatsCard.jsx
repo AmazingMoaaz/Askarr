@@ -13,20 +13,27 @@ const StatsCard = ({
   footer = null,
   className = ""
 }) => {
-  // Helper to determine icon background color
-  const getIconClass = (color) => {
-    return `icon-${color}`;
+  // Helper to get gradient for icon
+  const getIconGradient = (color) => {
+    const gradients = {
+      primary: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      success: 'linear-gradient(135deg, #2dce89 0%, #2dcecc 100%)',
+      warning: 'linear-gradient(135deg, #fb6340 0%, #fbb140 100%)',
+      danger: 'linear-gradient(135deg, #f5365c 0%, #f56036 100%)',
+      info: 'linear-gradient(135deg, #11cdef 0%, #1171ef 100%)',
+    };
+    return gradients[color] || gradients.primary;
   };
   
   // Helper to determine change indicator class
-  const getChangeClass = (type) => {
+  const getChangeColor = (type) => {
     switch (type) {
       case "positive":
-        return "positive";
+        return "#2dce89";
       case "negative":
-        return "negative";
+        return "#f5365c";
       default:
-        return "";
+        return "#8898aa";
     }
   };
   
@@ -43,20 +50,55 @@ const StatsCard = ({
   };
   
   return (
-    <Card className={`card-stats ${className}`}>
-      <CardBody>
-        <Row>
-          <Col xs="3">
-            <div className={`card-icon ${getIconClass(iconColor)}`}>
+    <Card className={`stats-card modern-card ${className}`}>
+      <CardBody className="p-4">
+        <Row className="align-items-center">
+          <Col xs="auto">
+            <div 
+              className="stats-icon"
+              style={{
+                background: getIconGradient(iconColor),
+              }}
+            >
               <i className={icon}></i>
             </div>
           </Col>
-          <Col xs="9">
-            <div className="numbers">
-              <p className="card-status-title">{title}</p>
-              <h3 className="card-status-value">{value}</h3>
+          <Col>
+            <div>
+              <p 
+                className="stats-title mb-2"
+                style={{ 
+                  fontSize: '0.875rem',
+                  fontWeight: '700',
+                  color: '#8898aa',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em'
+                }}
+              >
+                {title}
+              </p>
+              <h2 
+                className="stats-value mb-0"
+                style={{
+                  fontSize: '2.25rem',
+                  fontWeight: '800',
+                  background: getIconGradient(iconColor),
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                {value}
+              </h2>
               {change !== null && (
-                <div className={`card-stats-compare ${getChangeClass(changeType)}`}>
+                <div 
+                  className="mt-2"
+                  style={{
+                    fontSize: '0.875rem',
+                    fontWeight: '600',
+                    color: getChangeColor(changeType),
+                  }}
+                >
                   <i className={`fas ${getChangeIcon(changeType)} mr-1`}></i>
                   <span>
                     {change}
@@ -68,7 +110,14 @@ const StatsCard = ({
           </Col>
         </Row>
         {footer && (
-          <div className="mt-3 pt-3 border-top">
+          <div 
+            className="mt-3 pt-3"
+            style={{ 
+              borderTop: '1px solid rgba(0, 0, 0, 0.05)',
+              fontSize: '0.875rem',
+              color: '#8898aa'
+            }}
+          >
             {footer}
           </div>
         )}
