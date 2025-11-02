@@ -707,31 +707,60 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Telegram
         {
             try
             {
-                string responseText = "";
+                // Acknowledge the callback first
+                await _botClient.AnswerCallbackQueryAsync(
+                    callbackQueryId: callbackQuery.Id,
+                    cancellationToken: cancellationToken);
+
+                string messageText = "";
                 
                 switch (data)
                 {
                     case "help_movie":
-                        responseText = "To request a movie, use:\n/movie <movie title>\n\nExample: /movie The Matrix";
+                        messageText = "🎬 <b>Request a Movie</b>\n\n" +
+                                     "Please send the movie title you want to request:\n\n" +
+                                     "📝 <b>Format:</b> <code>/movie [movie title]</code>\n\n" +
+                                     "💡 <b>Examples:</b>\n" +
+                                     "• <code>/movie The Matrix</code>\n" +
+                                     "• <code>/movie Inception</code>\n" +
+                                     "• <code>/movie Avatar 2</code>\n\n" +
+                                     "Just type your command below! ⬇️";
                         break;
                     case "help_tv":
-                        responseText = "To request a TV show, use:\n/tv <show title>\n\nExample: /tv Breaking Bad";
+                        messageText = "📺 <b>Request a TV Show</b>\n\n" +
+                                     "Please send the TV show title you want to request:\n\n" +
+                                     "📝 <b>Format:</b> <code>/tv [show title]</code>\n\n" +
+                                     "💡 <b>Examples:</b>\n" +
+                                     "• <code>/tv Breaking Bad</code>\n" +
+                                     "• <code>/tv Game of Thrones</code>\n" +
+                                     "• <code>/tv The Last of Us</code>\n\n" +
+                                     "Just type your command below! ⬇️";
                         break;
                     case "help_music":
-                        responseText = "To request music, use:\n/music <artist name>\n\nExample: /music Pink Floyd";
+                        messageText = "🎵 <b>Request Music</b>\n\n" +
+                                     "Please send the artist or album name:\n\n" +
+                                     "📝 <b>Format:</b> <code>/music [artist/album]</code>\n\n" +
+                                     "💡 <b>Examples:</b>\n" +
+                                     "• <code>/music Pink Floyd</code>\n" +
+                                     "• <code>/music The Beatles</code>\n" +
+                                     "• <code>/music Taylor Swift</code>\n\n" +
+                                     "Just type your command below! ⬇️";
                         break;
                     case "help_ping":
-                        responseText = "✅ Bot is online and responding!";
+                        messageText = "✅ <b>Bot Status: Online</b>\n\n" +
+                                     "The bot is running and ready to process your requests!\n\n" +
+                                     "Type /help to see all available commands.";
                         break;
                     default:
-                        responseText = "Unknown help topic.";
+                        messageText = "❌ Unknown help topic.";
                         break;
                 }
                 
-                await _botClient.AnswerCallbackQueryAsync(
-                    callbackQueryId: callbackQuery.Id,
-                    text: responseText,
-                    showAlert: true,
+                // Send a new message with instructions
+                await _botClient.SendTextMessageAsync(
+                    chatId: callbackQuery.Message.Chat.Id,
+                    text: messageText,
+                    parseMode: ParseMode.Html,
                     cancellationToken: cancellationToken);
             }
             catch (Exception ex)
@@ -746,26 +775,28 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Telegram
                               "Available commands:\n\n";
             
             var commandsList = new List<string>();
-            commandsList.Add("🔹 /help - Show this help message");
-            commandsList.Add("🔹 /ping - Check if the bot is online");
+            commandsList.Add("🔹 <b>/help</b> - Show this help message");
+            commandsList.Add("🔹 <b>/ping</b> - Check if the bot is online");
             
             if (_currentSettings.MovieDownloadClient != "Disabled")
             {
-                commandsList.Add("🔹 /movie &lt;title&gt; - Search and request a movie");
+                commandsList.Add("🔹 <b>/movie</b> &lt;title&gt; - Search and request a movie");
             }
             
             if (_currentSettings.TvShowDownloadClient != "Disabled")
             {
-                commandsList.Add("🔹 /tv &lt;title&gt; - Search and request a TV show");
+                commandsList.Add("🔹 <b>/tv</b> &lt;title&gt; - Search and request a TV show");
             }
             
             if (_currentSettings.MusicDownloadClient != "Disabled")
             {
-                commandsList.Add("🔹 /music &lt;artist/album&gt; - Search and request music");
+                commandsList.Add("🔹 <b>/music</b> &lt;artist/album&gt; - Search and request music");
             }
 
-            helpMessage += string.Join("\n", commandsList);
-            helpMessage += "\n\n💡 <b>Quick Examples:</b>";
+            helpMessage += string.Join("\n\n", commandsList);
+            helpMessage += "\n\n━━━━━━━━━━━━━━━━━━━\n";
+            helpMessage += "💡 <b>Quick Actions:</b>\n";
+            helpMessage += "Click a button below to get started!";
             
             // Create inline keyboard with quick command examples
             var inlineKeyboard = new List<List<InlineKeyboardButton>>();
@@ -776,7 +807,6 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Telegram
                 {
                     InlineKeyboardButton.WithCallbackData("🎬 Request Movie", "help_movie")
                 });
-                helpMessage += "\n• <code>/movie The Matrix</code>";
             }
             
             if (_currentSettings.TvShowDownloadClient != "Disabled")
@@ -785,7 +815,6 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Telegram
                 {
                     InlineKeyboardButton.WithCallbackData("📺 Request TV Show", "help_tv")
                 });
-                helpMessage += "\n• <code>/tv Breaking Bad</code>";
             }
             
             if (_currentSettings.MusicDownloadClient != "Disabled")
@@ -794,7 +823,6 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Telegram
                 {
                     InlineKeyboardButton.WithCallbackData("🎵 Request Music", "help_music")
                 });
-                helpMessage += "\n• <code>/music Pink Floyd</code>";
             }
             
             // Add status check button
