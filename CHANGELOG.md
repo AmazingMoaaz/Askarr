@@ -5,6 +5,32 @@ All notable changes to Askarr will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.3] - 2025-11-02
+
+### 🎨 Visual Redesign - Logo Color Integration
+- **Complete UI Color Scheme Overhaul**: Redesigned entire application to match logo colors
+  - Primary color: **#4FD1C5** (Teal/Turquoise) - from logo's main "A" accent
+  - Secondary color: **#63B3ED** (Blue) - from logo's chat bubble
+  - Accent color: **#F6E05E** (Yellow/Gold) - from logo's signal waves
+  - Dark theme: **#2D3748** (Dark Gray-Blue) - from logo's background circle
+- Updated all gradients, buttons, badges, and UI components with new color palette
+- Enhanced Login & Register pages with glassmorphic design matching new colors
+- Applied consistent color theming across all pages and components:
+  - Chat Clients page
+  - Movies, TV Shows, Music pages
+  - Account & Settings pages
+  - Modern headers and cards
+- Updated success/error/warning/info states to use new color scheme
+- Refined background gradients with logo-inspired overlay effects
+- Enhanced all hover states and animations with teal/blue accents
+
+### 🔧 Improvements
+- Better color contrast and accessibility
+- More cohesive brand identity throughout the application
+- Modernized glassmorphism effects with vibrant teal/blue gradients
+- Updated all stat cards, client cards, and form elements with new colors
+- Version display now properly shows current version number
+
 ## [2.5.2] - 2025-11-02
 
 ### 🔧 Critical Fixes

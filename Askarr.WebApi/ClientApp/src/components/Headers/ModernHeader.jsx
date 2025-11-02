@@ -12,28 +12,28 @@ const ModernHeader = ({ title, description, icon }) => {
                 {icon && (
                   <div 
                     className="icon icon-shape icon-lg rounded-circle shadow-lg mr-4"
-                    style={{ 
-                      width: '80px', 
-                      height: '80px',
-                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))',
-                      backdropFilter: 'blur(10px)',
-                      border: '2px solid rgba(255, 255, 255, 0.3)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 15px 40px rgba(0, 0, 0, 0.3)',
-                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'scale(1.1) rotate(10deg)';
-                      e.currentTarget.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.4)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'scale(1) rotate(0deg)';
-                      e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.3)';
-                    }}
-                  >
-                    <i className={icon} style={{ fontSize: '2.5rem', color: '#fff' }}></i>
+        style={{ 
+          width: '80px', 
+          height: '80px',
+          background: 'linear-gradient(135deg, rgba(79, 209, 197, 0.25), rgba(99, 179, 237, 0.25))',
+          backdropFilter: 'blur(10px)',
+          border: '2px solid rgba(79, 209, 197, 0.4)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 15px 40px rgba(79, 209, 197, 0.3)',
+          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'scale(1.1) rotate(10deg)';
+          e.currentTarget.style.boxShadow = '0 20px 60px rgba(79, 209, 197, 0.5)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'scale(1) rotate(0deg)';
+          e.currentTarget.style.boxShadow = '0 15px 40px rgba(79, 209, 197, 0.3)';
+        }}
+      >
+        <i className={icon} style={{ fontSize: '2.5rem', color: '#4FD1C5' }}></i>
                   </div>
                 )}
                 <div>

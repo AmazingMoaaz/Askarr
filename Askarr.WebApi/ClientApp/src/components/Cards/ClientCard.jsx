@@ -9,13 +9,13 @@ const ClientCard = ({
   onClick, 
   color = "primary" 
 }) => {
-  const gradientMap = {
-    primary: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    info: 'linear-gradient(135deg, #11cdef 0%, #1171ef 100%)',
-    success: 'linear-gradient(135deg, #2dce89 0%, #2dcecc 100%)',
-    danger: 'linear-gradient(135deg, #f5365c 0%, #f56036 100%)',
-    warning: 'linear-gradient(135deg, #fb6340 0%, #fbb140 100%)',
-  };
+const gradientMap = {
+  primary: 'linear-gradient(135deg, #4FD1C5 0%, #63B3ED 100%)',
+  info: 'linear-gradient(135deg, #63B3ED 0%, #4FD1C5 100%)',
+  success: 'linear-gradient(135deg, #4FD1C5 0%, #38B2AC 100%)',
+  danger: 'linear-gradient(135deg, #FC8181 0%, #F56565 100%)',
+  warning: 'linear-gradient(135deg, #F6E05E 0%, #ECC94B 100%)',
+};
 
   return (
     <Card 

@@ -1,8 +1,8 @@
 import { GET_VERSION_INFO } from "./actions/VersionActions";
 
 const initialState = {
-  currentVersion: '1.0.0',
-  latestVersion: '1.0.0',
+  currentVersion: '2.5.3',
+  latestVersion: '2.5.3',
   updateAvailable: false,
   downloadUrl: 'https://github.com/AmazingMoaaz/Askarr/releases/latest',
   githubUrl: 'https://github.com/AmazingMoaaz/Askarr',
