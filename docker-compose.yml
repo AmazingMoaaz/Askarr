@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  askarr:
+    image: amazingmoaaz/askarr:latest
+    container_name: askarr
+    restart: unless-stopped
+    ports:
+      - "4545:4545"
+    volumes:
+      # IMPORTANT: Mount these volumes to persist settings across updates
+      - ./config:/root/config
+      - ./tmp:/root/tmp
+    environment:
+      - ASPNETCORE_URLS=http://*:4545
+    # Optional: Set timezone
+    # environment:
+    #   - TZ=America/New_York
+

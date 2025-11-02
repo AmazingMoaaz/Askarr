@@ -37,25 +37,25 @@ RUN rm -f /app/publish/appsettings.Development.json
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 
-# Copy version information
-COPY version.txt /app/version.txt
-
-# Copy logo
-COPY assets/logo.svg /app/assets/logo.svg
-
 COPY --from=dotnet-build /app/publish/ /root/
+
+# Copy version information to correct location
+COPY version.txt /root/version.txt
 
 # allow all users access to this so we can run container as non root.
 RUN chmod -R 755 /root
 
 WORKDIR /root/
 
+# Define volumes for persistent data
+VOLUME ["/root/config", "/root/tmp"]
+
 # Add labels for container metadata
 LABEL org.opencontainers.image.title="Askarr"
-LABEL org.opencontainers.image.description="Askarr Discord Bot"
-LABEL org.opencontainers.image.url="https://github.com/your-username/Askarr"
-LABEL org.opencontainers.image.source="https://github.com/your-username/Askarr"
-LABEL org.opencontainers.image.vendor="Askarr Team"
+LABEL org.opencontainers.image.description="Askarr Media Bot"
+LABEL org.opencontainers.image.url="https://github.com/AmazingMoaaz/Askarr"
+LABEL org.opencontainers.image.source="https://github.com/AmazingMoaaz/Askarr"
+LABEL org.opencontainers.image.vendor="Askarr"
 LABEL org.opencontainers.image.licenses="MIT"
 
 ENV ASPNETCORE_URLS="http://*:4545"
