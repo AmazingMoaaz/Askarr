@@ -41,6 +41,7 @@ import OverseerrClients from './store/reducers/OverseerrClientsReducer';
 import TvShowsClients from './store/reducers/TvShowsClientsReducer';
 import LidarrClients from "./store/reducers/LidarrClientsReducer.jsx";
 import MusicClients from "./store/reducers/MusicClientsReducer.jsx";
+import VersionReducer from "./store/VersionReducer.jsx";
 
 function combinedMovieClientsReducer(state = {}, action) {
   if (action.type.includes("radarr")) {
@@ -78,7 +79,8 @@ const store = configureStore({
     movies: combinedMovieClientsReducer,
     music: combinedMusicClientsReducer,
     tvShows: combinedTvShowsClientsReducer,
-    settings: SettingsReducer
+    settings: SettingsReducer,
+    version: VersionReducer
   }
 });
 

@@ -110,7 +110,7 @@ namespace Askarr.WebApi.AskarrBot
             }
 
             // If Telegram is configured, also start it
-            if (botClient == "Telegram" || botClient == "Both")
+            if (botClient == "Telegram" || botClient == "Discord,Telegram")
             {
                 try
                 {

@@ -133,6 +133,13 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Telegram
                 if (string.IsNullOrEmpty(data))
                     return;
 
+                // Handle help menu callbacks
+                if (data.StartsWith("help_"))
+                {
+                    await HandleHelpCallback(callbackQuery, data, cancellationToken);
+                    return;
+                }
+
                 // Format is "action:parameter"
                 var parts = data.Split(':', 2);
                 if (parts.Length != 2)
@@ -696,32 +703,113 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Telegram
             }
         }
 
+        private async Task HandleHelpCallback(CallbackQuery callbackQuery, string data, CancellationToken cancellationToken)
+        {
+            try
+            {
+                string responseText = "";
+                
+                switch (data)
+                {
+                    case "help_movie":
+                        responseText = "To request a movie, use:\n/movie <movie title>\n\nExample: /movie The Matrix";
+                        break;
+                    case "help_tv":
+                        responseText = "To request a TV show, use:\n/tv <show title>\n\nExample: /tv Breaking Bad";
+                        break;
+                    case "help_music":
+                        responseText = "To request music, use:\n/music <artist name>\n\nExample: /music Pink Floyd";
+                        break;
+                    case "help_ping":
+                        responseText = "✅ Bot is online and responding!";
+                        break;
+                    default:
+                        responseText = "Unknown help topic.";
+                        break;
+                }
+                
+                await _botClient.AnswerCallbackQueryAsync(
+                    callbackQueryId: callbackQuery.Id,
+                    text: responseText,
+                    showAlert: true,
+                    cancellationToken: cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error handling help callback");
+            }
+        }
+
         private async Task SendHelpMessage(long chatId, CancellationToken cancellationToken)
         {
-            var helpMessage = "🤖 **Askarr Media Bot Commands**\n\n" +
-                              "🔹 /help - Show this help message\n" +
-                              "🔹 /ping - Check if the bot is online\n";
+            var helpMessage = "🤖 <b>Askarr Media Bot Commands</b>\n\n" +
+                              "Available commands:\n\n";
+            
+            var commandsList = new List<string>();
+            commandsList.Add("🔹 /help - Show this help message");
+            commandsList.Add("🔹 /ping - Check if the bot is online");
             
             if (_currentSettings.MovieDownloadClient != "Disabled")
             {
-                helpMessage += "🔹 /movie [title] - Search and request a movie\n";
+                commandsList.Add("🔹 /movie &lt;title&gt; - Search and request a movie");
             }
             
             if (_currentSettings.TvShowDownloadClient != "Disabled")
             {
-                helpMessage += "🔹 /tv [title] - Search and request a TV show\n";
+                commandsList.Add("🔹 /tv &lt;title&gt; - Search and request a TV show");
             }
             
             if (_currentSettings.MusicDownloadClient != "Disabled")
             {
-                helpMessage += "🔹 /music [artist/album] - Search and request music\n";
+                commandsList.Add("🔹 /music &lt;artist/album&gt; - Search and request music");
             }
 
-            helpMessage += "\n💡 Example: /movie The Matrix";
+            helpMessage += string.Join("\n", commandsList);
+            helpMessage += "\n\n💡 <b>Quick Examples:</b>";
+            
+            // Create inline keyboard with quick command examples
+            var inlineKeyboard = new List<List<Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton>>();
+            
+            if (_currentSettings.MovieDownloadClient != "Disabled")
+            {
+                inlineKeyboard.Add(new List<Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton>
+                {
+                    Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton.WithCallbackData("🎬 Request Movie", "help_movie")
+                });
+                helpMessage += "\n• <code>/movie The Matrix</code>";
+            }
+            
+            if (_currentSettings.TvShowDownloadClient != "Disabled")
+            {
+                inlineKeyboard.Add(new List<Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton>
+                {
+                    Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton.WithCallbackData("📺 Request TV Show", "help_tv")
+                });
+                helpMessage += "\n• <code>/tv Breaking Bad</code>";
+            }
+            
+            if (_currentSettings.MusicDownloadClient != "Disabled")
+            {
+                inlineKeyboard.Add(new List<Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton>
+                {
+                    Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton.WithCallbackData("🎵 Request Music", "help_music")
+                });
+                helpMessage += "\n• <code>/music Pink Floyd</code>";
+            }
+            
+            // Add status check button
+            inlineKeyboard.Add(new List<Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton>
+            {
+                Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton.WithCallbackData("✅ Check Bot Status", "help_ping")
+            });
+            
+            var replyMarkup = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(inlineKeyboard);
             
             await _botClient.SendTextMessageAsync(
                 chatId: chatId,
                 text: helpMessage,
+                parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
+                replyMarkup: replyMarkup,
                 cancellationToken: cancellationToken);
         }
 

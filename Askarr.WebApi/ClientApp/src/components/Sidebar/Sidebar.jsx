@@ -16,11 +16,12 @@
 
 */
 import { useEffect, useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
 import { getSettings } from "../../store/actions/SettingsActions";
+import { getVersionInfo } from "../../store/actions/VersionActions";
 import LoadingSpinner from "../Loaders/LoadingSpinner";
 
 // reactstrap components
@@ -45,6 +46,7 @@ function Sidebar(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
+  const versionInfo = useSelector(state => state.version);
 
   useEffect(() => {
     dispatch(getSettings())
@@ -56,6 +58,9 @@ function Sidebar(props) {
         console.error("Error loading settings:", error);
         setIsLoading(false);
       });
+    
+    // Fetch version info
+    dispatch(getVersionInfo());
   }, [dispatch]);
 
 
@@ -179,37 +184,59 @@ function Sidebar(props) {
             {createLinks(routes)}
           </Nav>
           <hr className="my-3" />
-          <h6 className="navbar-heading text-muted">Support</h6>
+          <h6 className="navbar-heading text-muted">Resources</h6>
           <Nav navbar className="mb-md-3">
             <NavItem>
-              <NavLink href="https://github.com/thomst08/Askarr/wiki" target="_blank" className="nav-link-icon">
+              <NavLink href={versionInfo.wikiUrl} target="_blank" className="nav-link-icon">
                 <i className="fas fa-book mr-2" style={{ color: 'darkgreen' }}></i>
                 <span className="nav-link-text">Wiki</span>
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://www.paypal.com/donate/?business=QT2Y72ABMYJNG&no_recurring=0&currency_code=AUD" target="_blank" className="nav-link-icon">
-                <i className="fas fa-heart mr-2 text-red"></i>
-                <span className="nav-link-text">Donate</span>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://discord.gg/atjrUen5fJ" target="_blank" className="nav-link-icon">
-                <i className="fab fa-discord mr-2" style={{ color: '#7289DA' }}></i>
-                <span className="nav-link-text">Discord</span>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/thomst08/Askarr/issues" target="_blank" className="nav-link-icon">
+              <NavLink href={versionInfo.githubUrl} target="_blank" className="nav-link-icon">
                 <i className="fab fa-github mr-2" style={{ color: '#000' }}></i>
-                <span className="nav-link-text">Github</span>
+                <span className="nav-link-text">GitHub</span>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href={versionInfo.issuesUrl} target="_blank" className="nav-link-icon">
+                <i className="fas fa-bug mr-2 text-danger"></i>
+                <span className="nav-link-text">Report Issue</span>
               </NavLink>
             </NavItem>
           </Nav>
           <div className="mt-auto text-center py-4">
-            <small className="text-muted">
-              Askarr v1.0.0
-            </small>
+            <div className="d-flex flex-column align-items-center">
+              {versionInfo.updateAvailable ? (
+                <>
+                  <small className="text-warning font-weight-bold mb-1">
+                    <i className="fas fa-exclamation-circle mr-1"></i>
+                    Update Available!
+                  </small>
+                  <small className="text-muted mb-1">
+                    Current: v{versionInfo.currentVersion}
+                  </small>
+                  <small className="text-success mb-2">
+                    Latest: v{versionInfo.latestVersion}
+                  </small>
+                  <a 
+                    href={versionInfo.downloadUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn btn-sm btn-success"
+                    style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem' }}
+                  >
+                    <i className="fas fa-download mr-1"></i>
+                    Download Update
+                  </a>
+                </>
+              ) : (
+                <small className="text-muted">
+                  <i className="fas fa-check-circle text-success mr-1"></i>
+                  Askarr v{versionInfo.currentVersion}
+                </small>
+              )}
+            </div>
           </div>
         </Collapse>
       </Container>
