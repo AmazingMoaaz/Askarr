@@ -18,7 +18,11 @@ COPY --from=node-build /app /app/ClientApp
 
 WORKDIR /app
 
-RUN dotnet publish -c Release -o publish Askarr.WebApi.csproj
+# Restore NuGet packages
+RUN dotnet restore Askarr.WebApi.csproj
+
+# Build and publish
+RUN dotnet publish -c Release -o publish Askarr.WebApi.csproj --no-restore
 RUN rm -rf /app/publish/config
 RUN rm -rf /app/publish/tmp
 RUN mkdir /app/publish/config
