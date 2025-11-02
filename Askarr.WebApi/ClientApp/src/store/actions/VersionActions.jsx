@@ -24,19 +24,27 @@ export function getVersionInfo() {
       })
       .catch(error => {
         console.error('Error fetching version info:', error);
+        // Dispatch default values even on error so UI shows something
+        const fallbackData = {
+          currentVersion: '2.5.1',
+          latestVersion: '2.5.1',
+          updateAvailable: false,
+          downloadUrl: 'https://github.com/AmazingMoaaz/Askarr/releases/latest',
+          githubUrl: 'https://github.com/AmazingMoaaz/Askarr',
+          releasesUrl: 'https://github.com/AmazingMoaaz/Askarr/releases',
+          wikiUrl: 'https://github.com/AmazingMoaaz/Askarr/wiki',
+          issuesUrl: 'https://github.com/AmazingMoaaz/Askarr/issues'
+        };
+        
+        dispatch({
+          type: GET_VERSION_INFO,
+          payload: fallbackData
+        });
+        
         return { 
           ok: false, 
           error: error.message,
-          data: {
-            currentVersion: '1.0.0',
-            latestVersion: '1.0.0',
-            updateAvailable: false,
-            downloadUrl: 'https://github.com/AmazingMoaaz/Askarr/releases/latest',
-            githubUrl: 'https://github.com/AmazingMoaaz/Askarr',
-            releasesUrl: 'https://github.com/AmazingMoaaz/Askarr/releases',
-            wikiUrl: 'https://github.com/AmazingMoaaz/Askarr/wiki',
-            issuesUrl: 'https://github.com/AmazingMoaaz/Askarr/issues'
-          }
+          data: fallbackData
         };
       });
   };

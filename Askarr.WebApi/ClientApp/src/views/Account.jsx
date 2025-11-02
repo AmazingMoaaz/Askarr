@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { Alert } from "reactstrap";
 import { changePassword } from "../store/actions/UserActions"
+import ModernHeader from "../components/Headers/ModernHeader";
 
 // reactstrap components
 import {
@@ -31,10 +32,9 @@ import {
   Input,
   Container,
   Row,
-  Col
+  Col,
+  Spinner
 } from "reactstrap";
-// core components
-import UserHeader from "../components/Headers/UserHeader.jsx";
 
 
 function Account() {
@@ -181,11 +181,15 @@ function Account() {
 
   return (
     <>
-      <UserHeader title="Account" description="This page is for configuring your admin account" />
+      <ModernHeader 
+        title="Account" 
+        description="Manage your admin account settings"
+        icon="fas fa-user-circle"
+      />
       <Container className="mt--7" fluid>
         <Row>
           <Col className="order-xl-1" xl="12">
-            <Card className="bg-secondary shadow">
+            <Card className="modern-card shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">

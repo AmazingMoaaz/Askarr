@@ -22,6 +22,7 @@ import { Alert } from "reactstrap";
 import { getSettings } from "../store/actions/SettingsActions"
 import { saveSettings } from "../store/actions/SettingsActions"
 import ValidatedTextbox from "../components/Inputs/ValidatedTextbox"
+import ModernHeader from "../components/Headers/ModernHeader";
 
 // reactstrap components
 import {
@@ -34,10 +35,9 @@ import {
   Input,
   Container,
   Row,
-  Col
+  Col,
+  Spinner
 } from "reactstrap";
-// core components
-import UserHeader from "../components/Headers/UserHeader.jsx";
 
 
 function Settings() {
@@ -130,11 +130,15 @@ function Settings() {
 
   return (
     <>
-      <UserHeader title="Settings" description="This page is for configuring general settings" />
+      <ModernHeader 
+        title="Settings" 
+        description="Configure general application settings"
+        icon="fas fa-cogs"
+      />
       <Container className="mt--7" fluid>
         <Row>
           <Col className="order-xl-1" xl="12">
-            <Card className="bg-secondary shadow">
+            <Card className="modern-card shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
