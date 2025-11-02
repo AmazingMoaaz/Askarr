@@ -8,7 +8,7 @@ RUN npm install
 
 RUN npm run build
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS dotnet-build
 
 RUN apt-get update && \
   apt-get --no-install-recommends -y install nodejs npm
@@ -18,7 +18,7 @@ COPY --from=node-build /app /app/ClientApp
 
 WORKDIR /app
 
-RUN dotnet publish -c release -o publish  Askarr.WebApi.csproj
+RUN dotnet publish -c Release -o publish Askarr.WebApi.csproj
 RUN rm -rf /app/publish/config
 RUN rm -rf /app/publish/tmp
 RUN mkdir /app/publish/config

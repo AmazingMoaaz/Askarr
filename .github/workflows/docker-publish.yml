@@ -44,21 +44,31 @@ jobs:
 
       - name: Prepare Docker build context
         run: |
-          # Ensure logo.svg is available in the Docker build context
+          # Create build context directory
+          mkdir -p docker-build-context
+          
+          # Copy Askarr.WebApi to build context
+          cp -R Askarr.WebApi/* docker-build-context/
+          
+          # Copy dockerfile to build context
+          cp Askarr.WebApi/dockerfile docker-build-context/
+          
+          # Ensure assets directory exists and copy logo
           mkdir -p docker-build-context/assets
           cp Logos/logo.svg docker-build-context/assets/
-          # Copy the rest of the necessary files
-          cp -R Askarr.WebApi/* docker-build-context/
-          # Create a metadata file for the Docker image
-          echo "VERSION=${{ steps.get_version.outputs.VERSION }}" > docker-build-context/version.txt
-          echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> docker-build-context/version.txt
-          echo "VCS_REF=${{ github.sha }}" >> docker-build-context/version.txt
+          
+          # Create version.txt in build context
+          echo "${{ steps.get_version.outputs.VERSION }}" > docker-build-context/version.txt
+          
+          # List contents for debugging
+          echo "Build context contents:"
+          ls -la docker-build-context/
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: ./docker-build-context
-          file: ./Askarr.WebApi/dockerfile
+          file: ./docker-build-context/dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: |
