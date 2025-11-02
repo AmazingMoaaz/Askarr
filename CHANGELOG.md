@@ -5,6 +5,30 @@ All notable changes to Askarr will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.1] - 2025-11-02
+
+### 🐛 Bug Fixes
+
+#### Docker Build Fix
+- **FIXED**: Docker build failing with "Cannot find module 'node:path'" error
+- **FIXED**: Node.js version mismatch in Dockerfile
+- **CHANGED**: Updated Dockerfile to install Node.js 18.x from NodeSource
+  - Previously was using Node.js v12 from apt-get
+  - React dependencies require Node >= 14, some require >= 18
+- **RESOLVED**: All EBADENGINE warnings during npm install
+- **RESOLVED**: ESLint compilation errors in Docker builds
+
+#### Technical Details
+- Replaced old `apt-get install nodejs npm` with proper Node.js 18.x installation
+- Used official NodeSource repository for Node.js
+- Ensures compatibility with all React Scripts, Sass, Tailwind, and other modern dependencies
+
+### 🚀 Deployment
+- Docker builds now complete successfully
+- All GitHub Actions workflows will now work correctly
+
+---
+
 ## [2.5.0] - 2025-11-02
 
 ### 🎨 Major UI/UX Transformation
