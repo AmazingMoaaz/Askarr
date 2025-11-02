@@ -205,36 +205,86 @@ function Sidebar(props) {
               </NavLink>
             </NavItem>
           </Nav>
-          <div className="mt-auto text-center py-4">
+          <div className="mt-auto text-center py-4" style={{
+            borderTop: '1px solid rgba(79, 209, 197, 0.1)',
+            paddingTop: '1.5rem'
+          }}>
             <div className="d-flex flex-column align-items-center">
-              {versionInfo.updateAvailable ? (
+              {versionInfo?.updateAvailable ? (
                 <>
-                  <small className="text-warning font-weight-bold mb-1">
+                  <small style={{
+                    color: '#F6E05E',
+                    fontWeight: '700',
+                    marginBottom: '0.5rem',
+                    fontSize: '0.8125rem'
+                  }}>
                     <i className="fas fa-exclamation-circle mr-1"></i>
                     Update Available!
                   </small>
-                  <small className="text-muted mb-1">
-                    Current: v{versionInfo.currentVersion}
+                  <small style={{
+                    color: 'rgba(45, 55, 72, 0.7)',
+                    marginBottom: '0.25rem',
+                    fontSize: '0.75rem'
+                  }}>
+                    Current: v{versionInfo.currentVersion || '2.5.5'}
                   </small>
-                  <small className="text-success mb-2">
-                    Latest: v{versionInfo.latestVersion}
+                  <small style={{
+                    color: '#4FD1C5',
+                    fontWeight: '600',
+                    marginBottom: '0.75rem',
+                    fontSize: '0.8125rem'
+                  }}>
+                    Latest: v{versionInfo.latestVersion || '2.5.5'}
                   </small>
                   <a 
-                    href={versionInfo.downloadUrl} 
+                    href={versionInfo.downloadUrl || 'https://github.com/AmazingMoaaz/Askarr/releases/latest'} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="btn btn-sm btn-success"
-                    style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem' }}
+                    style={{ 
+                      fontSize: '0.75rem', 
+                      padding: '0.375rem 0.75rem',
+                      background: 'linear-gradient(135deg, #4FD1C5 0%, #63B3ED 100%)',
+                      border: 'none',
+                      borderRadius: '0.5rem',
+                      color: '#fff',
+                      fontWeight: '600',
+                      textDecoration: 'none',
+                      display: 'inline-block',
+                      transition: 'all 0.3s ease',
+                      boxShadow: '0 4px 12px rgba(79, 209, 197, 0.3)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 6px 16px rgba(79, 209, 197, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(79, 209, 197, 0.3)';
+                    }}
                   >
                     <i className="fas fa-download mr-1"></i>
                     Download Update
                   </a>
                 </>
               ) : (
-                <small className="text-muted">
-                  <i className="fas fa-check-circle text-success mr-1"></i>
-                  Askarr v{versionInfo.currentVersion}
-                </small>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.5rem 1rem',
+                  background: 'linear-gradient(135deg, rgba(79, 209, 197, 0.08), rgba(99, 179, 237, 0.08))',
+                  borderRadius: '0.75rem',
+                  border: '1px solid rgba(79, 209, 197, 0.2)'
+                }}>
+                  <i className="fas fa-check-circle" style={{ color: '#4FD1C5', fontSize: '1rem' }}></i>
+                  <span style={{
+                    color: '#2D3748',
+                    fontWeight: '600',
+                    fontSize: '0.875rem'
+                  }}>
+                    Askarr v{versionInfo?.currentVersion || '2.5.5'}
+                  </span>
+                </div>
               )}
             </div>
           </div>

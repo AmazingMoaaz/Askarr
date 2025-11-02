@@ -296,6 +296,13 @@ function TvShows() {
                               ]}
                               onChange={newRestrictions => { setRestrictions(newRestrictions) }}
                             />
+                            <small className="form-text text-muted mt-2 d-block" style={{
+                              fontSize: '0.8125rem',
+                              color: 'rgba(45, 55, 72, 0.7)',
+                              fontWeight: '400'
+                            }}>
+                              Control which seasons users can request
+                            </small>
                           </Col>
                         </Row>
                         {renderClientConfig()}

@@ -5,6 +5,58 @@ All notable changes to Askarr will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.5] - 2025-11-02
+
+### 🎨 UI/UX Enhancement - Complete Form & Interface Overhaul
+- **Fixed Duplicate Labels**: Removed all duplicate label issues across the application
+  - Language dropdown no longer shows label twice
+  - Season Restrictions dropdown cleaned up
+  - All form groups properly structured
+  
+- **Enhanced Version Display**: 
+  - Version now shows correctly with fallback ("Askarr v2.5.5")
+  - Beautiful gradient badge with teal/blue colors
+  - Update notification with styled download button
+  - Proper spacing and hover effects
+
+- **Comprehensive Form Styling**: New form enhancement stylesheet
+  - All inputs now have teal borders matching logo
+  - Smooth focus states with glowing outline
+  - Enhanced hover effects on all form elements
+  - Consistent border radius (0.75rem) throughout
+  
+- **Button Enhancements**:
+  - All buttons now use logo gradient colors
+  - Smooth hover animations with lift effect
+  - Disabled state styling
+  - Focus states with glow effect
+  
+- **Card & Tab Improvements**:
+  - Cards have subtle teal borders and enhanced shadows
+  - Tab navigation with gradient underline animation
+  - Consistent rounded corners throughout
+  
+- **Input Group Styling**:
+  - Input group addons match teal theme
+  - Icons colored with logo teal
+  - Smooth transitions on focus
+  
+- **Alert & Badge Updates**:
+  - All alerts use logo color scheme
+  - Gradient backgrounds for badges
+  - Better contrast and readability
+
+- **Help Text Consistency**:
+  - Uniform styling for all form help text
+  - Proper color and spacing
+  - Better readability
+
+### 🎯 User Experience
+- More cohesive visual language
+- Better feedback on interactions
+- Smoother animations throughout
+- Enhanced accessibility with better focus states
+
 ## [2.5.4] - 2025-11-02
 
 ### 🎨 UI Improvements - Dropdown Enhancement
