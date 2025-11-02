@@ -768,47 +768,47 @@ namespace Askarr.WebApi.AskarrBot.ChatClients.Telegram
             helpMessage += "\n\n💡 <b>Quick Examples:</b>";
             
             // Create inline keyboard with quick command examples
-            var inlineKeyboard = new List<List<Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton>>();
+            var inlineKeyboard = new List<List<InlineKeyboardButton>>();
             
             if (_currentSettings.MovieDownloadClient != "Disabled")
             {
-                inlineKeyboard.Add(new List<Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton>
+                inlineKeyboard.Add(new List<InlineKeyboardButton>
                 {
-                    Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton.WithCallbackData("🎬 Request Movie", "help_movie")
+                    InlineKeyboardButton.WithCallbackData("🎬 Request Movie", "help_movie")
                 });
                 helpMessage += "\n• <code>/movie The Matrix</code>";
             }
             
             if (_currentSettings.TvShowDownloadClient != "Disabled")
             {
-                inlineKeyboard.Add(new List<Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton>
+                inlineKeyboard.Add(new List<InlineKeyboardButton>
                 {
-                    Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton.WithCallbackData("📺 Request TV Show", "help_tv")
+                    InlineKeyboardButton.WithCallbackData("📺 Request TV Show", "help_tv")
                 });
                 helpMessage += "\n• <code>/tv Breaking Bad</code>";
             }
             
             if (_currentSettings.MusicDownloadClient != "Disabled")
             {
-                inlineKeyboard.Add(new List<Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton>
+                inlineKeyboard.Add(new List<InlineKeyboardButton>
                 {
-                    Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton.WithCallbackData("🎵 Request Music", "help_music")
+                    InlineKeyboardButton.WithCallbackData("🎵 Request Music", "help_music")
                 });
                 helpMessage += "\n• <code>/music Pink Floyd</code>";
             }
             
             // Add status check button
-            inlineKeyboard.Add(new List<Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton>
+            inlineKeyboard.Add(new List<InlineKeyboardButton>
             {
-                Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton.WithCallbackData("✅ Check Bot Status", "help_ping")
+                InlineKeyboardButton.WithCallbackData("✅ Check Bot Status", "help_ping")
             });
             
-            var replyMarkup = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(inlineKeyboard);
+            var replyMarkup = new InlineKeyboardMarkup(inlineKeyboard);
             
             await _botClient.SendTextMessageAsync(
                 chatId: chatId,
                 text: helpMessage,
-                parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
+                parseMode: ParseMode.Html,
                 replyMarkup: replyMarkup,
                 cancellationToken: cancellationToken);
         }
