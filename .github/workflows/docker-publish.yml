@@ -80,4 +80,13 @@ jobs:
             org.opencontainers.image.authors=Askarr Team
             org.opencontainers.image.url=${{ github.event.repository.html_url }}
             org.opencontainers.image.source=${{ github.event.repository.clone_url }}
-            org.opencontainers.image.revision=${{ github.sha }} 
+            org.opencontainers.image.revision=${{ github.sha }}
+      
+      - name: Update Docker Hub Description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          repository: ${{ secrets.DOCKER_HUB_USERNAME }}/askarr
+          readme-filepath: ./README.Docker.md
+          short-description: "Askarr - Advanced media request management via Discord & Telegram for Sonarr, Radarr, Lidarr, Overseerr and Ombi" 
