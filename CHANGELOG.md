@@ -5,6 +5,26 @@ All notable changes to Askarr will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.6] - 2025-11-02
+
+### 🔧 Critical Fix - Dynamic Version Display
+- **Fixed Login/Register Screen**: Version now shows correctly instead of hardcoded "v1.0.0"
+- **All Versions Now Dynamic**: Every version display in the app now fetches from GitHub API
+  - Login screen footer: `© 2025 Askarr (v2.5.6)` - now dynamic
+  - Admin footer: `© 2025 Askarr (v2.5.6)` - now dynamic  
+  - Sidebar version badge: Already dynamic
+  
+- **Enhanced Footer Styling**:
+  - "Askarr" name now clickable link to GitHub
+  - Beautiful teal color (#4FD1C5) for link
+  - Smooth hover effect with underline
+  - Better typography and spacing
+  
+- **Fallback System**: All version displays have fallback to prevent showing broken or old versions
+  
+### 🎯 Result
+No more hardcoded versions anywhere in the application. Everything pulls from the GitHub API with proper fallbacks!
+
 ## [2.5.5] - 2025-11-02
 
 ### 🎨 UI/UX Enhancement - Complete Form & Interface Overhaul

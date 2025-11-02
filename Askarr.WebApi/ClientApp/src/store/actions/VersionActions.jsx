@@ -26,8 +26,8 @@ export function getVersionInfo() {
         console.error('Error fetching version info:', error);
         // Dispatch default values even on error so UI shows something
         const fallbackData = {
-          currentVersion: '2.5.5',
-          latestVersion: '2.5.5',
+          currentVersion: '2.5.6',
+          latestVersion: '2.5.6',
           updateAvailable: false,
           downloadUrl: 'https://github.com/AmazingMoaaz/Askarr/releases/latest',
           githubUrl: 'https://github.com/AmazingMoaaz/Askarr',

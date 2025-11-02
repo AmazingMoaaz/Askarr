@@ -226,7 +226,7 @@ function Sidebar(props) {
                     marginBottom: '0.25rem',
                     fontSize: '0.75rem'
                   }}>
-                    Current: v{versionInfo.currentVersion || '2.5.5'}
+                    Current: v{versionInfo.currentVersion || '2.5.6'}
                   </small>
                   <small style={{
                     color: '#4FD1C5',
@@ -234,7 +234,7 @@ function Sidebar(props) {
                     marginBottom: '0.75rem',
                     fontSize: '0.8125rem'
                   }}>
-                    Latest: v{versionInfo.latestVersion || '2.5.5'}
+                    Latest: v{versionInfo.latestVersion || '2.5.6'}
                   </small>
                   <a 
                     href={versionInfo.downloadUrl || 'https://github.com/AmazingMoaaz/Askarr/releases/latest'} 
@@ -282,7 +282,7 @@ function Sidebar(props) {
                     fontWeight: '600',
                     fontSize: '0.875rem'
                   }}>
-                    Askarr v{versionInfo?.currentVersion || '2.5.5'}
+                    Askarr v{versionInfo?.currentVersion || '2.5.6'}
                   </span>
                 </div>
               )}

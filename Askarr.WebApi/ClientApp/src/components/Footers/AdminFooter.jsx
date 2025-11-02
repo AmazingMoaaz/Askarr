@@ -19,16 +19,56 @@
 
 // reactstrap components
 import { Row, Col } from "reactstrap";
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { getVersionInfo } from "../../store/actions/VersionActions";
 
 function Footer() {
+  const dispatch = useDispatch();
+  const versionInfo = useSelector(state => state.version);
+
+  useEffect(() => {
+    dispatch(getVersionInfo());
+  }, [dispatch]);
+
   return (
     <footer className="footer">
       <Row className="align-items-center justify-content-xl-between">
         <Col xl="6">
-          <div className="copyright text-center text-xl-left text-muted">
+          <div 
+            className="copyright text-center text-xl-left" 
+            style={{
+              color: 'rgba(45, 55, 72, 0.7)',
+              fontWeight: '500',
+              fontSize: '0.875rem'
+            }}
+          >
             © {new Date().getFullYear()}{" "}
-            Askarr (v1.0.0)
+            <a 
+              href="https://github.com/AmazingMoaaz/Askarr" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{
+                color: '#4FD1C5',
+                textDecoration: 'none',
+                fontWeight: '600',
+                marginLeft: '0.25rem',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#38B2AC';
+                e.currentTarget.style.textDecoration = 'underline';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = '#4FD1C5';
+                e.currentTarget.style.textDecoration = 'none';
+              }}
+            >
+              Askarr
+            </a>
+            <span style={{ marginLeft: '0.25rem' }}>
+              (v{versionInfo?.currentVersion || '2.5.6'})
+            </span>
           </div>
         </Col>
       </Row>
