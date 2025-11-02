@@ -1,353 +1,255 @@
 #  Askarr
 
 <div align="center">
-  <img src="Logos/logo.svg" width="250" alt="Askarr Logo">
+  <img src="Logos/logo.svg" width="200" alt="Askarr Logo">
   
-  <h2>Advanced Media Request Management via Chat Integration</h2>
-  <p>Enterprise-grade solution for Sonarr, Radarr, Lidarr, Overseerr and Ombi</p>
+  <h3>🤖 Your Media Server's Personal Assistant</h3>
+  <p>Request movies, TV shows, and music directly from Discord or Telegram</p>
   
-  [![Docker Pulls](https://img.shields.io/docker/pulls/amazingmoaaz/askarr?style=flat-square&logo=docker&color=2496ED&logoColor=white)](https://hub.docker.com/r/amazingmoaaz/askarr)
-  [![GitHub Stars](https://img.shields.io/github/stars/amazingmoaaz/askarr?style=flat-square&logo=github&color=E3B341&logoColor=white)](https://github.com/AmazingMoaaz/Askarr)
-  [![License](https://img.shields.io/github/license/amazingmoaaz/askarr?style=flat-square&color=22B455&logoColor=white)](https://github.com/AmazingMoaaz/Askarr/blob/master/LICENSE)
-  [![Discord](https://img.shields.io/discord/837015505195794482?style=flat-square&logo=discord&color=5865F2&logoColor=white)](https://discord.gg/askarr)
-  [![Docker Image Size](https://img.shields.io/docker/image-size/amazingmoaaz/askarr/latest?style=flat-square&logo=docker&color=096DD9&logoColor=white)](https://hub.docker.com/r/amazingmoaaz/askarr)
-  [![GitHub Last Commit](https://img.shields.io/github/last-commit/amazingmoaaz/askarr?style=flat-square&logo=github&color=F05032&logoColor=white)](https://github.com/AmazingMoaaz/Askarr)
-  [![Version](https://img.shields.io/github/v/release/amazingmoaaz/askarr?style=flat-square&logo=github&color=35B44C&logoColor=white)](https://github.com/AmazingMoaaz/Askarr/releases)
+  [![Docker Pulls](https://img.shields.io/docker/pulls/amazingmoaaz/askarr?style=for-the-badge&logo=docker&color=4FD1C5&logoColor=white)](https://hub.docker.com/r/amazingmoaaz/askarr)
+  [![GitHub Stars](https://img.shields.io/github/stars/amazingmoaaz/askarr?style=for-the-badge&logo=github&color=63B3ED&logoColor=white)](https://github.com/AmazingMoaaz/Askarr)
+  [![Version](https://img.shields.io/github/v/release/amazingmoaaz/askarr?style=for-the-badge&logo=github&color=F6E05E&logoColor=2D3748&label=Version)](https://github.com/AmazingMoaaz/Askarr/releases)
+  [![License](https://img.shields.io/github/license/amazingmoaaz/askarr?style=for-the-badge&color=2D3748&logoColor=white)](https://github.com/AmazingMoaaz/Askarr/blob/master/LICENSE)
 </div>
 
 ---
 
-## 📋 Overview
+## 🚀 What is Askarr?
 
-Askarr is a sophisticated chat integration solution for media server ecosystems. It provides a streamlined interface between users and media management systems through popular chat platforms, enhancing the request and notification workflow for content libraries.
+Askarr bridges your media ecosystem with chat platforms, allowing users to **request content, manage libraries, and receive notifications** through Discord or Telegram. No more switching between apps—your entire media server is just a message away.
 
 <div align="center">
-  <table>
-    <tr>
-      <th align="center">Feature</th>
-      <th align="center">Description</th>
-    </tr>
-    <tr>
-      <td align="center">Multi-Platform Support</td>
-      <td>Discord and Telegram integration with full command support</td>
-    </tr>
-    <tr>
-      <td align="center">Media Server Integration</td>
-      <td>Sonarr, Radarr, and Lidarr with comprehensive version compatibility</td>
-    </tr>
-    <tr>
-      <td align="center">Request Management</td>
-      <td>Overseerr and Ombi integration with quota and permission systems</td>
-    </tr>
-    <tr>
-      <td align="center">User Management</td>
-      <td>Granular permission control and role-based access systems</td>
-    </tr>
-    <tr>
-      <td align="center">Notification System</td>
-      <td>Customizable alerts and content availability notifications</td>
-    </tr>
-    <tr>
-      <td align="center">Administration</td>
-      <td>Web-based control panel with comprehensive configuration options</td>
-    </tr>
-  </table>
+  
+| 💬 **Chat Platforms** | 📺 **Media Servers** | 🎯 **Request Systems** |
+|:---:|:---:|:---:|
+| Discord • Telegram | Sonarr • Radarr • Lidarr | Overseerr • Ombi |
+
 </div>
 
 ---
 
 ## ✨ Key Features
 
-### Chat Platform Integration
+<table>
+<tr>
+<td width="50%" valign="top">
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="50%">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/discord.svg" width="60" height="60" style="filter: brightness(0) saturate(100%) invert(44%) sepia(94%) saturate(1752%) hue-rotate(224deg) brightness(95%) contrast(98%)"/>
-        <h3>Discord</h3>
-        <ul align="left">
-          <li>Slash command implementation</li>
-          <li>Interactive button controls</li>
-          <li>Rich embedded content display</li>
-          <li>Role-based permission system</li>
-        </ul>
-      </td>
-      <td align="center" width="50%">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/telegram.svg" width="60" height="60" style="filter: brightness(0) saturate(100%) invert(43%) sepia(87%) saturate(1119%) hue-rotate(177deg) brightness(98%) contrast(91%)"/>
-        <h3>Telegram</h3>
-        <ul align="left">
-          <li>Command-based interface</li>
-          <li>Group and private chat support</li>
-          <li>Inline keyboard functionality</li>
-          <li>User-based permission system</li>
-        </ul>
-      </td>
-    </tr>
-  </table>
-</div>
+### 💬 Chat Integration
+- **Discord**: Slash commands, rich embeds, role permissions
+- **Telegram**: Inline keyboards, group support, dynamic help
+- **Interactive**: Button controls for selections and confirmations
+- **Smart**: Context-aware commands with autocomplete
 
-###  Media Server Integration
+</td>
+<td width="50%" valign="top">
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="33%">
-        <div style="padding:15px; margin-bottom:10px;">
-          <img src="https://raw.githubusercontent.com/Sonarr/Sonarr/develop/Logo/128.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(38, 198, 218, 0.6));"/>
-        </div>
-        <h3>Sonarr</h3>
-        <p><strong>Versions V2-V4 Compatible</strong></p>
-      </td>
-      <td align="center" width="33%">
-        <div style="padding:15px; margin-bottom:10px;">
-          <img src="https://raw.githubusercontent.com/Radarr/Radarr/develop/Logo/128.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(245, 124, 0, 0.6));"/>
-        </div>
-        <h3>Radarr</h3>
-        <p><strong>Versions V2-V5 Compatible</strong></p>
-      </td>
-      <td align="center" width="33%">
-        <div style="padding:15px; margin-bottom:10px;">
-          <img src="https://raw.githubusercontent.com/lidarr/Lidarr/develop/Logo/128.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(156, 39, 176, 0.6));"/>
-        </div>
-        <h3>Lidarr</h3>
-        <p><strong>Versions V1-V2 Compatible</strong></p>
-      </td>
-    </tr>
-  </table>
-</div>
+### 🎬 Media Management
+- **Movies**: Radarr V2-V5 with 4K/1080p profiles
+- **TV Shows**: Sonarr V2-V4 with season control
+- **Music**: Lidarr V1-V2 for artists and albums
+- **Quality**: Multiple profiles and instance support
 
-- **TV Show Management**: Advanced TV show handling with Sonarr integration and season control
-- **Movie Management**: Comprehensive movie request system with multi-instance support
-- **Music Management**: Complete music library management with artist and album tracking
-- **Quality Profiles**: Support for multiple quality profiles including 4K and 1080p libraries
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
 
-### Request Management Systems
+### 🎯 Request Systems
+- **Overseerr**: Elegant UI, advanced permissions
+- **Ombi**: V3/V4 support, quota management
+- **Permissions**: Role-based access control
+- **Quotas**: Limit requests per user/period
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="50%">
-        <div style="padding:20px; margin-bottom:10px;">
-          <img src="https://raw.githubusercontent.com/sct/overseerr/07dc8d755a0e94d100ecd8b1e950e43da1c0a7dd/public/logo_full.svg" width="150" style="filter: drop-shadow(0px 0px 8px rgba(114, 190, 250, 0.6));"/>
-        </div>
-        <ul align="left">
-          <li><strong>Elegant UI Integration</strong></li>
-          <li><strong>Advanced Request Management</strong></li>
-          <li><strong>Granular Permission Control</strong></li>
-          <li><strong>Multi-server Configuration</strong></li>
-        </ul>
-      </td>
-      <td align="center" width="50%">
-        <div style="padding:20px; margin-bottom:10px;">
-          <img src="https://raw.githubusercontent.com/Ombi-app/Ombi/master/src/Ombi/wwwroot/images/logo.png" width="120" style="filter: drop-shadow(0px 0px 8px rgba(255, 154, 0, 0.6));"/>
-        </div>
-        <ul align="left">
-          <li><strong>V3/V4 Compatibility</strong></li>
-          <li><strong>Advanced Quota Management</strong></li>
-          <li><strong>Integrated Issue Tracking</strong></li>
-          <li><strong>Streamlined Request Workflow</strong></li>
-        </ul>
-      </td>
-    </tr>
-  </table>
-</div>
+</td>
+<td width="50%" valign="top">
 
-### Advanced Administration
+### ⚙️ Administration
+- **Web Panel**: Modern, responsive UI (v2.5.3)
+- **Real-time**: Live status and monitoring
+- **Notifications**: Custom alerts for users
+- **Docker**: Single container deployment
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="33%">
-        <h3>Web Interface</h3>
-        Modern dashboard for system configuration
-      </td>
-      <td align="center" width="33%">
-        <h3>Permission System</h3>
-        Detailed access control management
-      </td>
-      <td align="center" width="33%">
-        <h3>Monitoring</h3>
-        System logging and status tracking
-      </td>
-    </tr>
-  </table>
-</div>
+</td>
+</tr>
+</table>
 
 ---
 
-## 🔧 Installation Guide
+## 🐳 Quick Start
 
-### Docker Deployment
-
-```bash
-# Standard installation
-    docker run -d \
-      --name askarr \
-      -p 4545:4545 \
-  -v /path/to/config:/root/config \
-      --restart=unless-stopped \
-      AmazingMoaaz/askarr
-```
-
-### Quick Start Commands
+### Docker (Recommended)
 
 ```bash
-# One-command setup
-mkdir -p /opt/Askarr/config && \
 docker run -d \
   --name askarr \
   -p 4545:4545 \
-  -v /opt/Askarr/config:/root/config \
-  --restart=unless-stopped \
-  AmazingMoaaz/askarr
+  -v ./config:/root/config \
+  -v ./tmp:/root/tmp \
+  --restart unless-stopped \
+  amazingmoaaz/askarr:latest
+```
+
+### Docker Compose
+
+```yaml
+services:
+  askarr:
+    image: amazingmoaaz/askarr:latest
+    container_name: askarr
+    ports:
+      - "4545:4545"
+    volumes:
+      - ./config:/root/config
+      - ./tmp:/root/tmp
+    restart: unless-stopped
 ```
 
 <div align="center">
-  <p>Access the administration interface at: <code>http://youraddress:4545/</code></p>
+  
+**🌐 Access the web interface at:** [`http://localhost:4545`](http://localhost:4545)
+
 </div>
-
-## 📦 Versioning and Releases
-
-Askarr follows [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH).
-
-### Version Types
-- **MAJOR**: Incompatible API changes
-- **MINOR**: Backward-compatible functionality additions
-- **PATCH**: Backward-compatible bug fixes
-- **HOTFIX**: Emergency fixes for critical issues (format: X.Y.Z-hfN)
-
-### Docker Tags
-- `latest`: Latest stable release
-- `X.Y.Z`: Specific version (e.g., `2.1.10`)
-- `X.Y`: Major.Minor version (e.g., `2.1`)
-
-### Updating Askarr
-To update to the latest version:
-```bash
-docker pull amazingmoaaz/askarr:latest
-```
-
-For a specific version:
-```bash
-docker pull amazingmoaaz/askarr:2.1.10
-```
-
-### Release Process for Developers
-Askarr includes a version management script to facilitate releases:
-
-```powershell
-# Bump patch version (2.1.9 → 2.1.10)
-.\bump-version.ps1 patch
-
-# Bump minor version (2.1.10 → 2.2.0)
-.\bump-version.ps1 minor
-
-# Bump major version (2.2.0 → 3.0.0)
-.\bump-version.ps1 major
-
-# Create hotfix (2.1.10 → 2.1.10-hf1)
-.\bump-version.ps1 hotfix
-```
-
-After running the script, follow the displayed instructions to push the new version.
 
 ---
 
-## 📚 Documentation
+## 📖 Setup Guide
 
-Our comprehensive documentation provides detailed setup instructions, configuration guides, and best practices for deployment.
+1. **Start Askarr** using Docker command above
+2. **Open web interface** and create admin account
+3. **Configure chat client** (Discord bot token or Telegram token)
+4. **Add media servers** (Radarr, Sonarr, Lidarr)
+5. **Set permissions** for users/roles
+6. **Start requesting!** 🎉
+
+<div align="center">
+  
+📚 **[Full Documentation](https://github.com/AmazingMoaaz/Askarr/wiki)** • 🐛 **[Report Issues](https://github.com/AmazingMoaaz/Askarr/issues)** • 💬 **[Join Discord](https://discord.gg/askarr)**
+
+</div>
+
+---
+
+## 🎨 Screenshots
+
+<div align="center">
+  <img src="https://img.shields.io/badge/Modern_UI-v2.5.3-4FD1C5?style=for-the-badge&logo=react&logoColor=white" alt="Modern UI">
+  <img src="https://img.shields.io/badge/Glassmorphic-Design-63B3ED?style=for-the-badge&logo=css3&logoColor=white" alt="Design">
+  <img src="https://img.shields.io/badge/Responsive-Layout-F6E05E?style=for-the-badge&logo=html5&logoColor=2D3748" alt="Responsive">
+</div>
+
+> Beautiful, modern interface with glassmorphic design and smooth animations
+
+---
+
+## 🔄 Updates & Versioning
+
+Askarr follows [Semantic Versioning](https://semver.org/): `MAJOR.MINOR.PATCH`
+
+| Tag | Description | Example |
+|-----|-------------|---------|
+| `latest` | Latest stable release | Always up-to-date |
+| `X.Y.Z` | Specific version | `2.5.3` |
+| `X.Y` | Major.Minor version | `2.5` |
+
+**Update to latest:**
+```bash
+docker pull amazingmoaaz/askarr:latest
+docker restart askarr
+```
+
+> ⚠️ **Data Persistence**: Always use volumes for `/root/config` and `/root/tmp` to keep settings across updates!
+
+---
+
+## 🛠️ Development
+
+### Building from Source
+
+```bash
+# Clone repository
+git clone https://github.com/AmazingMoaaz/Askarr.git
+cd Askarr
+
+# Build Docker image
+docker build -t askarr:local -f Askarr.WebApi/dockerfile .
+
+# Or run locally (requires .NET 6 SDK and Node.js 18+)
+cd Askarr.WebApi
+dotnet run
+```
+
+### Tech Stack
+
+- **Backend**: ASP.NET Core 6.0 (C#)
+- **Frontend**: React 18, Redux, Reactstrap
+- **Chat**: DSharpPlus (Discord), Telegram.Bot
+- **Styling**: SCSS with modern glassmorphism
+- **Deployment**: Docker multi-stage builds
+
+---
+
+## 🌟 Community & Support
 
 <div align="center">
   <table>
     <tr>
       <td align="center" width="33%">
-        <h3>Installation</h3>
-        <p>System requirements and setup guides</p>
+        <a href="https://discord.gg/askarr">
+          <img src="https://img.shields.io/badge/Discord-Join_Chat-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
+        </a>
+        <br><sub>Get help from the community</sub>
       </td>
       <td align="center" width="33%">
-        <h3>Configuration</h3>
-        <p>Detailed configuration options</p>
+        <a href="https://github.com/AmazingMoaaz/Askarr/wiki">
+          <img src="https://img.shields.io/badge/Wiki-Documentation-4FD1C5?style=for-the-badge&logo=gitbook&logoColor=white" alt="Wiki">
+        </a>
+        <br><sub>Comprehensive guides</sub>
       </td>
       <td align="center" width="33%">
-        <h3>Troubleshooting</h3>
-        <p>Common issues and solutions</p>
+        <a href="https://github.com/AmazingMoaaz/Askarr/issues">
+          <img src="https://img.shields.io/badge/Issues-Report_Bugs-FC8181?style=for-the-badge&logo=github&logoColor=white" alt="Issues">
+        </a>
+        <br><sub>Found a problem?</sub>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 💖 Acknowledgements
+
+Askarr builds on the legacy of **Requestrr**, continuing its mission with modern enhancements.
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://github.com/darkalfx.png" width="80" style="border-radius:50%"/>
+        <br><a href="https://github.com/darkalfx"><b>@darkalfx</b></a>
+        <br><sub>Requestrr Creator</sub>
+      </td>
+      <td align="center">
+        <img src="https://github.com/thomst08.png" width="80" style="border-radius:50%"/>
+        <br><a href="https://github.com/thomst08"><b>@thomst08</b></a>
+        <br><sub>Requestrr Maintainer</sub>
       </td>
     </tr>
   </table>
   
-  <p>
-    <a href="https://github.com/AmazingMoaaz/Askarr/wiki">
-      <strong>View Full Documentation →</strong>
-    </a>
-  </p>
-</div>
-
-## 🛠️ Development
-
-For developers looking to build from source or contribute to the project, please refer to our build documentation in the Wiki.
-
-<div align="center">
-  <p>
-    <a href="https://github.com/AmazingMoaaz/Askarr/wiki">
-      <strong>Development Documentation →</strong>
-    </a>
-  </p>
-</div>
-
-## 🌐 Community
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="33%">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/discord.svg" width="40" height="40" style="filter: brightness(0) saturate(100%) invert(44%) sepia(94%) saturate(1752%) hue-rotate(224deg) brightness(95%) contrast(98%)"/>
-        <h3>Discord</h3>
-        <p>Join our user community</p>
-      </td>
-      <td align="center" width="33%">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/github.svg" width="40" height="40"/>
-        <h3>GitHub</h3>
-        <p>Contribute to development</p>
-      </td>
-      <td align="center" width="33%">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/docker.svg" width="40" height="40" style="filter: brightness(0) saturate(100%) invert(44%) sepia(94%) saturate(1752%) hue-rotate(197deg) brightness(95%) contrast(98%)"/>
-        <h3>Docker Hub</h3>
-        <p>Access container images</p>
-      </td>
-    </tr>
-  </table>
+  <br>
+  
+  **Thank you to all contributors and users! ⭐**
+  
+  <a href="https://github.com/AmazingMoaaz/Askarr/stargazers">
+    <img src="https://img.shields.io/github/stars/amazingmoaaz/askarr?style=social" alt="GitHub stars">
+  </a>
 </div>
 
 ---
 
-## 📊 Acknowledgements
-
-Askarr builds upon the foundation established by its predecessor projects and would not be possible without the contributions of:
-
 <div align="center">
-  <table>
-    <tr>
-      <td align="center" style="padding:20px">
-        <img src="https://github.com/darkalfx.png" width="100" style="border-radius:50%"/>
-        <p><a href="https://github.com/darkalfx"><strong>@darkalfx</strong></a></p>
-        <p>Creator of Requestrr</p>
-      </td>
-      <td align="center" style="padding:20px">
-        <img src="https://github.com/thomst08.png" width="100" style="border-radius:50%"/>
-        <p><a href="https://github.com/thomst08"><strong>@thomst08</strong></a></p>
-        <p>Requestrr Maintainer</p>
-      </td>
-    </tr>
-  </table>
-</div>
-
-<div align="center">
-  <p>
-    <a href="https://github.com/AmazingMoaaz/Askarr">
-      <img src="https://img.shields.io/github/stars/amazingmoaaz/askarr?style=social" alt="GitHub stars">
-    </a>
-    <br>
-    <small>Consider starring the repository if you find Askarr useful for your media server</small>
-  </p>
+  <sub>Built with ❤️ by <a href="https://github.com/AmazingMoaaz">@AmazingMoaaz</a></sub>
+  <br>
+  <sub>Licensed under MIT • Version 2.5.3</sub>
 </div>
