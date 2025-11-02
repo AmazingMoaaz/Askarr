@@ -5,6 +5,56 @@ All notable changes to Askarr will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.2] - 2025-11-02
+
+### 🔧 Critical Fixes
+
+#### Settings Persistence
+- **FIXED**: Settings being cleared after Docker container updates
+- **NEW**: Added VOLUME directives for `/root/config` and `/root/tmp`
+- **NEW**: docker-compose.yml example with proper volume mounts
+- **NEW**: docker-run-example.sh for easy deployment
+- Settings now persist across container recreations
+
+#### Version Checker
+- **FIXED**: Version not displaying in sidebar
+- **FIXED**: VersionActions now dispatches fallback data on API errors
+- Sidebar always shows version number (even when offline)
+- Update notifications work reliably
+
+### 🎨 UI/UX Improvements
+
+#### Consistent Modern Design
+- **UPDATED**: Account page now uses ModernHeader with glassmorphism
+- **UPDATED**: Settings page now uses ModernHeader with glassmorphism
+- **IMPROVED**: All pages now have consistent epic gradient headers
+- **IMPROVED**: Unified glassmorphic card styling across all views
+
+### 🤖 Discord Commands
+
+#### Troubleshooting Guide
+- **NEW**: Comprehensive Discord commands troubleshooting documentation
+- Explains command propagation delays (5-60 minutes)
+- Provides step-by-step resolution guide
+- Documents common issues and solutions
+
+### 📦 Docker Improvements
+
+#### Volume Management
+- Config folder now persists via Docker volumes
+- Temporary files folder properly volumized
+- Version file location fixed (now in /root/)
+- Updated Docker labels with correct GitHub URLs
+
+### 🚀 Deployment
+
+#### New Files
+- `docker-compose.yml` - Ready-to-use compose file
+- `docker-run-example.sh` - Example Docker run command
+- Settings persist automatically with volume mounts
+
+---
+
 ## [2.5.1] - 2025-11-02
 
 ### 🐛 Bug Fixes
