@@ -37,13 +37,19 @@ function Dropdown(props) {
   return (
     <FormGroup className={props.className}>
       {props.name && (
-        <label className="form-control-label">
+        <label className="form-control-label" style={{ 
+          fontWeight: '600',
+          color: '#2D3748',
+          fontSize: '0.875rem',
+          marginBottom: '0.5rem',
+          display: 'block'
+        }}>
           {props.name}
         </label>
       )}
 
       <Select
-        placeholder={props.placeholder || ""}
+        placeholder={props.placeholder || "Select an option..."}
         className="dropdown"
         options={items}
         values={selectedValues}
@@ -51,6 +57,7 @@ function Dropdown(props) {
         valueField="value"
         searchable={props.searchable || false}
         clearable={false}
+        color="#4FD1C5"
         onChange={onValueChange}
       />
     </FormGroup>

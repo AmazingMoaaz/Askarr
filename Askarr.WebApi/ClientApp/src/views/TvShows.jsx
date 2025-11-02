@@ -286,21 +286,18 @@ function TvShows() {
                         <hr className="my-4" />
                         <Row>
                           <Col md="6" lg="4">
-                            <div className="form-group">
-                              <label className="form-control-label">Season Restrictions</label>
-                              <Dropdown
-                                name="Season Restrictions"
-                                value={restrictions}
-                                items={[
-                                  { name: "No restrictions", value: "None" }, 
-                                  { name: "Force all seasons", value: "AllSeasons" }, 
-                                  { name: "Force single season", value: "SingleSeason" }
-                                ]}
-                                onChange={newRestrictions => { setRestrictions(newRestrictions) }}
-                              />
-                            </div>
-                      </Col>
-                    </Row>
+                            <Dropdown
+                              name="Season Restrictions"
+                              value={restrictions}
+                              items={[
+                                { name: "No restrictions", value: "None" }, 
+                                { name: "Force all seasons", value: "AllSeasons" }, 
+                                { name: "Force single season", value: "SingleSeason" }
+                              ]}
+                              onChange={newRestrictions => { setRestrictions(newRestrictions) }}
+                            />
+                          </Col>
+                        </Row>
                         {renderClientConfig()}
                       </>
                     )}

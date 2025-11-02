@@ -5,6 +5,26 @@ All notable changes to Askarr will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.4] - 2025-11-02
+
+### 🎨 UI Improvements - Dropdown Enhancement
+- **Completely Redesigned Dropdowns**: All dropdown menus now match logo color scheme
+  - Teal (#4FD1C5) borders and hover effects
+  - Blue (#63B3ED) gradient on selected items
+  - Glassmorphic dropdown panels with backdrop blur
+  - Custom scrollbar with gradient styling
+- **Fixed Duplicate Labels**: Removed redundant label repetition in dropdowns
+- **Enhanced Interactions**:
+  - Smooth hover animations with translateX effect
+  - Focus states with glowing teal outline
+  - Better padding and spacing
+  - Improved placeholder text
+- **Better UX**:
+  - Clearer visual feedback on selection
+  - More intuitive dropdown handle with icon background
+  - Improved readability with darker text
+  - Maximum height with smooth scrolling
+
 ## [2.5.3] - 2025-11-02
 
 ### 🎨 Visual Redesign - Logo Color Integration
